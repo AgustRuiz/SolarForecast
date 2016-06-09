@@ -1,7 +1,8 @@
 package solarforecast;
 
+import service.GetterWeatherForecastRunnable;
 import solarforecast.logger.Logger;
-import solarforecast.model.api.openweathermap.OpenWeatherMapResponse;
+import solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
 import solarforecast.weatherForecast.apiClients.OpenWeatherMapClient;
 
 /**
@@ -11,30 +12,25 @@ public class Main {
 
     public static final String LOG_TAG = Main.class.getName();
 
-    private static final float TEST_LAT = 37.7874302f;
-    private static final float TEST_LON = -3.7775753f;
+    public static final float TEST_LAT = 37.7874302f;
+    public static final float TEST_LON = -3.7775753f;
+
+    protected static Thread serviceThread;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Logger.d(LOG_TAG, "Initialize");
+        Logger.d(LOG_TAG, "The start");
         addShutdownHook();
 
-        OpenWeatherMapClient openWheatherMapClient = new OpenWeatherMapClient();
-        String rawString = openWheatherMapClient.getForecast(TEST_LAT, TEST_LON);
+        GetterWeatherForecastRunnable getterRunnable = new GetterWeatherForecastRunnable();
 
-        OpenWeatherMapResponse openWeatherMapResponse = null;
+        serviceThread = new Thread(getterRunnable);
+        serviceThread.start();
 
-        if (rawString != null) {
-            openWeatherMapResponse = openWheatherMapClient.objectMapping(rawString);
-        } else {
-
-        }
-
-        while (true) {
-        }
+        Logger.d(LOG_TAG, "The end");
 
     }
 
@@ -42,7 +38,11 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                Logger.d(LOG_TAG, "Finalize");
+                Logger.i(LOG_TAG, "Stop program");
+                try {
+                    serviceThread.stop();
+                } catch (Exception ignored) {
+                }
             }
         }));
     }

@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap;
+package solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,56 +14,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "lon",
-    "lat"
+    "population"
 })
-public class Coord {
+public class Sys {
 
-    @JsonProperty("lon")
-    private Double lon;
-    @JsonProperty("lat")
-    private Double lat;
+    @JsonProperty("population")
+    private Integer population;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The lon
+     *     The population
      */
-    @JsonProperty("lon")
-    public Double getLon() {
-        return lon;
+    @JsonProperty("population")
+    public Integer getPopulation() {
+        return population;
     }
 
     /**
      * 
-     * @param lon
-     *     The lon
+     * @param population
+     *     The population
      */
-    @JsonProperty("lon")
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
-
-    /**
-     * 
-     * @return
-     *     The lat
-     */
-    @JsonProperty("lat")
-    public Double getLat() {
-        return lat;
-    }
-
-    /**
-     * 
-     * @param lat
-     *     The lat
-     */
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-        this.lat = lat;
+    @JsonProperty("population")
+    public void setPopulation(Integer population) {
+        this.population = population;
     }
 
     @JsonAnyGetter

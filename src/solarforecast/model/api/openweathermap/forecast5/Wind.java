@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap;
+package solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,33 +14,56 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "population"
+    "speed",
+    "deg"
 })
-public class Sys {
+public class Wind {
 
-    @JsonProperty("population")
-    private Integer population;
+    @JsonProperty("speed")
+    private Double speed;
+    @JsonProperty("deg")
+    private Integer deg;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The population
+     *     The speed
      */
-    @JsonProperty("population")
-    public Integer getPopulation() {
-        return population;
+    @JsonProperty("speed")
+    public Double getSpeed() {
+        return speed;
     }
 
     /**
      * 
-     * @param population
-     *     The population
+     * @param speed
+     *     The speed
      */
-    @JsonProperty("population")
-    public void setPopulation(Integer population) {
-        this.population = population;
+    @JsonProperty("speed")
+    public void setSpeed(Double speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * 
+     * @return
+     *     The deg
+     */
+    @JsonProperty("deg")
+    public Integer getDeg() {
+        return deg;
+    }
+
+    /**
+     * 
+     * @param deg
+     *     The deg
+     */
+    @JsonProperty("deg")
+    public void setDeg(Integer deg) {
+        this.deg = deg;
     }
 
     @JsonAnyGetter

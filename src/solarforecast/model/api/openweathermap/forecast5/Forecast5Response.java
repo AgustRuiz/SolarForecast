@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap;
+package solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "cnt",
     "list"
 })
-public class OpenWeatherMapResponse {
+public class Forecast5Response {
 
     @JsonProperty("city")
     private City city;
@@ -32,7 +32,7 @@ public class OpenWeatherMapResponse {
     @JsonProperty("cnt")
     private Integer cnt;
     @JsonProperty("list")
-    private java.util.List<solarforecast.model.api.openweathermap.List> list = new ArrayList<>();
+    private java.util.List<solarforecast.model.api.openweathermap.forecast5.List> list = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -122,7 +122,7 @@ public class OpenWeatherMapResponse {
      *     The list
      */
     @JsonProperty("list")
-    public java.util.List<solarforecast.model.api.openweathermap.List> getList() {
+    public java.util.List<solarforecast.model.api.openweathermap.forecast5.List> getList() {
         return list;
     }
 
@@ -132,7 +132,7 @@ public class OpenWeatherMapResponse {
      *     The list
      */
     @JsonProperty("list")
-    public void setList(java.util.List<solarforecast.model.api.openweathermap.List> list) {
+    public void setList(java.util.List<solarforecast.model.api.openweathermap.forecast5.List> list) {
         this.list = list;
     }
 

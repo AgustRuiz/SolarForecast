@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap;
+package solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.ArrayList;
 import java.util.HashMap;

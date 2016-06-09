@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap;
+package solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,33 +14,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "pod"
+    "3h"
 })
-public class Sys_ {
+public class Rain {
 
-    @JsonProperty("pod")
-    private String pod;
+    @JsonProperty("3h")
+    private Double _3h;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The pod
+     *     The _3h
      */
-    @JsonProperty("pod")
-    public String getPod() {
-        return pod;
+    @JsonProperty("3h")
+    public Double get3h() {
+        return _3h;
     }
 
     /**
      * 
-     * @param pod
-     *     The pod
+     * @param _3h
+     *     The 3h
      */
-    @JsonProperty("pod")
-    public void setPod(String pod) {
-        this.pod = pod;
+    @JsonProperty("3h")
+    public void set3h(Double _3h) {
+        this._3h = _3h;
     }
 
     @JsonAnyGetter
