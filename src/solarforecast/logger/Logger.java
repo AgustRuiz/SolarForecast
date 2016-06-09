@@ -81,7 +81,7 @@ public class Logger {
      * @param mode Mode
      */
     private static void addLine(String from, String message, char mode) {
-        String line = String.format("%s;%s;%s;%s\n", getDateTime(), mode, from, message);
+        String line = String.format("%s;%s;%s;%s\r\n", getDateTime(), mode, from, message);
         if (mode == MODE_ERROR || mode == MODE_WARNING) {
             System.err.print(line);
         } else {
@@ -90,6 +90,7 @@ public class Logger {
         if (prepareLogFile()) {
             try {
                 writer.write(line);
+                writer.flush();
             } catch (IOException ex) {
                 System.err.println("Can´t add line in log file: " + ex.toString());
             }
