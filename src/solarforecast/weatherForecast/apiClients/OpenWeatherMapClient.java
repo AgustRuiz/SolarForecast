@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package solarforecast.weatherForecast.apiClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +17,8 @@ import solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
  */
 public class OpenWeatherMapClient {
 
+    // Max: 60 queries per minute
+    
     public static final String LOG_TAG = OpenWeatherMapClient.class.getName();
 
     private static final String OPENWEATHERMAP_KEY = ApiKeys.OPENWEATHERMAP_KEY;
@@ -30,7 +27,7 @@ public class OpenWeatherMapClient {
     private static final String URL_BASE = "http://api.openweathermap.org";
     private static final String URL_SCHEME = "http";
 
-    public static final Long FORECAST5_PERIOD_MILLIS = 10L; //1 * 60 * 1000L; // 1 minute = 60000 millis
+    public static final Long FORECAST5_PERIOD_MILLIS = 1 * 30 * 1000L;
     private static final String FORECAST5_PATH = "data/2.5/forecast";
     private static final String FORECAST5_PARAM_LAT = "lat";
     private static final String FORECAST5_PARAM_LON = "lon";
