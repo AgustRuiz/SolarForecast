@@ -1,9 +1,8 @@
-package solarforecast;
+package es.agustruiz.solarforecast;
 
-import service.GetterWeatherForecastRunnable;
-import solarforecast.logger.Logger;
-import solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
-import solarforecast.weatherForecast.apiClients.OpenWeatherMapClient;
+import es.agustruiz.solarforecast.persistence.DatabaseManager;
+import es.agustruiz.solarforecast.service.GetterWeatherForecastRunnable;
+import es.agustruiz.solarforecast.logger.MyLogger;
 
 /**
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
@@ -22,15 +21,17 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Logger.d(LOG_TAG, "The start");
+        MyLogger.d(LOG_TAG, "The start");
         addShutdownHook();
 
         GetterWeatherForecastRunnable getterRunnable = new GetterWeatherForecastRunnable();
 
         serviceThread = new Thread(getterRunnable);
         serviceThread.start();
+        
+        DatabaseManager databaseManager = new DatabaseManager();
 
-        Logger.d(LOG_TAG, "The end");
+        MyLogger.d(LOG_TAG, "The end");
 
     }
 
@@ -38,7 +39,7 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                Logger.i(LOG_TAG, "Stop program");
+                MyLogger.i(LOG_TAG, "Stop program");
                 try {
                     serviceThread.stop();
                 } catch (Exception ignored) {

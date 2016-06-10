@@ -1,4 +1,4 @@
-package solarforecast.weatherForecast.apiClients;
+package es.agustruiz.solarforecast.weatherForecast.apiClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -8,8 +8,8 @@ import java.net.URI;
 import java.net.URLConnection;
 import java.util.logging.Level;
 import javax.ws.rs.core.UriBuilder;
-import solarforecast.logger.Logger;
-import solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
+import es.agustruiz.solarforecast.logger.MyLogger;
+import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
 
 /**
  *
@@ -39,7 +39,7 @@ public class OpenWeatherMapClient {
      * Constructor
      */
     public OpenWeatherMapClient() {
-        Logger.d(LOG_TAG, "Initialize");
+        MyLogger.d(LOG_TAG, "Initialize");
     }
 
     public Forecast5Response getForecast5(float latitude, float longitude) {
@@ -65,7 +65,7 @@ public class OpenWeatherMapClient {
                 }
             }
         } catch (IOException ex) {
-            Logger.e(LOG_TAG, "Error connecting to API");
+            MyLogger.e(LOG_TAG, "Error connecting to API");
             //java.util.logging.Logger.getLogger(OpenWeatherMapClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Logger.i(LOG_TAG, "Get forecast finished");
@@ -79,7 +79,7 @@ public class OpenWeatherMapClient {
             response = mapper.readValue(jsonString, Forecast5Response.class);
             //Logger.i(LOG_TAG, "Object mapped");
         } catch (IOException ex) {
-            Logger.e(LOG_TAG, "Error mapping response: " + ex.toString());
+            MyLogger.e(LOG_TAG, "Error mapping response: " + ex.toString());
             //java.util.logging.Logger.getLogger(OpenWeatherMapClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         return response;

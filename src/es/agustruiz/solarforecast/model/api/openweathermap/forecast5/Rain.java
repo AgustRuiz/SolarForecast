@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap.forecast5;
+package es.agustruiz.solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,60 +10,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "speed",
-    "deg"
+    "3h"
 })
-public class Wind {
+public class Rain implements Serializable {
 
-    @JsonProperty("speed")
-    private Double speed;
-    @JsonProperty("deg")
-    private Integer deg;
+    @JsonProperty("3h")
+    private Double _3h;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The speed
+     *     The _3h
      */
-    @JsonProperty("speed")
-    public Double getSpeed() {
-        return speed;
+    @JsonProperty("3h")
+    public Double get3h() {
+        return _3h;
     }
 
     /**
      * 
-     * @param speed
-     *     The speed
+     * @param _3h
+     *     The 3h
      */
-    @JsonProperty("speed")
-    public void setSpeed(Double speed) {
-        this.speed = speed;
-    }
-
-    /**
-     * 
-     * @return
-     *     The deg
-     */
-    @JsonProperty("deg")
-    public Integer getDeg() {
-        return deg;
-    }
-
-    /**
-     * 
-     * @param deg
-     *     The deg
-     */
-    @JsonProperty("deg")
-    public void setDeg(Integer deg) {
-        this.deg = deg;
+    @JsonProperty("3h")
+    public void set3h(Double _3h) {
+        this._3h = _3h;
     }
 
     @JsonAnyGetter

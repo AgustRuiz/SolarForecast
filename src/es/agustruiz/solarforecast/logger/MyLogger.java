@@ -1,4 +1,4 @@
-package solarforecast.logger;
+package es.agustruiz.solarforecast.logger;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -14,9 +14,9 @@ import java.util.Date;
  *
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
-public class Logger {
+public class MyLogger {
 
-    public static final String LOG_TAG = Logger.class.getName();
+    public static final String LOG_TAG = MyLogger.class.getName();
 
     private static final String LOG_FILE_PATH = "./log.txt";
     private static final String LOG_FILE_CHARSET = "utf-8";

@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap.forecast5;
+package es.agustruiz.solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,37 +10,61 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "3h"
+    "lon",
+    "lat"
 })
-public class Rain {
+public class Coord implements Serializable {
 
-    @JsonProperty("3h")
-    private Double _3h;
+    @JsonProperty("lon")
+    private Double lon;
+    @JsonProperty("lat")
+    private Double lat;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The _3h
+     *     The lon
      */
-    @JsonProperty("3h")
-    public Double get3h() {
-        return _3h;
+    @JsonProperty("lon")
+    public Double getLon() {
+        return lon;
     }
 
     /**
      * 
-     * @param _3h
-     *     The 3h
+     * @param lon
+     *     The lon
      */
-    @JsonProperty("3h")
-    public void set3h(Double _3h) {
-        this._3h = _3h;
+    @JsonProperty("lon")
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
+    /**
+     * 
+     * @return
+     *     The lat
+     */
+    @JsonProperty("lat")
+    public Double getLat() {
+        return lat;
+    }
+
+    /**
+     * 
+     * @param lat
+     *     The lat
+     */
+    @JsonProperty("lat")
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
     @JsonAnyGetter

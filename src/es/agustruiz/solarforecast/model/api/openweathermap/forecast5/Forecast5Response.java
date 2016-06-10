@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap.forecast5;
+package es.agustruiz.solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "cnt",
     "list"
 })
-public class Forecast5Response {
+public class Forecast5Response implements Serializable{
 
     @JsonProperty("city")
     private City city;
@@ -32,7 +33,7 @@ public class Forecast5Response {
     @JsonProperty("cnt")
     private Integer cnt;
     @JsonProperty("list")
-    private java.util.List<solarforecast.model.api.openweathermap.forecast5.List> list = new ArrayList<>();
+    private java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> list = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -122,7 +123,7 @@ public class Forecast5Response {
      *     The list
      */
     @JsonProperty("list")
-    public java.util.List<solarforecast.model.api.openweathermap.forecast5.List> getList() {
+    public java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> getList() {
         return list;
     }
 
@@ -132,7 +133,7 @@ public class Forecast5Response {
      *     The list
      */
     @JsonProperty("list")
-    public void setList(java.util.List<solarforecast.model.api.openweathermap.forecast5.List> list) {
+    public void setList(java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> list) {
         this.list = list;
     }
 

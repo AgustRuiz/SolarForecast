@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap.forecast5;
+package es.agustruiz.solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,37 +10,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "all"
+    "pod"
 })
-public class Clouds {
+public class Sys_ implements Serializable{
 
-    @JsonProperty("all")
-    private Integer all;
+    @JsonProperty("pod")
+    private String pod;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The all
+     *     The pod
      */
-    @JsonProperty("all")
-    public Integer getAll() {
-        return all;
+    @JsonProperty("pod")
+    public String getPod() {
+        return pod;
     }
 
     /**
      * 
-     * @param all
-     *     The all
+     * @param pod
+     *     The pod
      */
-    @JsonProperty("all")
-    public void setAll(Integer all) {
-        this.all = all;
+    @JsonProperty("pod")
+    public void setPod(String pod) {
+        this.pod = pod;
     }
 
     @JsonAnyGetter

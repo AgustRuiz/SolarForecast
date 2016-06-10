@@ -1,5 +1,5 @@
 
-package solarforecast.model.api.openweathermap.forecast5;
+package es.agustruiz.solarforecast.model.api.openweathermap.forecast5;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,60 +10,61 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "lon",
-    "lat"
+    "speed",
+    "deg"
 })
-public class Coord {
+public class Wind implements Serializable{
 
-    @JsonProperty("lon")
-    private Double lon;
-    @JsonProperty("lat")
-    private Double lat;
+    @JsonProperty("speed")
+    private Double speed;
+    @JsonProperty("deg")
+    private Integer deg;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The lon
+     *     The speed
      */
-    @JsonProperty("lon")
-    public Double getLon() {
-        return lon;
+    @JsonProperty("speed")
+    public Double getSpeed() {
+        return speed;
     }
 
     /**
      * 
-     * @param lon
-     *     The lon
+     * @param speed
+     *     The speed
      */
-    @JsonProperty("lon")
-    public void setLon(Double lon) {
-        this.lon = lon;
+    @JsonProperty("speed")
+    public void setSpeed(Double speed) {
+        this.speed = speed;
     }
 
     /**
      * 
      * @return
-     *     The lat
+     *     The deg
      */
-    @JsonProperty("lat")
-    public Double getLat() {
-        return lat;
+    @JsonProperty("deg")
+    public Integer getDeg() {
+        return deg;
     }
 
     /**
      * 
-     * @param lat
-     *     The lat
+     * @param deg
+     *     The deg
      */
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-        this.lat = lat;
+    @JsonProperty("deg")
+    public void setDeg(Integer deg) {
+        this.deg = deg;
     }
 
     @JsonAnyGetter

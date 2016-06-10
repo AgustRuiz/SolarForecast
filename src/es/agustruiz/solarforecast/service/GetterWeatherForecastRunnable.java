@@ -1,10 +1,10 @@
-package service;
+package es.agustruiz.solarforecast.service;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import service.timertask.OpenWeatherMapForecast5;
-import solarforecast.logger.Logger;
-import solarforecast.weatherForecast.apiClients.OpenWeatherMapClient;
+import es.agustruiz.solarforecast.service.timertask.OpenWeatherMapForecast5;
+import es.agustruiz.solarforecast.logger.MyLogger;
+import es.agustruiz.solarforecast.weatherForecast.apiClients.OpenWeatherMapClient;
 
 /**
  *
