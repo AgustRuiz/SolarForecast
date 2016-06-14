@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.controller.app;
 
 import es.agustruiz.solarforecast.service.ForecastService;
+import es.agustruiz.solarforecast.service.MyLogger;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class DefaultController {
+    
+    public static final String LOG_TAG = DefaultController.class.getName();
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
@@ -42,6 +45,7 @@ public class DefaultController {
     
     @RequestMapping(value = "/startForecastService", method = RequestMethod.GET)
     public String startForecastService(Model model) {
+        MyLogger.i(LOG_TAG, "Start forecast service");
         ForecastService.setForecastServiceStatus(true);
         //return index(model);
         return "redirect:/home";
@@ -49,6 +53,7 @@ public class DefaultController {
     
     @RequestMapping(value = "/stopForecastService", method = RequestMethod.GET)
     public String stopForecastService(Model model) {
+        MyLogger.i(LOG_TAG, "Stop forecast service");
         ForecastService.setForecastServiceStatus(false);
         //return index(model);
         return "redirect:/home";

@@ -57,8 +57,12 @@ public class LogLine {
     public void setMessage(String message) {
         this.message = message;
     }
-    
 
+    @Override
+    public String toString() {
+        return String.format("%s;%s;%s;%s", timeDate, mode, from, message);
+    }
+    
     private static String getCurrentDateTime() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date now = new Date();

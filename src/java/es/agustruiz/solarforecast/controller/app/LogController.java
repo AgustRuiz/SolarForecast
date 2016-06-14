@@ -6,7 +6,7 @@
 package es.agustruiz.solarforecast.controller.app;
 
 import es.agustruiz.solarforecast.model.LogLine;
-import es.agustruiz.solarforecast.service.ForecastService;
+import es.agustruiz.solarforecast.service.MyLogger;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -29,21 +29,7 @@ public class LogController {
         model.addAttribute("title", "Log");
         model.addAttribute("navActiveItem", "log");
         
-        List<LogLine> logList = new ArrayList<>();
-        logList.add(new LogLine(LOG_TAG, LogLine.DEBUG, "First debug test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.DEBUG, "Second debug test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.INFO, "First info test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.INFO, "Second info test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.INFO, "Third info test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.WARNING, "First warning test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.WARNING, "Second warning test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.WARNING, "Third warning test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.WARNING, "Forth warning test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.ERROR, "First danger test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.ERROR, "Second danger test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.ERROR, "Third danger test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.ERROR, "Forth danger test line"));
-        logList.add(new LogLine(LOG_TAG, LogLine.ERROR, "Fifth danger test line"));
+        List<LogLine> logList = MyLogger.getLog();
         
         model.addAttribute("logList", logList);
         
