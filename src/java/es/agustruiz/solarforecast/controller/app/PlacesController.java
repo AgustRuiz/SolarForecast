@@ -22,7 +22,6 @@ public class PlacesController {
         model.addAttribute("navActiveItem", "places");
         model.addAttribute("placesList" , WeatherForecastBean.getPlacesList());
         
-        
         return ("places");
     }
 }

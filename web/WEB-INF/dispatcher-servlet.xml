@@ -5,6 +5,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -12,14 +13,17 @@
             http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-            http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-4.0.xsd
             http://www.springframework.org/schema/mvc
-            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+            http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:component-scan base-package="es.agustruiz.solarforecast.controller.app"/>
 
     <mvc:annotation-driven/>
+    <task:annotation-driven/>
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
         
@@ -27,5 +31,14 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
+    
+    
+    <!-- Configure the scheduler -->
+    <task:scheduler id="myScheduler" pool-size="10" />
+ 
+    <!-- Configure the fixedDealy, fixedRate or cron based schduled tasks -->
+    <task:scheduled-tasks scheduler="myScheduler">
+        <task:scheduled ref="weatherForecast" method="scheduledTask" fixed-rate="5000" initial-delay="0" />
+    </task:scheduled-tasks>
     
 </beans>
