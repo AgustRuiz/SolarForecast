@@ -6,29 +6,14 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-    <bean id="weatherForecast" class="es.agustruiz.solarforecast.bean.WeatherForecastBean">
-        <property name="placesList">
-            <map>
-                <entry key="0">
-                    <bean class="es.agustruiz.solarforecast.model.ForecastPlace">
-                        <property name="id" value="0"/>
-                        <property name="name" value="University of Jaén"/>
-                        <property name="latitude" value="37.7874302"/>
-                        <property name="longitude" value="-3.7775753"/>
-                    </bean>
-                </entry>
-            </map>
-        </property>
-    </bean>
-    
     <!--bean id="propertyConfigurer"
-    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-    p:location="/WEB-INF/jdbc.properties" /-->
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
 
-    <!--bean id="dataSource"
+<bean id="dataSource"
     class="org.springframework.jdbc.datasource.DriverManagerDataSource"
     p:driverClassName="${jdbc.driverClassName}"
     p:url="${jdbc.url}"
