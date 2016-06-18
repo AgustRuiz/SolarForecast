@@ -2,11 +2,17 @@ package es.agustruiz.solarforecast.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
+@Entity
 public class LogLine {
 
     private static final String LOG_TAG = LogLine.class.getName();
@@ -16,9 +22,20 @@ public class LogLine {
     public static final char WARNING = 'W';
     public static final char ERROR = 'E';
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    protected Long id;
+    
+    @Column
     protected String timeDate;
+    
+    @Column
     protected String from;
+    
+    @Column
     protected char mode;
+    
+    @Column
     protected String message;
 
     public LogLine(String from, char mode, String message) {
