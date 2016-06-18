@@ -1,4 +1,4 @@
-package es.agustruiz.solarforecast.controller;
+package es.agustruiz.solarforecast.controller.app;
 
 import es.agustruiz.solarforecast.service.ForecastService;
 import org.springframework.stereotype.Controller;
