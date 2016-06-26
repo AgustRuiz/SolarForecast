@@ -14,7 +14,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <spring:url value="resources/favicon.png" var="favicon" />
+    <spring:url value="/resources/favicon.png" var="favicon" />
     <link rel="icon" href="${favicon}">
 
     <title>Dashboard Template for Bootstrap</title>

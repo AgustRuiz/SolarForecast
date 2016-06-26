@@ -14,25 +14,27 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-
+    
     <mvc:annotation-driven/>
-    <task:annotation-driven/>
     
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-    
-    <context:component-scan base-package="es.agustruiz.solarforecast.controller"/>
+    <!-- Register controllers -->
+    <context:component-scan base-package="es.agustruiz.solarforecast"/>
         
+    <!-- Dispatching requests to Controllers -->
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
     
-    <!-- Configure the scheduler -->
+    <!-- Resources files -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    
+    <!-- Scheduler -->
     <task:scheduler id="myScheduler" pool-size="10" />
- 
-    <!-- Configure the fixedDealy, fixedRate or cron based schduled tasks -->
     <task:scheduled-tasks scheduler="myScheduler">
         <task:scheduled ref="weatherForecast" method="scheduledTask" fixed-rate="5000" initial-delay="0" />
     </task:scheduled-tasks>
+    <!-- End scheduler -->
     
 </beans>

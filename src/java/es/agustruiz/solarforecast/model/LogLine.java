@@ -1,7 +1,8 @@
 package es.agustruiz.solarforecast.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
 @Entity
-public class LogLine {
+public class LogLine implements Serializable{
 
     private static final String LOG_TAG = LogLine.class.getName();
     
@@ -24,12 +25,12 @@ public class LogLine {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    protected Long id;
+    protected long id;
     
     @Column
-    protected String timeDate;
+    protected long timeInMillis;
     
-    @Column
+    @Column(name="fromCol")
     protected String from;
     
     @Column
@@ -38,19 +39,26 @@ public class LogLine {
     @Column
     protected String message;
 
+    public LogLine() {
+    }
+
     public LogLine(String from, char mode, String message) {
-        this.timeDate = getCurrentDateTime();
+        this.timeInMillis = System.currentTimeMillis();
         this.from = from;
         this.mode = mode;
         this.message = message;
     }
-
-    public String getTimeDate() {
-        return timeDate;
+    
+    public String getTimeDateString(){
+        return getCurrentDateTime(timeInMillis);
     }
 
-    public void setTimeDate(String timeDate) {
-        this.timeDate = timeDate;
+    public long getTimeInMillis() {
+        return timeInMillis;
+    }
+
+    public void setTimeInMillis(long timeInMillis) {
+        this.timeInMillis = timeInMillis;
     }
 
     public String getFrom() {
@@ -79,14 +87,14 @@ public class LogLine {
 
     @Override
     public String toString() {
-        return String.format("%s;%s;%s;%s", timeDate, mode, from, message);
+        return String.format("%s;%s;%s;%s", timeInMillis, mode, from, message);
     }
 
-    private static String getCurrentDateTime() {
+    private static String getCurrentDateTime(long millis) {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date now = new Date();
-        String strDate = sdfDate.format(now);
-        return strDate;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millis);
+        return sdfDate.format(calendar.getTime());
     }
 
 }

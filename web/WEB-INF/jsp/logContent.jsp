@@ -7,6 +7,8 @@
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <h1 class="page-header">${title}</h1>
 <div class="table-responsive">
+    <spring:url value="/log/" var="paginationBaseUrl" />
+    <jsp:include page="commons/pagination.jsp" />
     <table class="table">
         <thead>
             <tr>
@@ -26,7 +28,7 @@
                         <c:when test="${item.mode == 'E'}"><tr class="danger"></c:when>
                         <c:otherwise><tr></c:otherwise>
                         </c:choose>
-                        <td>${item.timeDate}</td>
+                        <td>${item.timeDateString}</td>
                         <td>${item.mode}</td>
                         <td>${item.from}</td>
                         <td>${item.message}</td>
@@ -40,5 +42,6 @@
             </c:if>
         </tbody>
     </table>
+    <jsp:include page="commons/pagination.jsp" />
 </div>
 
