@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface LogLineDAO {
     
-    void createLogLine(LogLine logLine);
+    void createLogLine(LogLine logLine) throws ExceptionCreateLogLine;
     LogLine readLogLine(Long id);
     List<LogLine> readLogLine(int pageNumber, int rowsPerPage);
     List<LogLine> readAllLogLine();

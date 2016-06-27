@@ -1,8 +1,11 @@
 package es.agustruiz.solarforecast.model.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
 import es.agustruiz.solarforecast.model.dao.LogLineDAO;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LogLineManagerImpl implements LogLineManager {
 
     protected static final String LOG_TAG = LogLineManagerImpl.class.getName();
-    
+
     protected static final int PAGE_SIZE = 10;
 
     @Autowired
@@ -30,7 +33,7 @@ public class LogLineManagerImpl implements LogLineManager {
     @Transactional
     @Override
     public void i(String from, String message) {
-        
+
         addLine(new LogLine(from, LogLine.INFO, message));
     }
 
@@ -50,7 +53,7 @@ public class LogLineManagerImpl implements LogLineManager {
     public List<LogLine> getLog() {
         return logLineDAO.readAllLogLine();
     }
-    
+
     @Override
     public List<LogLine> getLogPage(int pageNumber, int rowsPerPage) {
         return logLineDAO.readLogLine(pageNumber, rowsPerPage);
@@ -60,9 +63,14 @@ public class LogLineManagerImpl implements LogLineManager {
     public int countRows() {
         return logLineDAO.count();
     }
-    
+
     private void addLine(LogLine line) {
-        logLineDAO.createLogLine(line);
+        try {
+            logLineDAO.createLogLine(line);
+        } catch (ExceptionCreateLogLine ex) {
+            Logger.getLogger(LogLineManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(line.toString());
+        }
     }
 
 }

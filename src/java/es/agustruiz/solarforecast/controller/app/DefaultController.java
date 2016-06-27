@@ -19,11 +19,14 @@ public class DefaultController {
     
     @Autowired
     protected LogLineManager logLineManager;
+    
+    @Autowired
+    protected ForecastService forecastService;
 
     @RequestMapping(value = "/startForecastService", method = RequestMethod.GET)
     public String startForecastService(Model model) {
         logLineManager.i(LOG_TAG, "Start forecast service");
-        ForecastService.setForecastServiceStatus(true);
+        forecastService.setForecastServiceStatus(true);
         //return index(model);
         return "redirect:/home";
     }
@@ -31,7 +34,7 @@ public class DefaultController {
     @RequestMapping(value = "/stopForecastService", method = RequestMethod.GET)
     public String stopForecastService(Model model) {
         logLineManager.i(LOG_TAG, "Stop forecast service");
-        ForecastService.setForecastServiceStatus(false);
+        forecastService.setForecastServiceStatus(false);
         //return index(model);
         return "redirect:/home";
     }

@@ -59,14 +59,14 @@ public class PlacesController {
             model.addAttribute("placesList", forecastPlaceManager.readAllForecastPlace());
         } catch (NullPointerException ex) {
             model.addAttribute("action", "create");
-            model.addAttribute("title", "Create new Place - Received");
+            model.addAttribute("title", "Create new Place");
             model.addAttribute("txtName", txtName);
             model.addAttribute("txtLatitude", txtLatitude);
             model.addAttribute("txtLongitude", txtLongitude);
             model.addAttribute("msgError", "Can't create new place. Please, check the parameters");
         } catch (ExceptionCreateForecastPlace ex) {
             model.addAttribute("action", "create");
-            model.addAttribute("title", "Create new Place - Received");
+            model.addAttribute("title", "Create new Place");
             model.addAttribute("txtName", txtName);
             model.addAttribute("txtLatitude", txtLatitude);
             model.addAttribute("txtLongitude", txtLongitude);

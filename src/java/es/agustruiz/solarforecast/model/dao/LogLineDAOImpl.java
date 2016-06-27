@@ -1,9 +1,11 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,11 +27,23 @@ public class LogLineDAOImpl implements LogLineDAO {
     protected static final String LOG_TAG = LogLineDAOImpl.class.getName();
 
     @Override
-    public void createLogLine(LogLine logLine) {
+    public void createLogLine(LogLine logLine) throws ExceptionCreateLogLine{
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(logLine);
-        em.getTransaction().commit();
+        EntityTransaction et = em.getTransaction();
+        try {
+            em.getTransaction().begin();
+            em.persist(logLine);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            throw new ExceptionCreateLogLine(ex.getMessage());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
     @Override
