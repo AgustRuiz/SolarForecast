@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.model.ForecastPlace;
+import java.util.List;
 
 /**
  *
@@ -9,5 +10,6 @@ import es.agustruiz.solarforecast.model.ForecastPlace;
 public interface ForecastPlaceManager {
     
     void createForecastPlace(ForecastPlace forecastPlace);
+    List<ForecastPlace> readAllForecastPlace();
     
 }

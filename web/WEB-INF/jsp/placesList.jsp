@@ -21,9 +21,9 @@
                 <c:if test="${not empty placesList}">
                     <c:forEach var="item" varStatus="status" items="${placesList}">
                         <tr>
-                            <td>${item.value.id}</td>
-                            <td>${item.value.name}</td>
-                            <td>${item.value.latitude}, ${item.value.longitude}</td>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.latitude}, ${item.longitude}</td>
                             <td></td>
                         </tr>
                     </c:forEach>

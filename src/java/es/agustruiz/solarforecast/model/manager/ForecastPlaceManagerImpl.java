@@ -2,6 +2,7 @@ package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.dao.ForecastPlaceDAO;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ public class ForecastPlaceManagerImpl implements ForecastPlaceManager {
     @Override
     public void createForecastPlace(ForecastPlace forecastPlace) {
         forecastPlaceDAO.createForecastPlace(forecastPlace);
+    }
+
+    @Override
+    public List<ForecastPlace> readAllForecastPlace() {
+        return forecastPlaceDAO.readAllForecastPlace();
     }
     
 }

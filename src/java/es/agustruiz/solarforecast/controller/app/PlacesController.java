@@ -26,7 +26,7 @@ public class PlacesController {
     @RequestMapping(value = "/places", method = RequestMethod.GET)
     public String places(Model model) {
         configureModel(model);
-        model.addAttribute("placesList", WeatherForecastBean.getPlacesList());
+        model.addAttribute("placesList", forecastPlaceManager.readAllForecastPlace());
         return ("places");
     }
 
