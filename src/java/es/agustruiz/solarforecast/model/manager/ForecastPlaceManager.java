@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import java.util.List;
 
@@ -11,5 +12,7 @@ public interface ForecastPlaceManager {
     
     void createForecastPlace(ForecastPlace forecastPlace);
     List<ForecastPlace> readAllForecastPlace();
+    ForecastPlace readForecastPlace(long id);
+    void deleteForecastPlace(ForecastPlace forecastPlace) throws ExceptionDeleteForecastPlace;
     
 }

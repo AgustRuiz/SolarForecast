@@ -11,5 +11,4 @@
         <jsp:include page="placesList.jsp" />
     </c:otherwise>
 </c:choose>
-
 <jsp:include page="commons/footer.jsp" />

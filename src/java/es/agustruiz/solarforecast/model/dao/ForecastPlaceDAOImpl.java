@@ -1,13 +1,16 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
-    
+
     @Autowired
     private EntityManagerFactory emf;
 
@@ -31,7 +34,8 @@ public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
 
     @Override
     public ForecastPlace readForecastPlace(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        return em.find(ForecastPlace.class, id);
     }
 
     @Override
@@ -45,20 +49,24 @@ public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteForecastPlace(ForecastPlace forecastPlace) throws ExceptionDeleteForecastPlace {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            em.remove(em.contains(forecastPlace) ? forecastPlace : em.merge(forecastPlace));
+            em.flush();
+            et.commit();
+        } catch (Exception ex) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            throw new ExceptionDeleteForecastPlace(ex.getMessage());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
-    @Override
-    public void updateLogLine(ForecastPlace forecastPlace) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteLogLine(ForecastPlace forecastPlace) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
 }

@@ -1,8 +1,11 @@
 package es.agustruiz.solarforecast.model.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.dao.ForecastPlaceDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,16 @@ public class ForecastPlaceManagerImpl implements ForecastPlaceManager {
     @Override
     public List<ForecastPlace> readAllForecastPlace() {
         return forecastPlaceDAO.readAllForecastPlace();
+    }
+
+    @Override
+    public ForecastPlace readForecastPlace(long id) {
+        return forecastPlaceDAO.readForecastPlace(id);
+    }
+    
+    @Override
+    public void deleteForecastPlace(ForecastPlace forecastPlace) throws ExceptionDeleteForecastPlace{
+            forecastPlaceDAO.deleteForecastPlace(forecastPlace);
     }
     
 }
