@@ -31,9 +31,9 @@
     
     
     <!-- Scheduler -->
-    <task:scheduler id="myScheduler" pool-size="10" />
-    <task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="weatherForecast" method="scheduledTask" fixed-rate="5000" initial-delay="0" />
+    <task:scheduler id="forecastScheduler" pool-size="10" />
+    <task:scheduled-tasks scheduler="forecastScheduler">
+        <task:scheduled ref="OpenWeatherMapBean" method="scheduledTask" fixed-rate="#{OpenWeatherMapBean.FIXED_RATE}" initial-delay="0" />
     </task:scheduled-tasks>
     <!-- End scheduler -->
     
