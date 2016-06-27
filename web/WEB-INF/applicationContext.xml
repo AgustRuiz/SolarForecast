@@ -13,20 +13,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     
-    <bean id="weatherForecast" class="es.agustruiz.solarforecast.bean.WeatherForecastBean">
-        <property name="placesList">
-            <map>
-                <entry key="0">
-                    <bean class="es.agustruiz.solarforecast.model.ForecastPlace">
-                        <property name="id" value="0"/>
-                        <property name="name" value="University of Jaén"/>
-                        <property name="latitude" value="37.7874302"/>
-                        <property name="longitude" value="-3.7775753"/>
-                    </bean>
-                </entry>
-            </map>
-        </property>
-    </bean>
+    <bean id="weatherForecast" class="es.agustruiz.solarforecast.bean.WeatherForecastBean" />
     
     <!-- Scan all project -->
     <context:component-scan base-package="es.agustruiz.solarforecast" />
