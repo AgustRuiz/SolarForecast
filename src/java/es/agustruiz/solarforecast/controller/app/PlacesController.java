@@ -1,6 +1,6 @@
 package es.agustruiz.solarforecast.controller.app;
 
-import es.agustruiz.solarforecast.bean.WeatherForecastBean;
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecastPlace;
 import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
@@ -37,32 +37,42 @@ public class PlacesController {
         configureModel(model);
         model.addAttribute("action", "create");
         model.addAttribute("title", "Create new Place");
-        model.addAttribute("placesList", WeatherForecastBean.getPlacesList());
+        model.addAttribute("placesList", forecastPlaceManager.readAllForecastPlace());
         return ("places");
     }
 
     @RequestMapping(value = "/places/create", method = RequestMethod.POST)
     public String createPlaceSubmit(Model model, HttpServletRequest request,
             @RequestParam(value = "txtName", required = true) String txtName,
-            @RequestParam(value = "txtLatitude", required = false) String txtLatitude,
-            @RequestParam(value = "txtLongitude", required = true) String txtLongitude) {
-
-        ForecastPlace newForecastPlace = new ForecastPlace();
-        newForecastPlace.setName(txtName);
-        newForecastPlace.setLatitude(Float.parseFloat(txtLatitude));
-        newForecastPlace.setLongitude(Float.parseFloat(txtLongitude));
-
-        forecastPlaceManager.createForecastPlace(newForecastPlace);
-        model.addAttribute("msgSuccess", "New place created!");
+            @RequestParam(value = "txtLatitude", required = false) Float txtLatitude,
+            @RequestParam(value = "txtLongitude", required = true) Float txtLongitude) {
 
         configureModel(model);
-        model.addAttribute("action", "create");
-        model.addAttribute("title", "Create new Place - Received");
-        model.addAttribute("txtName", txtName);
-        model.addAttribute("txtLatitude", txtLatitude);
-        model.addAttribute("txtLongitude", txtLongitude);
-        model.addAttribute("msgError", "Not implemented yet");
-        model.addAttribute("placesList", WeatherForecastBean.getPlacesList());
+
+        try {
+            ForecastPlace newForecastPlace = new ForecastPlace();
+            newForecastPlace.setName(txtName);
+            newForecastPlace.setLatitude(txtLatitude);
+            newForecastPlace.setLongitude(txtLongitude);
+            forecastPlaceManager.createForecastPlace(newForecastPlace);
+            model.addAttribute("msgSuccess", "New place created!");
+            model.addAttribute("placesList", forecastPlaceManager.readAllForecastPlace());
+        } catch (NullPointerException ex) {
+            model.addAttribute("action", "create");
+            model.addAttribute("title", "Create new Place - Received");
+            model.addAttribute("txtName", txtName);
+            model.addAttribute("txtLatitude", txtLatitude);
+            model.addAttribute("txtLongitude", txtLongitude);
+            model.addAttribute("msgError", "Can't create new place. Please, check the parameters");
+        } catch (ExceptionCreateForecastPlace ex) {
+            model.addAttribute("action", "create");
+            model.addAttribute("title", "Create new Place - Received");
+            model.addAttribute("txtName", txtName);
+            model.addAttribute("txtLatitude", txtLatitude);
+            model.addAttribute("txtLongitude", txtLongitude);
+            model.addAttribute("msgError", "Can't create new place. Error in database");
+        }
+
         return ("places");
     }
 
@@ -71,10 +81,10 @@ public class PlacesController {
         model = configureModel(model);
 
         ForecastPlace deleteForecastPlace = forecastPlaceManager.readForecastPlace(placeId);
-        try{
+        try {
             forecastPlaceManager.deleteForecastPlace(deleteForecastPlace);
             model.addAttribute("msgSuccess", "Place successfuly deleted");
-        }catch(ExceptionDeleteForecastPlace ex){
+        } catch (ExceptionDeleteForecastPlace ex) {
             model.addAttribute("msgError", "Can't delete this place: <br/>" + ex.getMessage());
         }
 

@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecastPlace;
 import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.dao.ForecastPlaceDAO;
@@ -24,7 +25,7 @@ public class ForecastPlaceManagerImpl implements ForecastPlaceManager {
     protected ForecastPlaceDAO forecastPlaceDAO;
 
     @Override
-    public void createForecastPlace(ForecastPlace forecastPlace) {
+    public void createForecastPlace(ForecastPlace forecastPlace) throws ExceptionCreateForecastPlace {
         forecastPlaceDAO.createForecastPlace(forecastPlace);
     }
 

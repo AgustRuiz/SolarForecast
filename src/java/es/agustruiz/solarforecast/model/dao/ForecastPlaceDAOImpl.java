@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecastPlace;
 import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.LogLine;
@@ -25,11 +26,23 @@ public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
     private EntityManagerFactory emf;
 
     @Override
-    public void createForecastPlace(ForecastPlace forecastPlace) {
+    public void createForecastPlace(ForecastPlace forecastPlace) throws ExceptionCreateForecastPlace {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(forecastPlace);
-        em.getTransaction().commit();
+        EntityTransaction et = em.getTransaction();
+        try {
+            em.getTransaction().begin();
+            em.persist(forecastPlace);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            throw new ExceptionCreateForecastPlace(ex.getMessage());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
     @Override
