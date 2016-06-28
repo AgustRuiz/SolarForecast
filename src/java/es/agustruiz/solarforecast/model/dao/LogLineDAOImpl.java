@@ -20,11 +20,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LogLineDAOImpl implements LogLineDAO {
 
+    protected static final String LOG_TAG = LogLineDAOImpl.class.getName();
+
     //@PersistenceContext
     @Autowired
     private EntityManagerFactory emf;
-
-    protected static final String LOG_TAG = LogLineDAOImpl.class.getName();
 
     @Override
     public void createLogLine(LogLine logLine) throws ExceptionCreateLogLine{

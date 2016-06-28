@@ -1,11 +1,13 @@
 package es.agustruiz.solarforecast.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,6 +28,9 @@ public class ForecastPlace implements Serializable {
 
     @Column
     protected float longitude;
+    
+    @OneToMany
+    protected List<ForecastQueryRegistry> forecastQueryRegistryList;
 
     public ForecastPlace() {
     }
@@ -60,6 +65,14 @@ public class ForecastPlace implements Serializable {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public List<ForecastQueryRegistry> getForecastQueryRegistryList() {
+        return forecastQueryRegistryList;
+    }
+
+    public void setForecastQueryRegistryList(List<ForecastQueryRegistry> forecastQueryRegistryList) {
+        this.forecastQueryRegistryList = forecastQueryRegistryList;
     }
 
 }
