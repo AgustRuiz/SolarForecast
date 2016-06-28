@@ -35,17 +35,19 @@ public class LogController {
     @RequestMapping(value = "/log/{pageNumber}", method = RequestMethod.GET)
     public String log(@PathVariable Integer pageNumber, Model model) {
         model = configureModel(model);
-        model.addAttribute("title", "Log (" + pageNumber + ")");
+        model.addAttribute("title", "Log");
         model.addAttribute("currentPage", pageNumber);
 
         int numRows = logLineManager.countRows();
-        int numPages = (int) Math.ceil((double) numRows / (double)ROWS_PER_PAGE);
-        List<Integer> pages = new ArrayList<>();
-        for (int i = 1; i <= numPages; ++i) {
-            pages.add(i);
-        }
+        int numPages = (int) Math.ceil((double) numRows / (double) ROWS_PER_PAGE);
 
-        model.addAttribute("pages", pages);
+        int newerPage = pageNumber - 1;
+        int olderPage = pageNumber + 1;
+
+        model.addAttribute("newerPage", newerPage);
+        model.addAttribute("olderPage", olderPage);
+        model.addAttribute("numPages", numPages);
+
         model.addAttribute("logList", logLineManager.getLogPage(pageNumber, ROWS_PER_PAGE));
         return ("log");
     }
