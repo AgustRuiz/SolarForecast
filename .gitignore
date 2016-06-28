@@ -23,3 +23,6 @@ hs_err_pid*
 
 # Program log
 log.txt
+
+# Windows file
+desktop.ini
