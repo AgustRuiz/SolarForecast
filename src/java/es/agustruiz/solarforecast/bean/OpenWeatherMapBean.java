@@ -7,6 +7,7 @@ import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
 import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import es.agustruiz.solarforecast.service.apiClients.OpenWeatherMapClient;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,9 @@ public class OpenWeatherMapBean {
     @Autowired
     ForecastQueryRegistryManager forecastQueryRegistryManager;
 
+    @Autowired
+    OpenWeatherMapClient openWeatherMapClient;
+
     public void scheduledTask() {
         ForecastPlace fPlace;
         try {
@@ -43,12 +47,14 @@ public class OpenWeatherMapBean {
             fQueryRegistry.setTimeInMillis(System.currentTimeMillis());
             fQueryRegistry.setForecastProvider(FORECAST_PROVIDER_TAG);
             fQueryRegistry.setForecastPlace(fPlace);
+
             forecastQueryRegistryManager.createForecastQueryRegistry(fQueryRegistry);
-            logLineManager.i(LOG_TAG, "Querying place " + fPlace.getId());
+            logLineManager.i(LOG_TAG, "Querying place " + fPlace.getId() + "...");
+            openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
         } catch (ExceptionReadForecastPlace ex) {
-            logLineManager.w(LOG_TAG, "Can't read next forecast place to query");
+            logLineManager.e(LOG_TAG, "Can't read next forecast place to query");
         } catch (ExceptionCreateForecastQueryRegistry ex) {
-            logLineManager.w(LOG_TAG, "Can't save forecast for place");
+            logLineManager.e(LOG_TAG, "Can't save forecast for place");
         }
     }
 

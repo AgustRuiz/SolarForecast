@@ -1,4 +1,4 @@
-package es.agustruiz.solarforecast.controller.app;
+package es.agustruiz.solarforecast.controller;
 
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import es.agustruiz.solarforecast.model.LogLine;
