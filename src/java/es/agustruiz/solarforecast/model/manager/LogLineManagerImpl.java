@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
+import es.agustruiz.solarforecast.exception.ExceptionDeleteLogLine;
 import es.agustruiz.solarforecast.model.dao.LogLineDAO;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
@@ -71,6 +72,11 @@ public class LogLineManagerImpl implements LogLineManager {
             Logger.getLogger(LogLineManagerImpl.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println(line.toString());
         }
+    }
+
+    @Override
+    public void cleanLog() throws ExceptionDeleteLogLine{
+        logLineDAO.cleanLogLine();
     }
 
 }

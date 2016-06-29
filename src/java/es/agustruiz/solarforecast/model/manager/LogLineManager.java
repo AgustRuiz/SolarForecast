@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
+import es.agustruiz.solarforecast.exception.ExceptionDeleteLogLine;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface LogLineManager {
     List<LogLine> getLogPage(int pageNumber, int rowsPerPage);
 
     int countRows();
+
+    void cleanLog() throws ExceptionDeleteLogLine;
 
 }

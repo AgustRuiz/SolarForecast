@@ -25,7 +25,7 @@ public class LogController {
     protected static List<LogLine> logList;
 
     @Autowired
-    protected LogLineManager logLineManager;
+    protected LogLineManager logManager;
 
     @RequestMapping(value = "/log", method = RequestMethod.GET)
     public String log(Model model) {
@@ -38,7 +38,7 @@ public class LogController {
         model.addAttribute("title", "Log");
         model.addAttribute("currentPage", pageNumber);
 
-        int numRows = logLineManager.countRows();
+        int numRows = logManager.countRows();
         int numPages = (int) Math.ceil((double) numRows / (double) ROWS_PER_PAGE);
 
         int newerPage = pageNumber - 1;
@@ -48,8 +48,16 @@ public class LogController {
         model.addAttribute("olderPage", olderPage);
         model.addAttribute("numPages", numPages);
 
-        model.addAttribute("logList", logLineManager.getLogPage(pageNumber, ROWS_PER_PAGE));
+        model.addAttribute("logList", logManager.getLogPage(pageNumber, ROWS_PER_PAGE));
         return ("log");
+    }
+
+    @RequestMapping(value = "/log/clean", method = RequestMethod.GET)
+    public String cleanLog(Model model) {
+        model = configureModel(model);
+        logManager.cleanLog();
+        logManager.w(LOG_TAG, "Log cleaned");
+        return "redirect:/log/1";
     }
 
     private Model configureModel(Model model) {

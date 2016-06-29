@@ -68,18 +68,18 @@
             </div>
         </div>
     </div>
-    <!-- End delete modal -->
 </div>
+<!-- End delete modal -->
 <script>
     var currentDeleteId = -1;
-    
+
     function showDeleteModal(placeId, placeName) {
         $("#txtDeletePlaceName").text(placeName);
         currentDeleteId = placeId;
         $("#deleteModal").modal("show");
     }
-    
-    function deletePlace(){
+
+    function deletePlace() {
         window.location.href = "${deleteUrl}" + currentDeleteId;
     }
 </script>
