@@ -15,33 +15,33 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "all"
+    "pod"
 })
-public class Clouds implements Serializable {
+public class Sys_API implements Serializable{
 
-    @JsonProperty("all")
-    private Integer all;
+    @JsonProperty("pod")
+    private String pod;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The all
+     *     The pod
      */
-    @JsonProperty("all")
-    public Integer getAll() {
-        return all;
+    @JsonProperty("pod")
+    public String getPod() {
+        return pod;
     }
 
     /**
      * 
-     * @param all
-     *     The all
+     * @param pod
+     *     The pod
      */
-    @JsonProperty("all")
-    public void setAll(Integer all) {
-        this.all = all;
+    @JsonProperty("pod")
+    public void setPod(String pod) {
+        this.pod = pod;
     }
 
     @JsonAnyGetter

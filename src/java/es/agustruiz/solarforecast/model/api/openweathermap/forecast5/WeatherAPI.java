@@ -20,7 +20,7 @@ import java.io.Serializable;
     "description",
     "icon"
 })
-public class Weather implements Serializable{
+public class WeatherAPI implements Serializable{
 
     @JsonProperty("id")
     private Integer id;

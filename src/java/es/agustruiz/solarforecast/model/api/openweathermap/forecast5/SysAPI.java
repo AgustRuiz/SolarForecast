@@ -17,7 +17,7 @@ import java.io.Serializable;
 @JsonPropertyOrder({
     "population"
 })
-public class Sys implements Serializable {
+public class SysAPI implements Serializable {
 
     @JsonProperty("population")
     private Integer population;

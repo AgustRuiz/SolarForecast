@@ -15,56 +15,33 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "lon",
-    "lat"
+    "all"
 })
-public class Coord implements Serializable {
+public class CloudsAPI implements Serializable {
 
-    @JsonProperty("lon")
-    private Double lon;
-    @JsonProperty("lat")
-    private Double lat;
+    @JsonProperty("all")
+    private Integer all;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The lon
+     *     The all
      */
-    @JsonProperty("lon")
-    public Double getLon() {
-        return lon;
+    @JsonProperty("all")
+    public Integer getAll() {
+        return all;
     }
 
     /**
      * 
-     * @param lon
-     *     The lon
+     * @param all
+     *     The all
      */
-    @JsonProperty("lon")
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
-
-    /**
-     * 
-     * @return
-     *     The lat
-     */
-    @JsonProperty("lat")
-    public Double getLat() {
-        return lat;
-    }
-
-    /**
-     * 
-     * @param lat
-     *     The lat
-     */
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-        this.lat = lat;
+    @JsonProperty("all")
+    public void setAll(Integer all) {
+        this.all = all;
     }
 
     @JsonAnyGetter

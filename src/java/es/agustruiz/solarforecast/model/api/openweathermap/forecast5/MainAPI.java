@@ -24,7 +24,7 @@ import java.io.Serializable;
     "humidity",
     "temp_kf"
 })
-public class Main implements Serializable {
+public class MainAPI implements Serializable {
 
     @JsonProperty("temp")
     private Double temp;

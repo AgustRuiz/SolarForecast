@@ -22,10 +22,10 @@ import java.io.Serializable;
     "cnt",
     "list"
 })
-public class Forecast5Response implements Serializable{
+public class Forecast5ResponseAPI implements Serializable{
 
     @JsonProperty("city")
-    private City city;
+    private CityAPI city;
     @JsonProperty("cod")
     private String cod;
     @JsonProperty("message")
@@ -33,7 +33,7 @@ public class Forecast5Response implements Serializable{
     @JsonProperty("cnt")
     private Integer cnt;
     @JsonProperty("list")
-    private java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> list = new ArrayList<>();
+    private java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI> list = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -43,7 +43,7 @@ public class Forecast5Response implements Serializable{
      *     The city
      */
     @JsonProperty("city")
-    public City getCity() {
+    public CityAPI getCity() {
         return city;
     }
 
@@ -53,7 +53,7 @@ public class Forecast5Response implements Serializable{
      *     The city
      */
     @JsonProperty("city")
-    public void setCity(City city) {
+    public void setCity(CityAPI city) {
         this.city = city;
     }
 
@@ -123,7 +123,7 @@ public class Forecast5Response implements Serializable{
      *     The list
      */
     @JsonProperty("list")
-    public java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> getList() {
+    public java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI> getList() {
         return list;
     }
 
@@ -133,7 +133,7 @@ public class Forecast5Response implements Serializable{
      *     The list
      */
     @JsonProperty("list")
-    public void setList(java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.List> list) {
+    public void setList(java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI> list) {
         this.list = list;
     }
 

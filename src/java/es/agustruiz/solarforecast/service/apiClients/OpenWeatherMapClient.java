@@ -1,5 +1,7 @@
 package es.agustruiz.solarforecast.service.apiClients;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5ResponseAPI;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class OpenWeatherMapClient {
     @Autowired
     LogLineManager logLineManager;
 
-    public String getForecast5(float latitude, float longitude) {
+    public Forecast5ResponseAPI getForecast5(float latitude, float longitude) {
         UriBuilder uriBuilder = UriBuilder.fromUri(URL_BASE);
         uriBuilder.scheme(URL_SCHEME);
         uriBuilder.path(FORECAST5_PATH);
@@ -60,26 +62,24 @@ public class OpenWeatherMapClient {
             logLineManager.e(LOG_TAG, "Error connecting to API");
         }
 
-        if (stringResponse == null) {
-            logLineManager.d(LOG_TAG, "Response is null");
-            return null;
-        } else {
+        if (stringResponse != null) {
             logLineManager.d(LOG_TAG, "Response OK");
-            return stringResponse.toString();
+            return (stringResponse == null ? null : objectMapping(stringResponse.toString()));
+        } else {
+            logLineManager.w(LOG_TAG, "Response is null");
+            return null;
         }
     }
 
-//    private Forecast5Response objectMapping(String jsonString) {
-//        Forecast5Response response = null;
-//        try {
-//            ObjectMapper mapper = new ObjectMapper();
-//            response = mapper.readValue(jsonString, Forecast5Response.class);
-//            //Logger.i(LOG_TAG, "Object mapped");
-//        } catch (IOException ex) {
-//            MyLogger.e(LOG_TAG, "Error mapping response: " + ex.toString());
-//            //java.util.logging.Logger.getLogger(OpenWeatherMapClient.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return response;
-//    }
+    private Forecast5ResponseAPI objectMapping(String jsonString) {
+        Forecast5ResponseAPI response = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            response = mapper.readValue(jsonString, Forecast5ResponseAPI.class);
+        } catch (IOException ex) {
+            logLineManager.w(LOG_TAG, "Error mapping response: " + ex.toString());
+        }
+        return response;
+    }
     
 }

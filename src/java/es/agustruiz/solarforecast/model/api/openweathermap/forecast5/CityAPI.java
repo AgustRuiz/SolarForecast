@@ -22,20 +22,20 @@ import java.io.Serializable;
     "population",
     "sys"
 })
-public class City implements Serializable {
+public class CityAPI implements Serializable {
 
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("coord")
-    private Coord coord;
+    private CoordAPI coord;
     @JsonProperty("country")
     private String country;
     @JsonProperty("population")
     private Integer population;
     @JsonProperty("sys")
-    private Sys sys;
+    private SysAPI sys;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -85,7 +85,7 @@ public class City implements Serializable {
      *     The coord
      */
     @JsonProperty("coord")
-    public Coord getCoord() {
+    public CoordAPI getCoord() {
         return coord;
     }
 
@@ -95,7 +95,7 @@ public class City implements Serializable {
      *     The coord
      */
     @JsonProperty("coord")
-    public void setCoord(Coord coord) {
+    public void setCoord(CoordAPI coord) {
         this.coord = coord;
     }
 
@@ -145,7 +145,7 @@ public class City implements Serializable {
      *     The sys
      */
     @JsonProperty("sys")
-    public Sys getSys() {
+    public SysAPI getSys() {
         return sys;
     }
 
@@ -155,7 +155,7 @@ public class City implements Serializable {
      *     The sys
      */
     @JsonProperty("sys")
-    public void setSys(Sys sys) {
+    public void setSys(SysAPI sys) {
         this.sys = sys;
     }
 

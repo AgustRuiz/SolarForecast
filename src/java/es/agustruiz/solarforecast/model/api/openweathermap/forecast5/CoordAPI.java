@@ -15,56 +15,56 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "speed",
-    "deg"
+    "lon",
+    "lat"
 })
-public class Wind implements Serializable{
+public class CoordAPI implements Serializable {
 
-    @JsonProperty("speed")
-    private Double speed;
-    @JsonProperty("deg")
-    private Integer deg;
+    @JsonProperty("lon")
+    private Double lon;
+    @JsonProperty("lat")
+    private Double lat;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The speed
+     *     The lon
      */
-    @JsonProperty("speed")
-    public Double getSpeed() {
-        return speed;
+    @JsonProperty("lon")
+    public Double getLon() {
+        return lon;
     }
 
     /**
      * 
-     * @param speed
-     *     The speed
+     * @param lon
+     *     The lon
      */
-    @JsonProperty("speed")
-    public void setSpeed(Double speed) {
-        this.speed = speed;
+    @JsonProperty("lon")
+    public void setLon(Double lon) {
+        this.lon = lon;
     }
 
     /**
      * 
      * @return
-     *     The deg
+     *     The lat
      */
-    @JsonProperty("deg")
-    public Integer getDeg() {
-        return deg;
+    @JsonProperty("lat")
+    public Double getLat() {
+        return lat;
     }
 
     /**
      * 
-     * @param deg
-     *     The deg
+     * @param lat
+     *     The lat
      */
-    @JsonProperty("deg")
-    public void setDeg(Integer deg) {
-        this.deg = deg;
+    @JsonProperty("lat")
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
     @JsonAnyGetter

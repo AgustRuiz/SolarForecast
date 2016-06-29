@@ -25,22 +25,22 @@ import java.io.Serializable;
     "sys",
     "dt_txt"
 })
-public class List implements Serializable {
+public class ListAPI implements Serializable {
 
     @JsonProperty("dt")
     private Integer dt;
     @JsonProperty("main")
-    private Main main;
+    private MainAPI main;
     @JsonProperty("weather")
-    private java.util.List<Weather> weather = new ArrayList<Weather>();
+    private java.util.List<WeatherAPI> weather = new ArrayList<WeatherAPI>();
     @JsonProperty("clouds")
-    private Clouds clouds;
+    private CloudsAPI clouds;
     @JsonProperty("wind")
-    private Wind wind;
+    private WindAPI wind;
     @JsonProperty("rain")
-    private Rain rain;
+    private RainAPI rain;
     @JsonProperty("sys")
-    private Sys_ sys;
+    private Sys_API sys;
     @JsonProperty("dt_txt")
     private String dtTxt;
     @JsonIgnore
@@ -72,7 +72,7 @@ public class List implements Serializable {
      *     The main
      */
     @JsonProperty("main")
-    public Main getMain() {
+    public MainAPI getMain() {
         return main;
     }
 
@@ -82,7 +82,7 @@ public class List implements Serializable {
      *     The main
      */
     @JsonProperty("main")
-    public void setMain(Main main) {
+    public void setMain(MainAPI main) {
         this.main = main;
     }
 
@@ -92,7 +92,7 @@ public class List implements Serializable {
      *     The weather
      */
     @JsonProperty("weather")
-    public java.util.List<Weather> getWeather() {
+    public java.util.List<WeatherAPI> getWeather() {
         return weather;
     }
 
@@ -102,7 +102,7 @@ public class List implements Serializable {
      *     The weather
      */
     @JsonProperty("weather")
-    public void setWeather(java.util.List<Weather> weather) {
+    public void setWeather(java.util.List<WeatherAPI> weather) {
         this.weather = weather;
     }
 
@@ -112,7 +112,7 @@ public class List implements Serializable {
      *     The clouds
      */
     @JsonProperty("clouds")
-    public Clouds getClouds() {
+    public CloudsAPI getClouds() {
         return clouds;
     }
 
@@ -122,7 +122,7 @@ public class List implements Serializable {
      *     The clouds
      */
     @JsonProperty("clouds")
-    public void setClouds(Clouds clouds) {
+    public void setClouds(CloudsAPI clouds) {
         this.clouds = clouds;
     }
 
@@ -132,7 +132,7 @@ public class List implements Serializable {
      *     The wind
      */
     @JsonProperty("wind")
-    public Wind getWind() {
+    public WindAPI getWind() {
         return wind;
     }
 
@@ -142,7 +142,7 @@ public class List implements Serializable {
      *     The wind
      */
     @JsonProperty("wind")
-    public void setWind(Wind wind) {
+    public void setWind(WindAPI wind) {
         this.wind = wind;
     }
 
@@ -152,7 +152,7 @@ public class List implements Serializable {
      *     The rain
      */
     @JsonProperty("rain")
-    public Rain getRain() {
+    public RainAPI getRain() {
         return rain;
     }
 
@@ -162,7 +162,7 @@ public class List implements Serializable {
      *     The rain
      */
     @JsonProperty("rain")
-    public void setRain(Rain rain) {
+    public void setRain(RainAPI rain) {
         this.rain = rain;
     }
 
@@ -172,7 +172,7 @@ public class List implements Serializable {
      *     The sys
      */
     @JsonProperty("sys")
-    public Sys_ getSys() {
+    public Sys_API getSys() {
         return sys;
     }
 
@@ -182,7 +182,7 @@ public class List implements Serializable {
      *     The sys
      */
     @JsonProperty("sys")
-    public void setSys(Sys_ sys) {
+    public void setSys(Sys_API sys) {
         this.sys = sys;
     }
 

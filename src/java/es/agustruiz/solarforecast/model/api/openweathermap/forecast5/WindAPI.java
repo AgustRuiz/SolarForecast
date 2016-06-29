@@ -15,33 +15,56 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "3h"
+    "speed",
+    "deg"
 })
-public class Rain implements Serializable {
+public class WindAPI implements Serializable{
 
-    @JsonProperty("3h")
-    private Double _3h;
+    @JsonProperty("speed")
+    private Double speed;
+    @JsonProperty("deg")
+    private Integer deg;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The _3h
+     *     The speed
      */
-    @JsonProperty("3h")
-    public Double get3h() {
-        return _3h;
+    @JsonProperty("speed")
+    public Double getSpeed() {
+        return speed;
     }
 
     /**
      * 
-     * @param _3h
-     *     The 3h
+     * @param speed
+     *     The speed
      */
-    @JsonProperty("3h")
-    public void set3h(Double _3h) {
-        this._3h = _3h;
+    @JsonProperty("speed")
+    public void setSpeed(Double speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * 
+     * @return
+     *     The deg
+     */
+    @JsonProperty("deg")
+    public Integer getDeg() {
+        return deg;
+    }
+
+    /**
+     * 
+     * @param deg
+     *     The deg
+     */
+    @JsonProperty("deg")
+    public void setDeg(Integer deg) {
+        this.deg = deg;
     }
 
     @JsonAnyGetter
