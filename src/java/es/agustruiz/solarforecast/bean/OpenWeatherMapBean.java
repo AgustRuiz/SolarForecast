@@ -4,6 +4,7 @@ import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry
 import es.agustruiz.solarforecast.exception.ExceptionReadForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
+import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5Response;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
 import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
@@ -49,8 +50,8 @@ public class OpenWeatherMapBean {
             fQueryRegistry.setForecastPlace(fPlace);
 
             forecastQueryRegistryManager.createForecastQueryRegistry(fQueryRegistry);
+            Forecast5Response response = openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
             logLineManager.i(LOG_TAG, "Querying place " + fPlace.getId() + "...");
-            openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
         } catch (ExceptionReadForecastPlace ex) {
             logLineManager.e(LOG_TAG, "Can't read next forecast place to query");
         } catch (ExceptionCreateForecastQueryRegistry ex) {
