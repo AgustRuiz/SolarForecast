@@ -4,6 +4,7 @@ import es.agustruiz.solarforecast.exception.ExceptionCreateForecastPlace;
 import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
+import es.agustruiz.solarforecast.service.ForecastService;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PlacesController {
 
     private static final String LOG_TAG = PlacesController.class.getName();
+
+    @Autowired
+    protected ForecastService forecastService;
 
     @Autowired
     private ForecastPlaceManager forecastPlaceManager;
@@ -92,6 +96,7 @@ public class PlacesController {
     }
 
     private Model configureModel(Model model) {
+        model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
         model.addAttribute("title", "Places");
         model.addAttribute("navActiveItem", "places");

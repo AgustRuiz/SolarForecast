@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.controller;
 
 import es.agustruiz.solarforecast.service.ForecastService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ public class HomeController {
 
     private static final String LOG_TAG = HomeController.class.getName();
 
+    @Autowired
+    protected ForecastService forecastService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         return "redirect:/home";
@@ -22,9 +26,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("projectName", "SolarForecast");
-        model.addAttribute("title", "Home");
-        model.addAttribute("navActiveItem", "home");
+        model = configureModel(model);
         model.addAttribute("serviceStatusTitle", "Service status");
 
         model.addAttribute("forecastServiceStatusLabel", "ForecastService");
@@ -40,5 +42,13 @@ public class HomeController {
             model.addAttribute("btnForecastServiceUrl", "/startForecastService");
         }
         return ("home");
+    }
+
+    private Model configureModel(Model model) {
+        model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
+        model.addAttribute("projectName", "SolarForecast");
+        model.addAttribute("title", "Home");
+        model.addAttribute("navActiveItem", "home");
+        return model;
     }
 }

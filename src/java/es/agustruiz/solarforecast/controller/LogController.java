@@ -1,9 +1,13 @@
 package es.agustruiz.solarforecast.controller;
 
+import es.agustruiz.solarforecast.exception.ExceptionDeleteLogLine;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import es.agustruiz.solarforecast.model.LogLine;
+import es.agustruiz.solarforecast.service.ForecastService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +27,9 @@ public class LogController {
     protected static final int ROWS_PER_PAGE = 25;
 
     protected static List<LogLine> logList;
+
+    @Autowired
+    protected ForecastService forecastService;
 
     @Autowired
     protected LogLineManager logManager;
@@ -55,12 +62,18 @@ public class LogController {
     @RequestMapping(value = "/log/clean", method = RequestMethod.GET)
     public String cleanLog(Model model) {
         model = configureModel(model);
-        logManager.cleanLog();
-        logManager.w(LOG_TAG, "Log cleaned");
+        try {
+            logManager.cleanLog();
+            logManager.w(LOG_TAG, "Log cleaned");
+        } catch (ExceptionDeleteLogLine ex) {
+            Logger.getLogger(LogController.class.getName()).log(Level.SEVERE, null, ex);
+            logManager.w(LOG_TAG, "Can't clean log");
+        }
         return "redirect:/log/1";
     }
 
     private Model configureModel(Model model) {
+        model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
         model.addAttribute("title", "Log");
         model.addAttribute("navActiveItem", "log");
