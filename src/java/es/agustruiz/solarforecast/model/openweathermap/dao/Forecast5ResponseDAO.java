@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.openweathermap.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecast5Response;
 import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface Forecast5ResponseDAO {
 
-    void create(Forecast5Response forecast5Response);
+    void create(Forecast5Response forecast5Response) throws ExceptionCreateForecast5Response;
 
     Forecast5Response read(long id);
 

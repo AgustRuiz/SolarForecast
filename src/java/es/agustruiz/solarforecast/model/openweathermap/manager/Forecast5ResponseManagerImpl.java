@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.openweathermap.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecast5Response;
 import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
 import es.agustruiz.solarforecast.model.openweathermap.dao.Forecast5ResponseDAO;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Forecast5ResponseManagerImpl implements Forecast5ResponseManager {
     protected Forecast5ResponseDAO dao;
 
     @Override
-    public void create(Forecast5Response forecast5Response) {
+    public void create(Forecast5Response forecast5Response) throws ExceptionCreateForecast5Response{
         dao.create(forecast5Response);
     }
 

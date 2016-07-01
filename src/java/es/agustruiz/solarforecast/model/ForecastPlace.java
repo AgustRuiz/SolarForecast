@@ -1,7 +1,9 @@
 package es.agustruiz.solarforecast.model;
 
+import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +31,11 @@ public class ForecastPlace implements Serializable {
     @Column
     protected float longitude;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     protected List<ForecastQueryRegistry> forecastQueryRegistryList;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<Forecast5Response> openWeatherMapForecastList;
 
     public ForecastPlace() {
     }
@@ -73,6 +78,14 @@ public class ForecastPlace implements Serializable {
 
     public void setForecastQueryRegistryList(List<ForecastQueryRegistry> forecastQueryRegistryList) {
         this.forecastQueryRegistryList = forecastQueryRegistryList;
+    }
+
+    public List<Forecast5Response> getOpenWeatherMapForecastList() {
+        return openWeatherMapForecastList;
+    }
+
+    public void setOpenWeatherMapForecastList(List<Forecast5Response> openWeatherMapForecastList) {
+        this.openWeatherMapForecastList = openWeatherMapForecastList;
     }
 
 }

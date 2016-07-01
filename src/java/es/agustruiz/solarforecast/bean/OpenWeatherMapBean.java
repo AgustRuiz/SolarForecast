@@ -1,14 +1,19 @@
 package es.agustruiz.solarforecast.bean;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecast5Response;
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.exception.ExceptionReadForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5ResponseAPI;
+import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
 import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.service.ForecastService;
 import es.agustruiz.solarforecast.service.apiClients.OpenWeatherMapClient;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +37,9 @@ public class OpenWeatherMapBean {
     LogLineManager logLineManager;
 
     @Autowired
+    ForecastService forecastService;
+
+    @Autowired
     ForecastPlaceManager forecastPlaceManager;
 
     @Autowired
@@ -41,21 +49,31 @@ public class OpenWeatherMapBean {
     OpenWeatherMapClient openWeatherMapClient;
 
     public void scheduledTask() {
-        ForecastPlace fPlace;
-        try {
-            fPlace = getNextForecastPlaceToQuery();
-            ForecastQueryRegistry fQueryRegistry = new ForecastQueryRegistry();
-            fQueryRegistry.setTimeInMillis(System.currentTimeMillis());
-            fQueryRegistry.setForecastProvider(FORECAST_PROVIDER_TAG);
-            fQueryRegistry.setForecastPlace(fPlace);
+        if (forecastService.isForecastServiceOn()) {
+            logLineManager.i(LOG_TAG, "Scheduled task");
+            ForecastPlace fPlace;
+            try {
+                fPlace = getNextForecastPlaceToQuery();
+                ForecastQueryRegistry fQueryRegistry = new ForecastQueryRegistry();
+                fQueryRegistry.setTimeInMillis(System.currentTimeMillis());
+                fQueryRegistry.setForecastProvider(FORECAST_PROVIDER_TAG);
+                fQueryRegistry.setForecastPlace(fPlace);
 
-            forecastQueryRegistryManager.createForecastQueryRegistry(fQueryRegistry);
-            Forecast5ResponseAPI response = openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
-            logLineManager.i(LOG_TAG, "Querying place " + fPlace.getId() + "...");
-        } catch (ExceptionReadForecastPlace ex) {
-            logLineManager.e(LOG_TAG, "Can't read next forecast place to query");
-        } catch (ExceptionCreateForecastQueryRegistry ex) {
-            logLineManager.e(LOG_TAG, "Can't save forecast for place");
+                Forecast5ResponseAPI f5ResponseAPI = openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
+                List<Forecast5Response> f5ResponseList = new ArrayList<>();
+                for (ListAPI item : f5ResponseAPI.getList()) {
+                    f5ResponseList.add(new Forecast5Response(item, fQueryRegistry));
+                }
+                fQueryRegistry.setOpenWeatherMapList(f5ResponseList);
+                forecastQueryRegistryManager.createForecastQueryRegistry(fQueryRegistry);
+                logLineManager.i(LOG_TAG,
+                        String.format("Obtained %d rows from \"%s\" provider",
+                                f5ResponseList.size(), FORECAST_PROVIDER_TAG));
+            } catch (ExceptionReadForecastPlace ex) {
+                logLineManager.e(LOG_TAG, "Can't read next forecast place to query: " + ex.getMessage());
+            } catch (ExceptionCreateForecastQueryRegistry ex) {
+                logLineManager.e(LOG_TAG, "Can't save forecast for place: " + ex.getMessage());
+            }
         }
     }
 

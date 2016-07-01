@@ -4,13 +4,13 @@ package es.agustruiz.solarforecast.exception;
  *
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
-public class ExceptionCreateForecastPlace extends Exception {
+public class ExceptionCreateForecast5Response extends Exception {
 
-    public ExceptionCreateForecastPlace() {
+    public ExceptionCreateForecast5Response() {
         super();
     }
 
-    public ExceptionCreateForecastPlace(String message) {
+    public ExceptionCreateForecast5Response(String message) {
         super(message);
     }
 

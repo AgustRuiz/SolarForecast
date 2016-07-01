@@ -58,17 +58,12 @@ public class OpenWeatherMapClient {
                     stringResponse.append(inputLine);
                 }
             }
+            //logLineManager.d(LOG_TAG, "Response OK");
         } catch (IOException ex) {
-            logLineManager.e(LOG_TAG, "Error connecting to API");
+            logLineManager.e(LOG_TAG, "Error connecting to API: " + ex.getMessage());
         }
 
-        if (stringResponse != null) {
-            logLineManager.d(LOG_TAG, "Response OK");
-            return (stringResponse == null ? null : objectMapping(stringResponse.toString()));
-        } else {
-            logLineManager.w(LOG_TAG, "Response is null");
-            return null;
-        }
+        return (stringResponse == null ? null : objectMapping(stringResponse.toString()));
     }
 
     private Forecast5ResponseAPI objectMapping(String jsonString) {
@@ -81,5 +76,5 @@ public class OpenWeatherMapClient {
         }
         return response;
     }
-    
+
 }
