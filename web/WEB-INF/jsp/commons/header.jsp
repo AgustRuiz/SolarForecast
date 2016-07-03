@@ -19,9 +19,11 @@
 
     <title>Dashboard Template for Bootstrap</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core and others CSS -->
     <spring:url value="/resources/bootstrap/css/bootstrap.min.css" var="bootstrapCss" />
     <link href="${bootstrapCss}" rel="stylesheet">
+    <spring:url value="/resources/css/myStyle.css" var="myStyleCss" />
+    <link href="${myStyleCss}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <spring:url value="/resources/bootstrap/css/ie10-viewport-bug-workaround.css" var="ie10WorkaroundCss" />
