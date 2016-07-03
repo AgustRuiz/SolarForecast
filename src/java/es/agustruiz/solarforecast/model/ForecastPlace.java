@@ -17,12 +17,14 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class ForecastPlace implements Serializable {
+    
+    protected static final String LOG_TAG = ForecastPlace.class.getName();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    @Column
+    @Column(unique=true)
     protected String name;
 
     @Column
