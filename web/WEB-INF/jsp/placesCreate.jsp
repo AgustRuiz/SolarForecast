@@ -6,9 +6,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <h1 class="page-header">${title}</h1>
-
 <jsp:include page="commons/messagesBox.jsp" />
-
 <form class="form-horizontal" method="post" commandName="placeData">
     <div class="form-group">
         <label for="txtName" class="col-sm-2">Name</label>

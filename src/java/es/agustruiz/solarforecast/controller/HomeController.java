@@ -27,7 +27,6 @@ public class HomeController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
         model = configureModel(model);
-        model.addAttribute("serviceStatusTitle", "Service status");
 
         model.addAttribute("forecastServiceStatusLabel", "ForecastService");
         if (ForecastService.getForecastServiceStatus()) {
@@ -41,6 +40,8 @@ public class HomeController {
             model.addAttribute("forecastServiceBtnLabel", "Start service");
             model.addAttribute("btnForecastServiceUrl", "/startForecastService");
         }
+        
+        model.addAttribute("msgError", "Not implemented yet");
         return ("home");
     }
 
