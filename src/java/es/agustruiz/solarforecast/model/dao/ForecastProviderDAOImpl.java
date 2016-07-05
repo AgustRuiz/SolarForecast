@@ -1,7 +1,9 @@
 package es.agustruiz.solarforecast.model.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastProvider;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
+import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,6 +28,9 @@ public class ForecastProviderDAOImpl implements ForecastProviderDAO {
 
     @Autowired
     private EntityManagerFactory emf;
+    
+    @Autowired
+    protected LogLineManager logManager;
 
     @Override
     public void create(ForecastProvider forecastProvider) throws ExceptionCreateForecastProvider {
@@ -35,10 +40,14 @@ public class ForecastProviderDAOImpl implements ForecastProviderDAO {
             em.getTransaction().begin();
             em.persist(forecastProvider);
             em.getTransaction().commit();
+            logManager.i(LOG_TAG, String.format("Forecast provider \"%s\" created",
+                    forecastProvider.getProviderName()));
         } catch (Exception ex) {
             if (et.isActive()) {
                 et.rollback();
             }
+            logManager.w(LOG_TAG, String.format("Cant create \"%s\" forecast provider",
+                    forecastProvider.getProviderName()));
             throw new ExceptionCreateForecastProvider(ex.getMessage());
         } finally {
             em.close();
@@ -79,10 +88,28 @@ public class ForecastProviderDAOImpl implements ForecastProviderDAO {
         return em.createQuery(cq).getResultList();
     }
 
-//    @Override
-//    public void update(ForecastProvider forecastProvider) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    @Override
+    public void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider{
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try {
+            em.getTransaction().begin();
+            em.merge(forecastProvider);
+            em.getTransaction().commit();
+            logManager.i(LOG_TAG, String.format("Forecast provider \"%s\" updated",
+                    forecastProvider.getProviderName()));
+        } catch (Exception ex) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+            logManager.w(LOG_TAG, String.format("Can't update \"%s\" forecast provider",
+                    forecastProvider.getProviderName()));
+            throw new ExceptionUpdateForecastProvider(ex.getMessage());
+        } finally {
+            em.close();
+        }
+    }
+    
 //    @Override
 //    public void delete(ForecastProvider forecastProvider) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

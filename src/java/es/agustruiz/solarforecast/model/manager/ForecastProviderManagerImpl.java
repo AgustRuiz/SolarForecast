@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastProvider;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.dao.ForecastProviderDAO;
 import java.util.List;
@@ -37,6 +38,11 @@ public class ForecastProviderManagerImpl implements ForecastProviderManager{
     @Override
     public List<ForecastProvider> readAll() {
         return dao.readAll();
+    }
+
+    @Override
+    public void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider {
+        dao.update(forecastProvider);
     }
     
 }

@@ -1,12 +1,14 @@
 package es.agustruiz.solarforecast.model;
 
-import es.agustruiz.solarforecast.exception.ExceptionNegativeFrequency;
+import es.agustruiz.solarforecast.exception.ExceptionNotValidFrequency;
+import es.agustruiz.solarforecast.service.ForecastService;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -16,7 +18,6 @@ import javax.persistence.Id;
 public class ForecastProvider implements Serializable {
 
     // Attributes
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
@@ -27,16 +28,16 @@ public class ForecastProvider implements Serializable {
     @Column
     protected int queryFrequencyMillis;
 
-    @Column(columnDefinition="tinyint(1) default 1")
+    @Column(columnDefinition = "tinyint(1) default 1")
     protected boolean active;
 
     // Constructors
-
     protected ForecastProvider() {
     }
-    
-    public ForecastProvider(String providerName) {
-        this.providerName = providerName;
+
+    public ForecastProvider(String providerName, int queryFrequencyMillis) throws ExceptionNotValidFrequency {
+        setProviderName(providerName);
+        setQueryFrequencyMillis(queryFrequencyMillis);
         active = true;
     }
 
@@ -61,9 +62,11 @@ public class ForecastProvider implements Serializable {
         return queryFrequencyMillis;
     }
 
-    public void setQueryFrequencyMillis(int queryFrequencyMillis) throws ExceptionNegativeFrequency {
+    public void setQueryFrequencyMillis(int queryFrequencyMillis) throws ExceptionNotValidFrequency {
         if (queryFrequencyMillis <= 0) {
-            throw new ExceptionNegativeFrequency("Forecast provider query frequency must be a positive value (in millis)");
+            throw new ExceptionNotValidFrequency("Forecast provider query frequency must be a positive value (in millis)");
+        } else if (!ForecastService.getQueryFrequencyMap().containsKey(queryFrequencyMillis)) {
+            throw new ExceptionNotValidFrequency("Query frequency has not a valid value");
         } else {
             this.queryFrequencyMillis = queryFrequencyMillis;
         }

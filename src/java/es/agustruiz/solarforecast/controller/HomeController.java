@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.controller;
 
+import es.agustruiz.solarforecast.model.manager.ForecastProviderManager;
 import es.agustruiz.solarforecast.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class HomeController {
 
     @Autowired
     protected ForecastService forecastService;
+    
+    @Autowired
+    protected ForecastProviderManager forecastProviderManager;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
@@ -41,10 +45,12 @@ public class HomeController {
             model.addAttribute("btnForecastServiceUrl", "/startForecastService");
         }
         
-        model.addAttribute("msgError", "Not implemented yet");
+        model.addAttribute("queryFrequencies", forecastService.getQueryFrequencyMap());
+        model.addAttribute("forecastProviders", forecastProviderManager.readAll());
+        
         return ("home");
     }
-
+    
     private Model configureModel(Model model) {
         model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");

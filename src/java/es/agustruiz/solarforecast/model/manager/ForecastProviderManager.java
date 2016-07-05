@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastProvider;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface ForecastProviderManager {
 
     List<ForecastProvider> readAll();
 
-//    void update(ForecastProvider forecastProvider);
+    void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider;
+
 //    void delete(ForecastProvider forecastProvider);
 }

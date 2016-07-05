@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastProvider;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface ForecastProviderDAO {
 
     List<ForecastProvider> readAll();
 
-//    void update(ForecastProvider forecastProvider);
-//    void delete(ForecastProvider forecastProvider);
+    void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider;
 
+//    void delete(ForecastProvider forecastProvider);
 }

@@ -4,13 +4,13 @@ package es.agustruiz.solarforecast.exception;
  *
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
-public class ExceptionNegativeFrequency extends Exception {
+public class ExceptionNotValidFrequency extends Exception {
 
-    public ExceptionNegativeFrequency() {
+    public ExceptionNotValidFrequency() {
         super();
     }
 
-    public ExceptionNegativeFrequency(String message) {
+    public ExceptionNotValidFrequency(String message) {
         super(message);
     }
 

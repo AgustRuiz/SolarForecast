@@ -2,6 +2,7 @@ package es.agustruiz.solarforecast.bean;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastProvider;
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
+import es.agustruiz.solarforecast.exception.ExceptionNotValidFrequency;
 import es.agustruiz.solarforecast.exception.ExceptionReadForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastProvider;
@@ -54,24 +55,25 @@ public class OpenWeatherMapBean {
 
     @PostConstruct
     public void prepareForecastProvider() {
-        logManager.d(LOG_TAG, "PostConstructor");
+//        logManager.d(LOG_TAG, "PostConstructor");
         thisProvider = forecastProviderManager.readByName(FORECAST_PROVIDER_TAG);
         if (thisProvider != null) {
-            logManager.d(LOG_TAG, "Forecast provider found. My job is done...");
-
+//            logManager.d(LOG_TAG, "Forecast provider found. My job is done...");
         } else {
-            logManager.d(LOG_TAG, "Forecast provider not found. Let's create a new one...");
-            thisProvider = new ForecastProvider(FORECAST_PROVIDER_TAG);
+//            logManager.d(LOG_TAG, "Forecast provider not found. Let's create a new one...");
             try {
+                int jarl = ForecastService.getDefaultQueryFrequency();
+                thisProvider = new ForecastProvider(FORECAST_PROVIDER_TAG,
+                        jarl);
                 forecastProviderManager.create(thisProvider);
-                logManager.d(LOG_TAG, "Forecast created!");
-            } catch (ExceptionCreateForecastProvider ex) {
+//                logManager.d(LOG_TAG, "Forecast created!");
+            } catch (ExceptionNotValidFrequency | ExceptionCreateForecastProvider ex) {
                 logManager.e(LOG_TAG,
                         String.format("Can't create the %s provider: %s",
                                 FORECAST_PROVIDER_TAG, ex.getMessage()));
             }
         }
-        logManager.d(LOG_TAG, "End of postConstructor");
+//        logManager.d(LOG_TAG, "End of postConstructor");
     }
 
     // Public methods
@@ -87,7 +89,8 @@ public class OpenWeatherMapBean {
                 fQueryRegistry.setForecastProvider(FORECAST_PROVIDER_TAG);
                 fQueryRegistry.setForecastPlace(fPlace);
 
-                Forecast5ResponseAPI f5ResponseAPI = openWeatherMapClient.getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
+                Forecast5ResponseAPI f5ResponseAPI = openWeatherMapClient
+                        .getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
                 List<Forecast5Response> f5ResponseList = new ArrayList<>();
                 f5ResponseAPI.getList().stream().forEach((item) -> {
                     f5ResponseList.add(new Forecast5Response(item, fQueryRegistry));
@@ -98,7 +101,8 @@ public class OpenWeatherMapBean {
                         String.format("Obtained %d rows from \"%s\" provider",
                                 f5ResponseList.size(), FORECAST_PROVIDER_TAG));
             } catch (ExceptionReadForecastPlace ex) {
-                logManager.e(LOG_TAG, "Can't read next forecast place to query: " + ex.getMessage());
+                logManager.e(LOG_TAG, "Can't read next forecast place to query: "
+                        + ex.getMessage());
             } catch (ExceptionCreateForecastQueryRegistry ex) {
                 logManager.e(LOG_TAG, "Can't save forecast for place: " + ex.getMessage());
             }

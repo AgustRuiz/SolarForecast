@@ -5,6 +5,7 @@
 --%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<spring:url value="/forecastProvider" var="forecastProviderUrl" />
 <h1 class="page-header">${title}</h1>
 <jsp:include page="commons/messagesBox.jsp" />
 <h2 class="sub-header">Main services</h2>
@@ -28,7 +29,6 @@
     </table>
 </div>
 
-
 <h2 class="sub-header">Weather forecast configuration</h2>
 <div class="table-responsive">
     <table class="table table-striped">
@@ -40,22 +40,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-middle"><em>Forecast service name</em></td>
-                <td class="text-middle">
-                    <select class="form-control text-center">
-                        <option>15 minutes</option>
-                        <option>30 minutes</option>
-                        <option>45 minutes</option>
-                        <option>1 hour</option>
-                        <option>2 hours</option>
-                        <option>3 hours</option>
-                    </select>
-                </td>
-                <td class="text-middle">
-                    <button class="btn btn-default">Save</button>
-                </td>
-            </tr>
+            <c:forEach var="provider" items="${forecastProviders}">
+                <tr>
+                    <td class="text-middle">${provider.providerName}</td>
+                    <td class="text-middle">
+                        <select id="selectFor${provider.id}" class="form-control text-center">
+                            <c:forEach var="frequency" items="${queryFrequencies}">
+                                <option <c:if test="${provider.queryFrequencyMillis == frequency.key}">selected</c:if> value="${frequency.key}">${frequency.value}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td class="text-middle">
+                        <button class="btn btn-default" onclick="setForecastProviderFrequency('${provider.id}','selectFor${provider.id}')">Save</button>
+                    </td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
 </div>
+
+<script>
+    var forecastProviderUrl="${forecastProviderUrl}";
+    function setForecastProviderFrequency(providerId, selectHtmlId){
+        var selectHtmlElement = $("#"+selectHtmlId);
+        window.location.href = forecastProviderUrl+"/"+providerId+"/setQueryFrequency/"+selectHtmlElement.val();
+    }
+</script>

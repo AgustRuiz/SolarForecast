@@ -2,6 +2,9 @@ package es.agustruiz.solarforecast.service;
 
 import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,24 @@ public class ForecastService {
 
     @Autowired
     LogLineManager logManager;
-    
-    @Autowired
-    OpenWeatherMapBean openWeatherMapBean;
 
     protected static boolean forecastServiceStatus = false;
+
+    protected static final Map<Integer, String> queryFrequencyMap;
+
+    static {
+        queryFrequencyMap = new TreeMap<>();
+        queryFrequencyMap.put(600000, "10 minutes");
+        queryFrequencyMap.put(900000, "15 minutes");
+        queryFrequencyMap.put(1800000, "30 minutes");
+        queryFrequencyMap.put(2700000, "45 minutes");
+        queryFrequencyMap.put(3600000, "1 hour");
+        queryFrequencyMap.put(7200000, "2 hours");
+        queryFrequencyMap.put(10800000, "3 hours");
+        queryFrequencyMap.put(21600000, "6 hours");
+        queryFrequencyMap.put(43200000, "12 hours");
+        queryFrequencyMap.put(86400000, "24 hours");
+    }
 
     // Public methods
     //
@@ -41,6 +57,14 @@ public class ForecastService {
 
     public boolean isForecastServiceOn() {
         return forecastServiceStatus;
+    }
+    
+    public static Map<Integer, String> getQueryFrequencyMap(){
+        return queryFrequencyMap;
+    }
+    
+    public static Integer getDefaultQueryFrequency(){
+        return 3600000; // 1 hour
     }
 
     // Private methods
