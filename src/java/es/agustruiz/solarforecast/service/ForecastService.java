@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.service;
 
+import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ForecastService {
-    
+
     protected static final String LOG_TAG = ForecastService.class.getName();
-    
+
     @Autowired
     LogLineManager logManager;
     
+    @Autowired
+    OpenWeatherMapBean openWeatherMapBean;
+
     protected static boolean forecastServiceStatus = false;
 
+    // Public methods
+    //
     public static boolean getForecastServiceStatus() {
         return forecastServiceStatus;
     }
@@ -32,17 +38,19 @@ public class ForecastService {
         notifyStatusToLog();
         return forecastServiceStatus;
     }
-    
-    public boolean isForecastServiceOn(){
+
+    public boolean isForecastServiceOn() {
         return forecastServiceStatus;
     }
-    
-    private void notifyStatusToLog(){
-        if(forecastServiceStatus){
+
+    // Private methods
+    //
+    private void notifyStatusToLog() {
+        if (forecastServiceStatus) {
             logManager.i(LOG_TAG, "Forecast service is ON");
-        }else{
+        } else {
             logManager.i(LOG_TAG, "Forecast service is OFF");
         }
     }
-    
+
 }

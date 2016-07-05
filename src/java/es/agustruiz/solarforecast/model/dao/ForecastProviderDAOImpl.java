@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -55,12 +57,16 @@ public class ForecastProviderDAOImpl implements ForecastProviderDAO {
         CriteriaBuilder cBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ForecastProvider> cQuery = cBuilder.createQuery(ForecastProvider.class);
         Root root = cQuery.from(ForecastProvider.class);
-        
-        Predicate predicate = cBuilder.equal(root.get("name"), providerName);
+
+        Predicate predicate = cBuilder.equal(root.get("providerName"), providerName);
         cQuery.select(root);
         cQuery.where(predicate);
-        
-        return em.createQuery(cQuery).getSingleResult();
+
+        try {
+            return em.createQuery(cQuery).getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -77,10 +83,8 @@ public class ForecastProviderDAOImpl implements ForecastProviderDAO {
 //    public void update(ForecastProvider forecastProvider) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
 //    @Override
 //    public void delete(ForecastProvider forecastProvider) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
 }

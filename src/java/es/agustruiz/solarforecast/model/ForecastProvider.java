@@ -22,7 +22,7 @@ public class ForecastProvider implements Serializable {
     protected long id;
 
     @Column
-    protected String name;
+    protected String providerName;
 
     @Column
     protected int queryFrequencyMillis;
@@ -31,7 +31,12 @@ public class ForecastProvider implements Serializable {
     protected boolean active;
 
     // Constructors
-    public ForecastProvider() {
+
+    protected ForecastProvider() {
+    }
+    
+    public ForecastProvider(String providerName) {
+        this.providerName = providerName;
         active = true;
     }
 
@@ -44,12 +49,12 @@ public class ForecastProvider implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProviderName() {
+        return providerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 
     public int getQueryFrequencyMillis() {
