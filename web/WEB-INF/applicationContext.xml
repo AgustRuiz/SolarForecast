@@ -13,16 +13,11 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     
-    <!-- Beans -->
-    <bean id="OpenWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
-    
     <!-- Scan components in project -->
     <context:component-scan base-package="es.agustruiz.solarforecast" />
     
-    <mvc:annotation-driven />
-    <!--<task:annotation-driven />
-    <context:annotation-config/>
-    <context:spring-configured/-->
+    <!-- Beans -->
+    <bean id="OpenWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
     
     <!-- Persistence -->
     

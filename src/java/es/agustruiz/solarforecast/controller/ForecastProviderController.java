@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.controller;
 
+import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.exception.ExceptionNotValidFrequency;
 import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
@@ -28,6 +29,9 @@ public class ForecastProviderController {
 
     @Autowired
     protected HomeController homeController;
+    
+    @Autowired
+    protected OpenWeatherMapBean openWeatherMapBean;
 
     @RequestMapping(value = "/forecastProvider/{providerId}/setQueryFrequency/{queryFrequencyMillis}", method = RequestMethod.GET)
     public String setQueryFrequency(@PathVariable Integer providerId,
@@ -39,6 +43,7 @@ public class ForecastProviderController {
             try {
                 forecastProvider.setQueryFrequencyMillis(queryFrequencyMillis);
                 forecastProviderManager.update(forecastProvider);
+                openWeatherMapBean.setQueryFrequency(queryFrequencyMillis);
                 redirectAttributes.addFlashAttribute("msgSuccess", "Forecast provider updated!");
             } catch (ExceptionNotValidFrequency ex) {
                 redirectAttributes.addFlashAttribute("msgError", String.format("Not valid query frequency: %s", ex.getMessage()));

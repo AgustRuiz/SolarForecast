@@ -26,6 +26,9 @@ public class ForecastService {
 
     static {
         queryFrequencyMap = new TreeMap<>();
+        queryFrequencyMap.put(1000, "1 second (only for testing)");
+        queryFrequencyMap.put(10000, "10 seconds (only for testing)");
+        queryFrequencyMap.put(15000, "15 seconds (only for testing)");
         queryFrequencyMap.put(600000, "10 minutes");
         queryFrequencyMap.put(900000, "15 minutes");
         queryFrequencyMap.put(1800000, "30 minutes");

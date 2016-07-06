@@ -18,7 +18,7 @@
     <mvc:annotation-driven/>
     
     <!-- Register controllers -->
-    <context:component-scan base-package="es.agustruiz.solarforecast"/>
+    <context:component-scan base-package="es.agustruiz.solarforecast.controller"/>
         
     <!-- Dispatching requests to Controllers -->
     <bean id="viewResolver"
@@ -28,13 +28,5 @@
     
     <!-- Resources files -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    
-    
-    <!-- Scheduler -->
-    <task:scheduler id="forecastScheduler" pool-size="10" />
-    <task:scheduled-tasks scheduler="forecastScheduler">
-        <task:scheduled ref="OpenWeatherMapBean" method="scheduledTask" fixed-rate="#{OpenWeatherMapBean.FIXED_RATE}" initial-delay="0" />
-    </task:scheduled-tasks>
-    <!-- End scheduler -->
     
 </beans>
