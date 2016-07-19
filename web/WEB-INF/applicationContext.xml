@@ -13,11 +13,12 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
     
+    
     <!-- Scan components in project -->
     <context:component-scan base-package="es.agustruiz.solarforecast" />
     
     <!-- Beans -->
-    <bean id="OpenWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
+    <bean id="openWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
     
     <!-- Persistence -->
     
@@ -56,6 +57,15 @@
     <tx:annotation-driven transaction-manager="transactionManager"/> 
    
     <!-- End transaction manager -->
+    
+    <!-- Aspects for all except controllers --> 
+    
+    <bean id="userAspect" class="es.agustruiz.solarforecast.aspect.UserAspect" />
+    <aop:aspectj-autoproxy>
+        <aop:include name="userAspect" />
+    </aop:aspectj-autoproxy>
+    
+    <!-- End of Aspects for all except controllers --> 
     
     <!-- See http://howtodoinjava.com/jpa/spring-hibernate-jpa-configuration-example/ -->
 
