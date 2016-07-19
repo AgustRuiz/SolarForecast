@@ -5,8 +5,6 @@ import es.agustruiz.solarforecast.exception.ExceptionDeleteForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.dao.ForecastPlaceDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

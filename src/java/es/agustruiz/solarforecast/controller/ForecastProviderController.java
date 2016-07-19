@@ -5,8 +5,6 @@ import es.agustruiz.solarforecast.exception.ExceptionNotValidFrequency;
 import es.agustruiz.solarforecast.exception.ExceptionUpdateForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.manager.ForecastProviderManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

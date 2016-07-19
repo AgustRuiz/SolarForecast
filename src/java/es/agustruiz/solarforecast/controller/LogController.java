@@ -4,7 +4,6 @@ import es.agustruiz.solarforecast.exception.ExceptionDeleteLogLine;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import es.agustruiz.solarforecast.model.LogLine;
 import es.agustruiz.solarforecast.service.ForecastService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +60,6 @@ public class LogController {
 
     @RequestMapping(value = "/log/clean", method = RequestMethod.GET)
     public String cleanLog(Model model) {
-        model = configureModel(model);
         try {
             logManager.cleanLog();
             logManager.w(LOG_TAG, "Log cleaned");

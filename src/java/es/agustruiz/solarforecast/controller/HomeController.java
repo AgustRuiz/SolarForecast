@@ -45,7 +45,7 @@ public class HomeController {
             model.addAttribute("btnForecastServiceUrl", "/startForecastService");
         }
         
-        model.addAttribute("queryFrequencies", forecastService.getQueryFrequencyMap());
+        model.addAttribute("queryFrequencies", ForecastService.getQUERY_FREQUENCY_MAP());
         model.addAttribute("forecastProviders", forecastProviderManager.readAll());
         
         return ("home");

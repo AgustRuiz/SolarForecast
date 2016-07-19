@@ -1,8 +1,6 @@
 package es.agustruiz.solarforecast.service;
 
-import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +20,23 @@ public class ForecastService {
 
     protected static boolean forecastServiceStatus = false;
 
-    protected static final Map<Integer, String> queryFrequencyMap;
+    protected static final Map<Integer, String> QUERY_FREQUENCY_MAP;
 
     static {
-        queryFrequencyMap = new TreeMap<>();
-        queryFrequencyMap.put(1000, "1 second (only for testing)");
-        queryFrequencyMap.put(10000, "10 seconds (only for testing)");
-        queryFrequencyMap.put(15000, "15 seconds (only for testing)");
-        queryFrequencyMap.put(600000, "10 minutes");
-        queryFrequencyMap.put(900000, "15 minutes");
-        queryFrequencyMap.put(1800000, "30 minutes");
-        queryFrequencyMap.put(2700000, "45 minutes");
-        queryFrequencyMap.put(3600000, "1 hour");
-        queryFrequencyMap.put(7200000, "2 hours");
-        queryFrequencyMap.put(10800000, "3 hours");
-        queryFrequencyMap.put(21600000, "6 hours");
-        queryFrequencyMap.put(43200000, "12 hours");
-        queryFrequencyMap.put(86400000, "24 hours");
+        QUERY_FREQUENCY_MAP = new TreeMap<>();
+        QUERY_FREQUENCY_MAP.put(1000, "1 second (only for testing)");
+        QUERY_FREQUENCY_MAP.put(10000, "10 seconds (only for testing)");
+        QUERY_FREQUENCY_MAP.put(15000, "15 seconds (only for testing)");
+        QUERY_FREQUENCY_MAP.put(600000, "10 minutes");
+        QUERY_FREQUENCY_MAP.put(900000, "15 minutes");
+        QUERY_FREQUENCY_MAP.put(1800000, "30 minutes");
+        QUERY_FREQUENCY_MAP.put(2700000, "45 minutes");
+        QUERY_FREQUENCY_MAP.put(3600000, "1 hour");
+        QUERY_FREQUENCY_MAP.put(7200000, "2 hours");
+        QUERY_FREQUENCY_MAP.put(10800000, "3 hours");
+        QUERY_FREQUENCY_MAP.put(21600000, "6 hours");
+        QUERY_FREQUENCY_MAP.put(43200000, "12 hours");
+        QUERY_FREQUENCY_MAP.put(86400000, "24 hours");
     }
 
     // Public methods
@@ -62,8 +60,8 @@ public class ForecastService {
         return forecastServiceStatus;
     }
     
-    public static Map<Integer, String> getQueryFrequencyMap(){
-        return queryFrequencyMap;
+    public static Map<Integer, String> getQUERY_FREQUENCY_MAP(){
+        return QUERY_FREQUENCY_MAP;
     }
     
     public static Integer getDefaultQueryFrequency(){

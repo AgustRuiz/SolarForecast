@@ -8,7 +8,6 @@ import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.MainAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.RainAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.WindAPI;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

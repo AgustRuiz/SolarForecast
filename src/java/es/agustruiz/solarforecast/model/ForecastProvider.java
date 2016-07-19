@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -36,8 +35,8 @@ public class ForecastProvider implements Serializable {
     }
 
     public ForecastProvider(String providerName, int queryFrequencyMillis) throws ExceptionNotValidFrequency {
-        setProviderName(providerName);
-        setQueryFrequencyMillis(queryFrequencyMillis);
+        this.providerName = providerName;
+        this.queryFrequencyMillis = queryFrequencyMillis;
         active = true;
     }
 
@@ -65,7 +64,7 @@ public class ForecastProvider implements Serializable {
     public void setQueryFrequencyMillis(int queryFrequencyMillis) throws ExceptionNotValidFrequency {
         if (queryFrequencyMillis <= 0) {
             throw new ExceptionNotValidFrequency("Forecast provider query frequency must be a positive value (in millis)");
-        } else if (!ForecastService.getQueryFrequencyMap().containsKey(queryFrequencyMillis)) {
+        } else if (!ForecastService.getQUERY_FREQUENCY_MAP().containsKey(queryFrequencyMillis)) {
             throw new ExceptionNotValidFrequency("Query frequency has not a valid value");
         } else {
             this.queryFrequencyMillis = queryFrequencyMillis;

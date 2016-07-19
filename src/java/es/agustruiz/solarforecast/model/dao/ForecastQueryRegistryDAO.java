@@ -3,7 +3,6 @@ package es.agustruiz.solarforecast.model.dao;
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
-import java.util.List;
 
 /**
  *

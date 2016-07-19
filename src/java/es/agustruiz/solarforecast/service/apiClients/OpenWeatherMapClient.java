@@ -37,13 +37,13 @@ public class OpenWeatherMapClient {
     LogLineManager logLineManager;
 
     public Forecast5ResponseAPI getForecast5(float latitude, float longitude) {
-        UriBuilder uriBuilder = UriBuilder.fromUri(URL_BASE);
-        uriBuilder.scheme(URL_SCHEME);
-        uriBuilder.path(FORECAST5_PATH);
-        uriBuilder.queryParam(FORECAST5_PARAM_LAT, latitude);
-        uriBuilder.queryParam(FORECAST5_PARAM_LON, longitude);
-        uriBuilder.queryParam(FORECAST5_PARAM_KEY, OPENWEATHERMAP_KEY);
-        URI uri = uriBuilder.build();
+        UriBuilder builder = UriBuilder.fromUri(URL_BASE);
+        builder.scheme(URL_SCHEME);
+        builder.path(FORECAST5_PATH);
+        builder.queryParam(FORECAST5_PARAM_LAT, latitude);
+        builder.queryParam(FORECAST5_PARAM_LON, longitude);
+        builder.queryParam(FORECAST5_PARAM_KEY, OPENWEATHERMAP_KEY);
+        URI uri = builder.build();
 
         URLConnection connection;
         StringBuilder stringResponse = null;

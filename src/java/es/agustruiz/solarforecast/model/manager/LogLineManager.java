@@ -1,6 +1,5 @@
 package es.agustruiz.solarforecast.model.manager;
 
-import es.agustruiz.solarforecast.exception.ExceptionCreateLogLine;
 import es.agustruiz.solarforecast.exception.ExceptionDeleteLogLine;
 import es.agustruiz.solarforecast.model.LogLine;
 import java.util.List;
