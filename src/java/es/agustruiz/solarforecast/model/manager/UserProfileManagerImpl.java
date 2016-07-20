@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.manager;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.dao.UserProfileDAO;
@@ -20,7 +21,7 @@ public class UserProfileManagerImpl implements UserProfileManager {
     protected UserProfileDAO dao;
 
     @Override
-    public void create(UserProfile user) throws ExceptionCreateUserProfile {
+    public void create(UserProfile user) throws ExceptionCreateUserProfile, ExceptionCreateRepeatedUserProfile {
         dao.create(user);
     }
 

@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface UserProfileDAO {
     
-    void create(UserProfile user) throws ExceptionCreateUserProfile;
+    void create(UserProfile user) throws ExceptionCreateUserProfile, ExceptionCreateRepeatedUserProfile;
     
     UserProfile read(String name);
     

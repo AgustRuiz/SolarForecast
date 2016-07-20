@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model.dao;
 
+import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
@@ -22,18 +23,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class UserProfileDAOImpl implements UserProfileDAO {
-    
+
     private static final String LOG_TAG = UserProfileDAOImpl.class.getName();
 
     @Autowired
     private EntityManagerFactory emf;
-    
+
     @Autowired
     protected LogLineManager logManager;
 
     @Transactional
     @Override
-    public void create(UserProfile user) throws ExceptionCreateUserProfile {
+    public void create(UserProfile user) throws ExceptionCreateUserProfile, ExceptionCreateRepeatedUserProfile {
+        if (read(user.getName()) != null) {
+            throw new ExceptionCreateRepeatedUserProfile();
+        }
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         try {
@@ -42,8 +46,9 @@ public class UserProfileDAOImpl implements UserProfileDAO {
             et.commit();
             logManager.i(LOG_TAG, String.format("New user \"%s\" created!", user.getName()));
         } catch (Exception ex) {
-            if(et.isActive())
+            if (et.isActive()) {
                 et.rollback();
+            }
             logManager.e(LOG_TAG, String.format("Error creating user \"%s\"", user.getName()));
             throw new ExceptionCreateUserProfile(ex.getMessage());
         } finally {
@@ -63,7 +68,7 @@ public class UserProfileDAOImpl implements UserProfileDAO {
         Predicate predicate = cBuilder.equal(root.get("name"), name);
         cQuery.select(root);
         cQuery.where(predicate);
-        
+
         try {
             return em.createQuery(cQuery).getSingleResult();
         } catch (NoResultException ex) {

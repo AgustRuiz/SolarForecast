@@ -3,9 +3,14 @@
 
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
+        
         <spring:url value="/home" var="homeUrl" />
-        <li <c:if test="${navActiveItem=='home'}">class="active"</c:if>><a href="${homeUrl}">Home</a></li>
-            <li class="nav-divider" />
+        <li <c:if test="${navActiveItem=='home'}">class="active"</c:if>>
+            <a href="${homeUrl}">Home</a>
+        </li>
+
+        <li class="nav-divider" />
+
         <spring:url value="/places" var="placesUrl" />
         <li <c:if test="${navActiveItem=='places' && empty action}">class="active"</c:if>><a href="${placesUrl}">Places</a>
             <c:if test="${navActiveItem=='places'}">
@@ -17,8 +22,25 @@
                     </ul>
             </c:if>
         </li>
+
         <li class="nav-divider" />
+
+        <spring:url value="/users" var="usersUrl" />
+        <li <c:if test="${navActiveItem=='users' && empty action}">class="active"</c:if>><a href="${usersUrl}">Users management</a>
+            <c:if test="${navActiveItem=='users'}">
+                <ul class="nav">
+                    <li>
+                        <spring:url value="/users/create" var="createUser" />
+                        <a href="${createUser}"><c:if test="${action =='create'}"><strong></c:if>Add new user<c:if test="${action =='create'}"></strong></c:if></strong></a>
+                        </li>
+                    </ul>
+            </c:if>
+        </li>
+
+        <li class="nav-divider" />
+
         <spring:url value="/log" var="logUrl" />
         <li <c:if test="${navActiveItem=='log'}">class="active"</c:if>><a href="${logUrl}">Log</a></li>
+        
     </ul>
 </div>

@@ -25,18 +25,19 @@ public class UserProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length=16)
     protected String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length=16)
     protected String password;
 
     @Column(nullable = false)
-    protected char state;
+    protected char profileState;
 
     // Constructor
     //
     public UserProfile() {
+        profileState = STATE_ACTIVE;
     }
 
     // Getters & Setters
@@ -65,28 +66,28 @@ public class UserProfile implements Serializable {
         this.password = password;
     }
 
-    public char getState() {
-        return state;
+    public char getProfileState() {
+        return profileState;
     }
 
-    public void setState(char state) throws ExceptionUserProfileState {
-        if (state == STATE_ACTIVE || state == STATE_SUSPENDED || state == STATE_DELETED) {
-            this.state = state;
+    public void setProfileState(char profileState) throws ExceptionUserProfileState {
+        if (profileState == STATE_ACTIVE || profileState == STATE_SUSPENDED || profileState == STATE_DELETED) {
+            this.profileState = profileState;
         } else {
             throw new ExceptionUserProfileState("Not valid user state");
         }
     }
     
     public boolean isActive(){
-        return state == STATE_ACTIVE;
+        return profileState == STATE_ACTIVE;
     }
     
     public boolean isSuspended(){
-        return state == STATE_SUSPENDED;
+        return profileState == STATE_SUSPENDED;
     }
     
     public boolean isDeleted(){
-        return state == STATE_DELETED;
+        return profileState == STATE_DELETED;
     }
 
 }
