@@ -89,6 +89,8 @@ public class UserProfile implements Serializable {
         }
     }
 
+    // Public methods
+    //
     public boolean isActivatedState() {
         return (String.valueOf(STATE_ACTIVE) == null ? profileState == null : String.valueOf(STATE_ACTIVE).equals(profileState));
     }
@@ -113,7 +115,11 @@ public class UserProfile implements Serializable {
         profileState = String.valueOf(STATE_DELETED);
     }
 
-    // Static methods
+    public boolean checkPassword(String plainPassword) {
+        return (this.password == null ? generatePasswordHash(plainPassword) == null : this.password.equals(generatePasswordHash(plainPassword)));
+    }
+
+    // Private methods
     //
     private String generatePasswordHash(String plainPassword) {
         String generatedPassword = plainPassword;
