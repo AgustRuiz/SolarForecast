@@ -2,6 +2,8 @@ package es.agustruiz.solarforecast.model.manager;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.dao.UserProfileDAO;
 import java.util.List;
@@ -38,6 +40,41 @@ public class UserProfileManagerImpl implements UserProfileManager {
     @Override
     public List<UserProfile> readAll() {
         return dao.readAll();
+    }
+
+    @Override
+    public void update(UserProfile user) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
+        dao.update(user);
+    }
+
+    @Override
+    public void active(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
+        UserProfile user = dao.read(id);
+        if (user == null) {
+            throw new ExceptionNotExistsUserProfile();
+        }
+        user.setActivatedState();
+        dao.update(user);
+    }
+
+    @Override
+    public void suspend(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
+        UserProfile user = dao.read(id);
+        if (user == null) {
+            throw new ExceptionNotExistsUserProfile();
+        }
+        user.setSuspendedState();
+        dao.update(user);
+    }
+
+    @Override
+    public void delete(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
+        UserProfile user = dao.read(id);
+        if (user == null) {
+            throw new ExceptionNotExistsUserProfile();
+        }
+        user.setDeletedState();
+        dao.update(user);
     }
 
 }

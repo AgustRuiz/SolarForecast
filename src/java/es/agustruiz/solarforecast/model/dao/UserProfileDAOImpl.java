@@ -2,6 +2,8 @@ package es.agustruiz.solarforecast.model.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
 import java.util.List;
@@ -49,8 +51,8 @@ public class UserProfileDAOImpl implements UserProfileDAO {
             if (et.isActive()) {
                 et.rollback();
             }
-            logManager.e(LOG_TAG, String.format("Error creating user \"%s\"", user.getName()));
-            throw new ExceptionCreateUserProfile(ex.getMessage());
+            logManager.e(LOG_TAG, String.format("Error creating user \"%s\": %s", user.getName(), ex.getMessage()));
+            throw new ExceptionCreateUserProfile();
         } finally {
             if (em != null) {
                 em.close();
@@ -90,6 +92,22 @@ public class UserProfileDAOImpl implements UserProfileDAO {
         Root<UserProfile> root = cq.from(UserProfile.class);
         cq.select(root);
         return em.createQuery(cq).getResultList();
+    }
+
+    @Override
+    public void update(UserProfile user) throws ExceptionUpdateUserProfile {
+        EntityManager em = emf.createEntityManager();
+            EntityTransaction et = em.getTransaction();
+            try{
+                et.begin();
+                em.merge(user);
+                et.commit();
+            }catch(Exception ex){
+                if(et.isActive()){
+                    et.rollback();
+                }
+                throw new ExceptionUpdateUserProfile(ex.getMessage());
+            }
     }
 
 }

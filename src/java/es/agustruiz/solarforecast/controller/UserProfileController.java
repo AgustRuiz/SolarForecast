@@ -2,7 +2,9 @@ package es.agustruiz.solarforecast.controller;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionPasswordNotMatching;
+import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.manager.UserProfileManager;
 import es.agustruiz.solarforecast.service.ForecastService;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +64,7 @@ public class UserProfileController {
             model.addAttribute("msgSuccess", "New user created!");
             model.addAttribute("usersList", manager.readAll());
 
-        } catch (ExceptionPasswordNotMatching ex){
+        } catch (ExceptionPasswordNotMatching ex) {
             model.addAttribute("action", "create");
             model.addAttribute("title", "Create new user");
             model.addAttribute("txtName", txtName);
@@ -80,7 +83,48 @@ public class UserProfileController {
             model.addAttribute("msgError", "Can't create new user. Database error");
         }
         return "users";
+    }
 
+    @RequestMapping(value = "/users/activate/{userId}", method = RequestMethod.GET)
+    public String activeUserProfile(@PathVariable Integer userId, Model model) {
+        model = configureModel(model);
+        try {
+            manager.active(userId);
+            model.addAttribute("msgSuccess", "User account successfuly activated");
+        } catch (ExceptionNotExistsUserProfile ex) {
+            model.addAttribute("msgError", "User not found!");
+        } catch (ExceptionUpdateUserProfile ex) {
+            model.addAttribute("msgError", "Can't activate user account!");
+        }
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/users/suspend/{userId}", method = RequestMethod.GET)
+    public String suspendUserProfile(@PathVariable Integer userId, Model model) {
+        model = configureModel(model);
+        try {
+            manager.suspend(userId);
+            model.addAttribute("msgSuccess", "User account successfuly suspended");
+        } catch (ExceptionNotExistsUserProfile ex) {
+            model.addAttribute("msgError", "User not found!");
+        } catch (ExceptionUpdateUserProfile ex) {
+            model.addAttribute("msgError", "Can't suspend user account!");
+        }
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/users/delete/{userId}", method = RequestMethod.GET)
+    public String deleteUserProfile(@PathVariable Integer userId, Model model) {
+        model = configureModel(model);
+        try {
+            manager.delete(userId);
+            model.addAttribute("msgSuccess", "User account successfuly deleted");
+        } catch (ExceptionNotExistsUserProfile ex) {
+            model.addAttribute("msgError", "User not found!");
+        } catch (ExceptionUpdateUserProfile ex) {
+            model.addAttribute("msgError", "Can't delete user account!");
+        }
+        return "redirect:/users";
     }
 
     private Model configureModel(Model model) {
