@@ -2,6 +2,7 @@ package es.agustruiz.solarforecast.model;
 
 import es.agustruiz.solarforecast.exception.ExceptionUserProfileState;
 import java.io.Serializable;
+import java.security.MessageDigest;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,14 +30,13 @@ public class UserProfile implements Serializable {
     @Column(unique = true, nullable = false, length = 16)
     protected String name;
 
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false, length = 32)
     protected String password;
 
     @Column(nullable = false, length = 1)
     @Type(type = "org.hibernate.type.StringType")
     protected String profileState = String.valueOf(STATE_ACTIVE);
 
-//org.hibernate.type.StringType
     // Constructor
     //
     public UserProfile() {
@@ -65,7 +65,8 @@ public class UserProfile implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+//        this.password = password;
+        this.password = this.generatePasswordHash(password);
     }
 
     public char getProfileState() {
@@ -112,4 +113,27 @@ public class UserProfile implements Serializable {
         profileState = String.valueOf(STATE_DELETED);
     }
 
+    // Static methods
+    //
+    private String generatePasswordHash(String plainPassword) {
+        String generatedPassword = plainPassword;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(plainPassword.getBytes());
+            //Get the hash's bytes 
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        } catch (Exception ex) {
+        }
+        return generatedPassword;
+    }
 }

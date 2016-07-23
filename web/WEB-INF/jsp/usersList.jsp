@@ -46,7 +46,7 @@
                 </c:if>
                 <c:if test="${empty usersList}">
                     <tr>
-                        <td class="text-center" colspan="4"><em>No users</em></td>
+                        <td class="text-center" colspan="99"><em>No users</em></td>
                     </tr>
                 </c:if>
             </tbody>

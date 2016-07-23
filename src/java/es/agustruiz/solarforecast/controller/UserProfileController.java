@@ -62,7 +62,6 @@ public class UserProfileController {
             userProfile.setPassword(txtPassword);
             manager.create(userProfile);
             model.addAttribute("msgSuccess", "New user created!");
-            model.addAttribute("usersList", manager.readAll());
 
         } catch (ExceptionPasswordNotMatching ex) {
             model.addAttribute("action", "create");
@@ -82,6 +81,7 @@ public class UserProfileController {
             model.addAttribute("txtName", txtName);
             model.addAttribute("msgError", "Can't create new user. Database error");
         }
+        model.addAttribute("usersList", manager.readAll());
         return "users";
     }
 
