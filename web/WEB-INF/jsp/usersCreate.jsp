@@ -11,19 +11,19 @@
     <div class="form-group">
         <label for="txtName" class="col-sm-2">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="txtName" id="txtName" placeholder="User name" value="${txtName}" />
+            <input type="text" class="form-control" name="txtName" id="txtName" placeholder="User name" value="${txtName}" maxlength="16" required />
         </div>
     </div>
     <div class="form-group">
         <label for="txtPassword" class="col-sm-2">Password</label>
         <div class="col-sm-10">
-            <input type="password" step="any" class="form-control" name="txtPassword" id="txtPassword" placeholder="Password" />
+            <input type="password" step="any" class="form-control" name="txtPassword" id="txtPassword" placeholder="Password" required />
         </div>
     </div>
     <div class="form-group">
         <label for="txtPassword2" class="col-sm-2">Confirm password</label>
         <div class="col-sm-10">
-            <input type="password" step="any" class="form-control" name="txtPassword2" id="txtPassword2" placeholder="Password" />
+            <input type="password" step="any" class="form-control" name="txtPassword2" id="txtPassword2" placeholder="Password again" required />
         </div>
     </div>
     <div class="form-group">
