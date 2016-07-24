@@ -28,7 +28,7 @@
                         <tr <c:if test="${item.isSuspendedState()}">class="warning"</c:if> <c:if test="${item.isDeletedState()}">class="danger"</c:if> >
                             <td>${item.id}</td>
                             <td>${item.name}</td>
-                            <td></td>
+                            <td>${rolesMap[item.profileRole]}</td>
                             <td>
                                 <c:choose>
                                     <c:when test="${item.profileState == 'A'}">Active</c:when>

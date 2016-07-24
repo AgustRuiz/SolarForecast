@@ -52,7 +52,7 @@ public class UserProfileDAOImpl implements UserProfileDAO {
                 et.rollback();
             }
             logManager.e(LOG_TAG, String.format("Error creating user \"%s\": %s", user.getName(), ex.getMessage()));
-            throw new ExceptionCreateUserProfile();
+            throw new ExceptionCreateUserProfile("Database error");
         } finally {
             if (em != null) {
                 em.close();

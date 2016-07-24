@@ -8,6 +8,8 @@ import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.manager.UserProfileManager;
 import es.agustruiz.solarforecast.service.ForecastService;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,7 @@ public class UserProfileController {
     public String userProfileList(Model model) {
         model = configureModel(model);
         model.addAttribute("usersList", manager.readAll());
+        model.addAttribute("rolesMap", getRolesMap());
         return "users";
     }
 
@@ -48,6 +51,8 @@ public class UserProfileController {
         model = configureModel(model);
         model.addAttribute("action", "create");
         model.addAttribute("title", "Create new user");
+        model.addAttribute("rolesMap", getRolesMap());
+        model.addAttribute("defaultRole", UserProfile.ROLE_USER);
         return "users";
     }
 
@@ -55,11 +60,15 @@ public class UserProfileController {
     public String userProfileCreateSubmit(Model model, HttpServletRequest request,
             @RequestParam(value = "txtName", required = true) String txtName,
             @RequestParam(value = "txtPassword", required = true) String txtPassword,
-            @RequestParam(value = "txtPassword2", required = true) String txtPassword2) {
+            @RequestParam(value = "txtPassword2", required = true) String txtPassword2,
+            @RequestParam(value = "selRole", required = true) String selRole) {
         model = configureModel(model);
+        model.addAttribute("rolesMap", getRolesMap());
         try {
             if (!txtPassword.equals(txtPassword2)) {
                 throw new ExceptionPasswordNotMatching();
+            } else if (!getRolesMap().containsKey(selRole)) {
+                throw new ExceptionCreateUserProfile("Not valid user role");
             }
             UserProfile userProfile = new UserProfile();
             userProfile.setName(txtName);
@@ -71,6 +80,7 @@ public class UserProfileController {
             model.addAttribute("action", "create");
             model.addAttribute("title", "Create new user");
             model.addAttribute("txtName", txtName);
+            model.addAttribute("defaultRole", selRole);
             model.addAttribute("msgError", "Can't create new user. Password don't match");
         } catch (ExceptionCreateRepeatedUserProfile ex) {
             model.addAttribute("msgError", "Can't create new user. User already exists");
@@ -78,13 +88,16 @@ public class UserProfileController {
             model.addAttribute("action", "create");
             model.addAttribute("title", "Create new user");
             model.addAttribute("txtName", txtName);
+            model.addAttribute("defaultRole", selRole);
             model.addAttribute("msgError", "Can't create new user. Please, check the parameters");
         } catch (ExceptionCreateUserProfile ex) {
             model.addAttribute("action", "create");
             model.addAttribute("title", "Create new user");
             model.addAttribute("txtName", txtName);
-            model.addAttribute("msgError", "Can't create new user. Database error");
+            model.addAttribute("defaultRole", selRole);
+            model.addAttribute("msgError", "Can't create new user: " + ex.getMessage());
         }
+        model.addAttribute("rolesMap", getRolesMap());
         model.addAttribute("usersList", manager.readAll());
         return "users";
     }
@@ -131,12 +144,21 @@ public class UserProfileController {
         return modelAndView;
     }
 
+    // Private methods
+    //
     private Model configureModel(Model model) {
         model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
         model.addAttribute("title", "Users");
         model.addAttribute("navActiveItem", "users");
         return model;
+    }
+
+    private Map<String, String> getRolesMap() {
+        Map<String, String> rolesMap = new HashMap<>();
+        rolesMap.put(UserProfile.ROLE_USER, "User role");
+        rolesMap.put(UserProfile.ROLE_ADMIN, "Admin role");
+        return rolesMap;
     }
 
 }

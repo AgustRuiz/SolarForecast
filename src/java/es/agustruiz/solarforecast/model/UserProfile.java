@@ -1,5 +1,6 @@
 package es.agustruiz.solarforecast.model;
 
+import es.agustruiz.solarforecast.exception.ExceptionUserProfileRole;
 import es.agustruiz.solarforecast.exception.ExceptionUserProfileState;
 import java.io.Serializable;
 import java.security.MessageDigest;
@@ -23,6 +24,9 @@ public class UserProfile implements Serializable {
     public static final char STATE_SUSPENDED = 'S';
     public static final char STATE_DELETED = 'D';
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
@@ -36,6 +40,9 @@ public class UserProfile implements Serializable {
     @Column(nullable = false, length = 1)
     @Type(type = "org.hibernate.type.StringType")
     protected String profileState = String.valueOf(STATE_ACTIVE);
+
+    @Column(nullable = false, length = 16)
+    protected String profileRole = ROLE_USER;
 
     // Constructor
     //
@@ -86,6 +93,21 @@ public class UserProfile implements Serializable {
                 break;
             default:
                 throw new ExceptionUserProfileState("Not valid user state");
+        }
+    }
+
+    public String getProfileRole() {
+        return profileRole;
+    }
+
+    public void setProfileRole(String profileRole) throws ExceptionUserProfileRole {
+        switch (profileRole) {
+            case ROLE_ADMIN:
+            case ROLE_USER:
+                this.profileRole = profileRole;
+                break;
+            default:
+                throw new ExceptionUserProfileRole("Not valid role!");
         }
     }
 
