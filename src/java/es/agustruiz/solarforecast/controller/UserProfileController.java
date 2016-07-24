@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -31,6 +33,8 @@ public class UserProfileController {
 
     @Autowired
     protected UserProfileManager manager;
+
+    ModelAndView modelAndView = new ModelAndView();
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userProfileList(Model model) {
@@ -86,45 +90,45 @@ public class UserProfileController {
     }
 
     @RequestMapping(value = "/users/activate/{userId}", method = RequestMethod.GET)
-    public String activeUserProfile(@PathVariable Integer userId, Model model) {
-        model = configureModel(model);
+    public ModelAndView activeUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
+        modelAndView.setViewName("redirect:/users");
         try {
             manager.active(userId);
-            model.addAttribute("msgSuccess", "User account successfuly activated");
+            redir.addFlashAttribute("msgSuccess", "User account successfuly activated");
         } catch (ExceptionNotExistsUserProfile ex) {
-            model.addAttribute("msgError", "User not found!");
+            redir.addFlashAttribute("msgError", "User not found!");
         } catch (ExceptionUpdateUserProfile ex) {
-            model.addAttribute("msgError", "Can't activate user account!");
+            redir.addFlashAttribute("msgError", "Can't activate user account!");
         }
-        return "redirect:/users";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/users/suspend/{userId}", method = RequestMethod.GET)
-    public String suspendUserProfile(@PathVariable Integer userId, Model model) {
-        model = configureModel(model);
+    public ModelAndView suspendUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
+        modelAndView.setViewName("redirect:/users");
         try {
             manager.suspend(userId);
-            model.addAttribute("msgSuccess", "User account successfuly suspended");
+            redir.addFlashAttribute("msgSuccess", "User account successfuly suspended");
         } catch (ExceptionNotExistsUserProfile ex) {
-            model.addAttribute("msgError", "User not found!");
+            redir.addFlashAttribute("msgError", "User not found!");
         } catch (ExceptionUpdateUserProfile ex) {
-            model.addAttribute("msgError", "Can't suspend user account!");
+            redir.addFlashAttribute("msgError", "Can't suspend user account!");
         }
-        return "redirect:/users";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/users/delete/{userId}", method = RequestMethod.GET)
-    public String deleteUserProfile(@PathVariable Integer userId, Model model) {
-        model = configureModel(model);
+    public ModelAndView deleteUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
+        modelAndView.setViewName("redirect:/users");
         try {
             manager.delete(userId);
-            model.addAttribute("msgSuccess", "User account successfuly deleted");
+            redir.addFlashAttribute("msgSuccess", "User account successfuly deleted");
         } catch (ExceptionNotExistsUserProfile ex) {
-            model.addAttribute("msgError", "User not found!");
+            redir.addFlashAttribute("msgError", "User not found!");
         } catch (ExceptionUpdateUserProfile ex) {
-            model.addAttribute("msgError", "Can't delete user account!");
+            redir.addFlashAttribute("msgError", "Can't delete user account!");
         }
-        return "redirect:/users";
+        return modelAndView;
     }
 
     private Model configureModel(Model model) {

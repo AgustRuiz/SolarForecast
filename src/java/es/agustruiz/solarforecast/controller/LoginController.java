@@ -46,6 +46,8 @@ public class LoginController {
             UserProfile user = userManager.read(txtUserName);
             if (user == null || !user.checkPassword(txtPassword)){
                 throw new Exception("Incorrect user name or password!");
+            }else if(!user.isActivatedState()){
+                throw new Exception("This user account has been suspended or deleted!");
             }
             model.addAttribute("msgSuccess", "DO HERE LOGIN WITH USER");
         } catch (Exception ex) {
@@ -57,8 +59,8 @@ public class LoginController {
     private Model configureModel(Model model) {
         model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
-        model.addAttribute("title", "Users");
-        model.addAttribute("navActiveItem", "users");
+        model.addAttribute("title", "Login");
+        model.addAttribute("navActiveItem", "login");
         return model;
     }
 
