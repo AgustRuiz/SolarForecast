@@ -6,6 +6,7 @@ import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import java.util.List;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -15,12 +16,18 @@ public interface UserProfileDAO {
 
     void create(UserProfile user) throws ExceptionCreateUserProfile, ExceptionCreateRepeatedUserProfile;
 
-    UserProfile read(String name);
+    UserProfile readByName(String name);
 
-    UserProfile read(long id);
+    UserProfile readById(long id);
 
     List<UserProfile> readAll();
 
     void update(UserProfile user) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile;
+
+    // SessionFactory methods
+    
+    SessionFactory getSessionFactory();
+
+    void setSessionFactory(SessionFactory sessionFactory);
 
 }

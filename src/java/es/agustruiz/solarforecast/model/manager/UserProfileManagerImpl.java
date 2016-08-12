@@ -7,6 +7,7 @@ import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.dao.UserProfileDAO;
 import java.util.List;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,12 @@ public class UserProfileManagerImpl implements UserProfileManager {
 
     @Override
     public UserProfile read(String name) {
-        return dao.read(name);
+        return dao.readByName(name);
     }
 
     @Override
     public UserProfile read(long id) {
-        return dao.read(id);
+        return dao.readById(id);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class UserProfileManagerImpl implements UserProfileManager {
 
     @Override
     public void active(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
-        UserProfile user = dao.read(id);
+        UserProfile user = dao.readById(id);
         if (user == null) {
             throw new ExceptionNotExistsUserProfile();
         }
@@ -59,7 +60,7 @@ public class UserProfileManagerImpl implements UserProfileManager {
 
     @Override
     public void suspend(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
-        UserProfile user = dao.read(id);
+        UserProfile user = dao.readById(id);
         if (user == null) {
             throw new ExceptionNotExistsUserProfile();
         }
@@ -69,7 +70,7 @@ public class UserProfileManagerImpl implements UserProfileManager {
 
     @Override
     public void delete(long id) throws ExceptionUpdateUserProfile, ExceptionNotExistsUserProfile {
-        UserProfile user = dao.read(id);
+        UserProfile user = dao.readById(id);
         if (user == null) {
             throw new ExceptionNotExistsUserProfile();
         }

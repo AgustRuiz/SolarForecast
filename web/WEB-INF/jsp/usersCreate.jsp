@@ -1,13 +1,8 @@
-<%-- 
-    Document   : indexContent
-    Created on : 14-jun-2016, 13:53:34
-    Author     : Agustin Ruiz Linares <arl00029@red.ujaen.es>
---%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <h1 class="page-header">${title}</h1>
 <jsp:include page="commons/messagesBox.jsp" />
-<form class="form-horizontal" method="post" commandName="placeData">
+<form class="form-horizontal" method="post">
     <div class="form-group">
         <label for="txtName" class="col-sm-2">Name</label>
         <div class="col-sm-10">
@@ -29,11 +24,16 @@
     <div class="form-group">
         <label for="selRole" class="col-sm-2">Role</label>
         <div class="col-sm-10">
-            <select class="form-control" name="selRole" id="selRole" >
-                <c:forEach  var="item" varStatus="status" items="${rolesMap}">
-                    <option value="${item.key}" <c:if test="${item.key == defaultRole}">selected</c:if> >${item.value}</option>
-                </c:forEach>
-            </select>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="chkRoleUser" name="chkRoleUser" checked="checked" readonly="readonly" onClick="return false;"/>Role user
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="chkRoleAdmin" name="chkRoleAdmin" />Role admin
+                </label>
+            </div>
         </div>
     </div>
     <div class="form-group">

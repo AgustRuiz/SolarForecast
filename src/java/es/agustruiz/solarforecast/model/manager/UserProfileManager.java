@@ -6,6 +6,7 @@ import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import java.util.List;
+import org.hibernate.SessionFactory;
 
 /**
  *

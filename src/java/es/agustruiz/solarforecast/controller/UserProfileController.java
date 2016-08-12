@@ -2,14 +2,20 @@ package es.agustruiz.solarforecast.controller;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateRepeatedUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionCreateUserProfile;
+import es.agustruiz.solarforecast.exception.ExceptionCreateUserRole;
 import es.agustruiz.solarforecast.exception.ExceptionNotExistsUserProfile;
 import es.agustruiz.solarforecast.exception.ExceptionPasswordNotMatching;
 import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
+import es.agustruiz.solarforecast.model.UserRole;
 import es.agustruiz.solarforecast.model.manager.UserProfileManager;
+import es.agustruiz.solarforecast.model.manager.UserRoleManager;
 import es.agustruiz.solarforecast.service.ForecastService;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,25 +40,25 @@ public class UserProfileController {
     protected ForecastService forecastService;
 
     @Autowired
-    protected UserProfileManager manager;
+    protected UserProfileManager userProfileManager;
+
+    @Autowired
+    protected UserRoleManager userRoleManager;
 
     ModelAndView modelAndView = new ModelAndView();
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userProfileList(Model model) {
         model = configureModel(model);
-        model.addAttribute("usersList", manager.readAll());
-        model.addAttribute("rolesMap", getRolesMap());
+        model.addAttribute("usersList", userProfileManager.readAll());
+//        model.addAttribute("roleNamesMap", getRoleNamesMap());
         return "users";
     }
 
     @RequestMapping(value = "/users/create", method = RequestMethod.GET)
     public String userProfileCreate(Model model) {
         model = configureModel(model);
-        model.addAttribute("action", "create");
-        model.addAttribute("title", "Create new user");
-        model.addAttribute("rolesMap", getRolesMap());
-        model.addAttribute("defaultRole", UserProfile.ROLE_USER);
+        model = configureModelForCreate(model, null, true, false);
         return "users";
     }
 
@@ -61,44 +67,47 @@ public class UserProfileController {
             @RequestParam(value = "txtName", required = true) String txtName,
             @RequestParam(value = "txtPassword", required = true) String txtPassword,
             @RequestParam(value = "txtPassword2", required = true) String txtPassword2,
-            @RequestParam(value = "selRole", required = true) String selRole) {
+            @RequestParam(value = "chkRoleUser", defaultValue = "false") Boolean chkRoleUser,
+            @RequestParam(value = "chkRoleAdmin", defaultValue = "false") Boolean chkRoleAdmin) {
         model = configureModel(model);
-        model.addAttribute("rolesMap", getRolesMap());
+        chkRoleUser = true; // Assert role user is always checked
         try {
             if (!txtPassword.equals(txtPassword2)) {
                 throw new ExceptionPasswordNotMatching();
-            } else if (!getRolesMap().containsKey(selRole)) {
-                throw new ExceptionCreateUserProfile("Not valid user role");
             }
             UserProfile userProfile = new UserProfile();
-            userProfile.setName(txtName);
+            userProfile.setUsername(txtName);
             userProfile.setPassword(txtPassword);
-            manager.create(userProfile);
+            Set<UserRole> userRoles = new HashSet<>();
+            if (chkRoleUser) {
+                userRoles.add(new UserRole(userProfile, "ROLE_USER"));
+            }
+            if (chkRoleAdmin) {
+                userRoles.add(new UserRole(userProfile, "ROLE_ADMIN"));
+            }
+            userProfileManager.create(userProfile);
+            for (UserRole role : userRoles) {
+                userRoleManager.create(role);
+            }
+            userProfile.setUserRole(userRoles);
+            userProfileManager.update(userProfile);
             model.addAttribute("msgSuccess", "New user created!");
-
+        } catch (NullPointerException ex) {
+            model = configureModelForCreate(model, txtName, chkRoleUser, chkRoleAdmin);
+            model.addAttribute("msgError", "Can't create new user. Please, check the parameters");
         } catch (ExceptionPasswordNotMatching ex) {
-            model.addAttribute("action", "create");
-            model.addAttribute("title", "Create new user");
-            model.addAttribute("txtName", txtName);
-            model.addAttribute("defaultRole", selRole);
+            model = configureModelForCreate(model, txtName, chkRoleUser, chkRoleAdmin);
             model.addAttribute("msgError", "Can't create new user. Password don't match");
         } catch (ExceptionCreateRepeatedUserProfile ex) {
             model.addAttribute("msgError", "Can't create new user. User already exists");
-        } catch (NullPointerException ex) {
-            model.addAttribute("action", "create");
-            model.addAttribute("title", "Create new user");
-            model.addAttribute("txtName", txtName);
-            model.addAttribute("defaultRole", selRole);
-            model.addAttribute("msgError", "Can't create new user. Please, check the parameters");
-        } catch (ExceptionCreateUserProfile ex) {
-            model.addAttribute("action", "create");
-            model.addAttribute("title", "Create new user");
-            model.addAttribute("txtName", txtName);
-            model.addAttribute("defaultRole", selRole);
+        } catch (ExceptionCreateUserProfile | ExceptionUpdateUserProfile | ExceptionNotExistsUserProfile ex) {
+            model = configureModelForCreate(model, txtName, chkRoleUser, chkRoleAdmin);
             model.addAttribute("msgError", "Can't create new user: " + ex.getMessage());
+        } catch (ExceptionCreateUserRole ex) {
+            model = configureModelForCreate(model, txtName, chkRoleUser, chkRoleAdmin);
+            model.addAttribute("msgError", "Can't create new user role: " + ex.getMessage());
         }
-        model.addAttribute("rolesMap", getRolesMap());
-        model.addAttribute("usersList", manager.readAll());
+        model.addAttribute("usersList", userProfileManager.readAll());
         return "users";
     }
 
@@ -106,7 +115,7 @@ public class UserProfileController {
     public ModelAndView activeUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
         modelAndView.setViewName("redirect:/users");
         try {
-            manager.active(userId);
+            userProfileManager.active(userId);
             redir.addFlashAttribute("msgSuccess", "User account successfuly activated");
         } catch (ExceptionNotExistsUserProfile ex) {
             redir.addFlashAttribute("msgError", "User not found!");
@@ -120,7 +129,7 @@ public class UserProfileController {
     public ModelAndView suspendUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
         modelAndView.setViewName("redirect:/users");
         try {
-            manager.suspend(userId);
+            userProfileManager.suspend(userId);
             redir.addFlashAttribute("msgSuccess", "User account successfuly suspended");
         } catch (ExceptionNotExistsUserProfile ex) {
             redir.addFlashAttribute("msgError", "User not found!");
@@ -134,7 +143,7 @@ public class UserProfileController {
     public ModelAndView deleteUserProfile(@PathVariable Integer userId, RedirectAttributes redir) {
         modelAndView.setViewName("redirect:/users");
         try {
-            manager.delete(userId);
+            userProfileManager.delete(userId);
             redir.addFlashAttribute("msgSuccess", "User account successfuly deleted");
         } catch (ExceptionNotExistsUserProfile ex) {
             redir.addFlashAttribute("msgError", "User not found!");
@@ -154,11 +163,34 @@ public class UserProfileController {
         return model;
     }
 
-    private Map<String, String> getRolesMap() {
-        Map<String, String> rolesMap = new HashMap<>();
-        rolesMap.put(UserProfile.ROLE_USER, "User role");
-        rolesMap.put(UserProfile.ROLE_ADMIN, "Admin role");
-        return rolesMap;
+    private Model configureModelForCreate(Model model, String txtName,
+            Boolean chkRoleUser, Boolean chkRoleAdmin) {
+        model.addAttribute("action", "create");
+        model.addAttribute("title", "Create new user");
+        if (txtName != null && txtName.isEmpty()) {
+            model.addAttribute("txtName", txtName);
+        }
+        if (chkRoleUser != null) {
+            model.addAttribute("chkRoleUser", chkRoleUser);
+        }
+        if (chkRoleAdmin != null) {
+            model.addAttribute("chkRoleAdmin", chkRoleAdmin);
+        }
+        return model;
+    }
+
+    private Map<String, String> getRoleNamesMap() {
+        Map<String, String> roleNamesMap = new LinkedHashMap<>();
+        roleNamesMap.put("chkRoleUser", "User role");
+        roleNamesMap.put("chkRoleAdmin", "Admin role");
+        return roleNamesMap;
+    }
+
+    private Map<String, Boolean> getDefaultRoleValuesMap() {
+        Map<String, Boolean> defaultRoleValuesMap = new LinkedHashMap<>();
+        defaultRoleValuesMap.put("chkRoleUser", true);
+        defaultRoleValuesMap.put("chkRoleAdmin", false);
+        return defaultRoleValuesMap;
     }
 
 }

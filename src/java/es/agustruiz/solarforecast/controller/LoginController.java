@@ -49,10 +49,17 @@ public class LoginController {
             }else if(!user.isActivatedState()){
                 throw new Exception("This user account has been suspended or deleted!");
             }
-            model.addAttribute("msgSuccess", "DO HERE LOGIN WITH USER");
+            model.addAttribute("msgSuccess", "DO HERE LOGIN WITH USER"); ////////////////////////////////
         } catch (Exception ex) {
             model.addAttribute("msgError", ex.getMessage());
         }
+        return "login";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String loginFailed(Model model) {
+        model = configureModel(model);
+        model.addAttribute("msgError", "LOGOUT NOT IMPLEMENTED!");
         return "login";
     }
 

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : indexContent
-    Created on : 14-jun-2016, 13:53:34
-    Author     : Agustin Ruiz Linares <arl00029@red.ujaen.es>
---%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <spring:url value="/users/suspend/" var="suspendUrl" />
@@ -17,7 +12,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Role</th>
+                    <th>Roles</th>
                     <th>State</th>
                     <th>Actions</th>
                 </tr>
@@ -27,8 +22,12 @@
                     <c:forEach var="item" varStatus="status" items="${usersList}">
                         <tr <c:if test="${item.isSuspendedState()}">class="warning"</c:if> <c:if test="${item.isDeletedState()}">class="danger"</c:if> >
                             <td>${item.id}</td>
-                            <td>${item.name}</td>
-                            <td>${rolesMap[item.profileRole]}</td>
+                            <td>${item.username}</td>
+                            <td>
+                                <c:forEach var="role" items="${item.userRole}">
+                                    <span class="label label-primary">${role.userRole}</span>
+                                </c:forEach>
+                            </td>
                             <td>
                                 <c:choose>
                                     <c:when test="${item.profileState == 'A'}">Active</c:when>
@@ -37,9 +36,9 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success btn-xs <c:if test="${item.isActivatedState()}">disabled</c:if>" <c:if test="${!item.isActivatedState()}">onClick="showActivateModal(${item.id}, '${item.name}')"</c:if>>Activate</button>
-                                <button type="button" class="btn btn-warning btn-xs <c:if test="${item.isSuspendedState()}">disabled</c:if>" <c:if test="${!item.isSuspendedState()}">onClick="showSuspendModal(${item.id}, '${item.name}')"</c:if>>Suspend</button>
-                                <button type="button" class="btn btn-danger btn-xs <c:if test="${item.isDeletedState()}">disabled</c:if>" <c:if test="${!item.isDeletedState()}">onClick="showDeleteModal(${item.id}, '${item.name}')"</c:if>>Delete</button>
+                                <button type="button" class="btn btn-success btn-xs <c:if test="${item.isActivatedState()}">disabled</c:if>" <c:if test="${!item.isActivatedState()}">onClick="showActivateModal(${item.id}, '${item.username}')"</c:if>>Activate</button>
+                                <button type="button" class="btn btn-warning btn-xs <c:if test="${item.isSuspendedState()}">disabled</c:if>" <c:if test="${!item.isSuspendedState()}">onClick="showSuspendModal(${item.id}, '${item.username}')"</c:if>>Suspend</button>
+                                <button type="button" class="btn btn-danger btn-xs <c:if test="${item.isDeletedState()}">disabled</c:if>" <c:if test="${!item.isDeletedState()}">onClick="showDeleteModal(${item.id}, '${item.username}')"</c:if>>Delete</button>
                                 </td>
                             </tr>
                     </c:forEach>
