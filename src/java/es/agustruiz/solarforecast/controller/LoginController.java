@@ -27,8 +27,17 @@ public class LoginController {
     protected UserProfileManager userManager;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model) {
+    public String login(Model model,
+		@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "logout", required = false) String logout)
+    {
         model = configureModel(model);
+        if(error!=null){
+            model.addAttribute("msgError", "Username or password incorrect!");
+        }
+        if(logout!=null){
+            model.addAttribute("msgSuccess", "You've been logged out successfully!");
+        }
         return "login";
     }
 
@@ -53,13 +62,6 @@ public class LoginController {
         } catch (Exception ex) {
             model.addAttribute("msgError", ex.getMessage());
         }
-        return "login";
-    }
-
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String loginFailed(Model model) {
-        model = configureModel(model);
-        model.addAttribute("msgError", "LOGOUT NOT IMPLEMENTED!");
         return "login";
     }
 
