@@ -7,7 +7,8 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/places**" access="hasRole('ROLE_USER')" />
+	<access-denied-handler error-page="/403" />
+        <intercept-url pattern="/places**" access="hasRole('ROLE_ADMIN')" />
         
         <form-login
             login-processing-url="/j_spring_security_check"
@@ -26,7 +27,8 @@
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="admin" password="123456" authorities="ROLE_USER" />
+                <user name="admin" password="123456" authorities="ROLE_ADMIN, ROLE_USER" />
+                <user name="user" password="123456" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>

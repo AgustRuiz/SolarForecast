@@ -2,6 +2,8 @@ package es.agustruiz.solarforecast.controller;
 
 import es.agustruiz.solarforecast.model.manager.ForecastProviderManager;
 import es.agustruiz.solarforecast.service.ForecastService;
+import java.security.Principal;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +21,12 @@ public class HomeController {
 
     @Autowired
     protected ForecastService forecastService;
-    
+
     @Autowired
     protected ForecastProviderManager forecastProviderManager;
 
+    // Public methods
+    //
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         return "redirect:/home";
@@ -44,18 +48,42 @@ public class HomeController {
             model.addAttribute("forecastServiceBtnLabel", "Start service");
             model.addAttribute("btnForecastServiceUrl", "/startForecastService");
         }
-        
+
         model.addAttribute("queryFrequencies", ForecastService.getQUERY_FREQUENCY_MAP());
         model.addAttribute("forecastProviders", forecastProviderManager.readAll());
-        
+
         return ("home");
     }
-    
+
+    @SuppressWarnings("UnusedAssignment")
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accesssDenied(Model model, HttpServletRequest request, Principal user) {
+        model = configureModel(model, false);
+
+        //if (user != null) {
+        //model.addObject("msg", "Hi " + user.getName() + ", you do not have permission to access this page!");
+        //} else {
+        //model.addObject("msg", "You do not have permission to access this page!");
+        //}
+        model.addAttribute("msg", "You do not have premission to access this page!");
+
+        //model.setViewName("403");
+        return "403";
+
+    }
+
+    // Private methods
+    //
     private Model configureModel(Model model) {
+        return configureModel(model, true);
+    }
+    private Model configureModel(Model model, boolean fillActiveItem) {
         model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
         model.addAttribute("title", "Home");
-        model.addAttribute("navActiveItem", "home");
+        if (fillActiveItem) {
+            model.addAttribute("navActiveItem", "home");
+        }
         return model;
     }
 }
