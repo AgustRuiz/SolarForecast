@@ -29,13 +29,15 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model,
 		@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "required", required = false) String required,
 		@RequestParam(value = "logout", required = false) String logout)
     {
         model = configureModel(model);
         if(error!=null){
             model.addAttribute("msgError", "Username or password incorrect!");
-        }
-        if(logout!=null){
+        }else if(required!=null){
+            model.addAttribute("msgError", "Authentication is required");
+        }else if(logout!=null){
             model.addAttribute("msgSuccess", "You've been logged out successfully!");
         }
         return "login";

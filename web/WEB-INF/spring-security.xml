@@ -7,15 +7,18 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/places**" access="ROLE_USER" />
+        <intercept-url pattern="/places**" access="hasRole('ROLE_USER')" />
         
         <form-login
             login-processing-url="/j_spring_security_check"
-            login-page="/login"
+            login-page="/login?required"
             default-target-url="/"
             authentication-failure-url="/login?error"
             username-parameter="txtUserName"
-            password-parameter="txtPassword" />
+            password-parameter="txtPassword"
+
+
+        />
         <logout logout-success-url="/login?logout" />
         <csrf/> <!-- enable csrf protection -->
     </http>

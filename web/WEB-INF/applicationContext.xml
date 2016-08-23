@@ -19,9 +19,9 @@
     
     <!-- Beans -->
     <bean id="openWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
+    <!-- End beans -->
     
     <!-- Persistence -->
-    
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/solarForecast" />
@@ -43,9 +43,9 @@
             </props>
         </property>
     </bean>
+    <!-- End of persistence -->
   
     <!-- Transaction manager -->
-    
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transationManager" >
         <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
     </bean>
@@ -55,16 +55,13 @@
     </bean>
     
     <tx:annotation-driven transaction-manager="transactionManager"/> 
-   
     <!-- End transaction manager -->
     
     <!-- Aspects for all except controllers --> 
-    
     <bean id="userAspect" class="es.agustruiz.solarforecast.aspect.UserAspect" />
     <aop:aspectj-autoproxy>
         <aop:include name="userAspect" />
     </aop:aspectj-autoproxy>
-    
     <!-- End of Aspects for all except controllers --> 
     
     <!-- See http://howtodoinjava.com/jpa/spring-hibernate-jpa-configuration-example/ -->

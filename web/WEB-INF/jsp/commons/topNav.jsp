@@ -18,7 +18,7 @@
             </button-->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li>
                     <spring:url value="/quickStopForecastService" var="quickStopForecastServiceUrl" />
                     <spring:url value="/quickStartForecastService" var="quickStartForecastServiceUrl" />
@@ -39,6 +39,27 @@
                 </li>
                 <li>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+
+
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                    <%-- User not logged --%>
+                    <li>
+                        <a href="<c:url value='/login' />">Login</a>
+                    </li>
+                </c:if>
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <%-- User already logged --%>
+                    <li>
+                        <a href="#" onClick="$('#logoutForm').submit();">Logout</a>
+                        <form id="logoutForm" action="<c:url value='/logout' />" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
+                </c:if>
+
             </ul>
         </div>
     </div>
