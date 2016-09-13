@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 public class ForecastPlaceManagerImpl implements ForecastPlaceManager {
     
     protected static final String LOG_TAG = ForecastPlaceManagerImpl.class.getName();
-    
-    protected static final int PAGE_SIZE = 10;
 
     @Autowired
     protected ForecastPlaceDAO forecastPlaceDAO;

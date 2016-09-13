@@ -51,7 +51,7 @@ public class OpenWeatherMapScheduler implements SchedulingConfigurer {
             Calendar nextExecutionTime = new GregorianCalendar();
             Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
             nextExecutionTime.setTime(lastActualExecutionTime != null ? lastActualExecutionTime : new Date());
-            nextExecutionTime.add(Calendar.MILLISECOND, bean.getQueryFrequency()); //you can get the value from wherever you want
+            nextExecutionTime.add(Calendar.MILLISECOND, bean.getQueryFrequency());
             return nextExecutionTime.getTime();
         };
 

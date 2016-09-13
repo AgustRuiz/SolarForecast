@@ -27,6 +27,7 @@ public class ForecastService {
         QUERY_FREQUENCY_MAP.put(1000, "1 second (only for testing)");
         QUERY_FREQUENCY_MAP.put(10000, "10 seconds (only for testing)");
         QUERY_FREQUENCY_MAP.put(15000, "15 seconds (only for testing)");
+        QUERY_FREQUENCY_MAP.put(60000, "60 seconds (only for testing)");
         QUERY_FREQUENCY_MAP.put(600000, "10 minutes");
         QUERY_FREQUENCY_MAP.put(900000, "15 minutes");
         QUERY_FREQUENCY_MAP.put(1800000, "30 minutes");
