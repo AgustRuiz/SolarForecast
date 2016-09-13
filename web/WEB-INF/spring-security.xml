@@ -6,9 +6,22 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-    <http auto-config="true">
-	<access-denied-handler error-page="/403" />
+    <http auto-config="true" use-expressions="true">
+        <access-denied-handler error-page="/403" />
+        
+        <!-- No logged access -->
+        <intercept-url pattern="/login**" access="true" />
+        <intercept-url pattern="/resources/**" access="true" />
+        
+        <!-- Admin access  -->
+        <intercept-url pattern="/quickStartForecastService" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/quickStopForecastService" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/places**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/log**" access="hasRole('ROLE_ADMIN')" />
+        
+        <!-- User access -->
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         
         <form-login
             login-processing-url="/j_spring_security_check"
@@ -16,20 +29,17 @@
             default-target-url="/"
             authentication-failure-url="/login?error"
             username-parameter="txtUserName"
-            password-parameter="txtPassword"
-
-
-        />
+            password-parameter="txtPassword"/>
         <logout logout-success-url="/login?logout" />
         <csrf/> <!-- enable csrf protection -->
     </http>
 
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="admin" password="123456" authorities="ROLE_ADMIN, ROLE_USER" />
-                <user name="user" password="123456" authorities="ROLE_USER" />
-            </user-service>
+            <jdbc-user-service
+                data-source-ref="dataSource"
+                users-by-username-query="SELECT username, password, profileState='A' as enabled FROM `userprofile` WHERE  username=?"
+                authorities-by-username-query="SELECT userprofile.username, userrole.userRole FROM userrole, userprofile, userprofile_userrole WHERE userrole.id = userprofile_userrole.userRole_id AND userprofile.id = userprofile_userrole.UserProfile_id AND userprofile.username=?" />
         </authentication-provider>
     </authentication-manager>
 

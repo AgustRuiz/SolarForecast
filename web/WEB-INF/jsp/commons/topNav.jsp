@@ -24,15 +24,17 @@
                     <spring:url value="/quickStartForecastService" var="quickStartForecastServiceUrl" />
                     <c:if test="${forecastServiceStatus == true}">
                         <a href="${quickStopForecastServiceUrl}">
-                            <strong class="text-success">Service
+                            <strong class="text-success">
                                 <span class="glyphicon glyphicon-ok-sign text-success" aria-hidden="true"></span>
+                                Service is running
                             </strong> 
                         </a>
                     </c:if>
                     <c:if test="${forecastServiceStatus == false}">
                         <a href="${quickStartForecastServiceUrl}">
-                            <strong class="text-danger">Service
+                            <strong class="text-danger">
                                 <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                Service is stopped
                             </strong>
                         </a>
                     </c:if>
@@ -52,6 +54,7 @@
                 </c:if>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                     <%-- User already logged --%>
+                    <li><a href="#">Welcome ${pageContext. request.userPrincipal.name}</a></li>
                     <li>
                         <a href="#" onClick="$('#logoutForm').submit();">Logout</a>
                         <form id="logoutForm" action="<c:url value='/logout' />" method="post">
