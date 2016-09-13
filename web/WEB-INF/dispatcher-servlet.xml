@@ -29,10 +29,4 @@
     <!-- Resources files -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
     
-    <!-- Aspects for controllers --> 
-    <bean id="userAspect" class="es.agustruiz.solarforecast.aspect.UserAspect" />
-    <aop:aspectj-autoproxy>
-        <aop:include name="userAspect" />
-    </aop:aspectj-autoproxy>
-    
 </beans>

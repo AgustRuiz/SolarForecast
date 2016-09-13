@@ -57,13 +57,6 @@
     <tx:annotation-driven transaction-manager="transactionManager"/> 
     <!-- End transaction manager -->
     
-    <!-- Aspects for all except controllers --> 
-    <bean id="userAspect" class="es.agustruiz.solarforecast.aspect.UserAspect" />
-    <aop:aspectj-autoproxy>
-        <aop:include name="userAspect" />
-    </aop:aspectj-autoproxy>
-    <!-- End of Aspects for all except controllers --> 
-    
     <!-- See http://howtodoinjava.com/jpa/spring-hibernate-jpa-configuration-example/ -->
 
 </beans>
