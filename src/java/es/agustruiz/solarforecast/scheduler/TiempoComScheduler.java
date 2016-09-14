@@ -1,8 +1,8 @@
 package es.agustruiz.solarforecast.scheduler;
 
-import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
+import es.agustruiz.solarforecast.bean.TiempoComBean;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
-import es.agustruiz.solarforecast.service.apiClients.OpenWeatherMapClient;
+import es.agustruiz.solarforecast.service.apiClients.TiempoComClient;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,32 +25,30 @@ import org.springframework.stereotype.Component;
 @Component
 @Configuration
 @EnableScheduling
-public class OpenWeatherMapScheduler implements SchedulingConfigurer {
-
-    protected static final String LOG_TAG = OpenWeatherMapScheduler.class.getName();
-
-    @Autowired
-    LogLineManager logManager;
-
-    @Autowired
-    OpenWeatherMapBean bean;
+public class TiempoComScheduler implements SchedulingConfigurer {
+    
+    protected static final String LOG_TAG = TiempoComScheduler.class.getName();
     
     @Autowired
-    OpenWeatherMapClient client;
-
+    LogLineManager log;
+    
+    @Autowired
+    TiempoComBean bean;
+    
+    @Autowired
+    TiempoComClient client;
+    
     @Bean(destroyMethod = "shutdown")
-    public Executor taskExecutor() {
+    public Executor taskExecutor(){
         return Executors.newScheduledThreadPool(100);
     }
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar str) {
-
         Runnable runnable = () -> {
-            logManager.d(LOG_TAG, "Running task...");
+            log.d(LOG_TAG, "Running task...");
             client.QueryAllForecasts();
         };
-
         Trigger trigger = (TriggerContext triggerContext) -> {
             Calendar nextExecutionTime = new GregorianCalendar();
             Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
@@ -58,10 +56,8 @@ public class OpenWeatherMapScheduler implements SchedulingConfigurer {
             nextExecutionTime.add(Calendar.MILLISECOND, bean.getQueryFrequency());
             return nextExecutionTime.getTime();
         };
-
         str.setScheduler(taskExecutor());
         str.addTriggerTask(runnable, trigger);
-
     }
-
+    
 }

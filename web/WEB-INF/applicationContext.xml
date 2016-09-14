@@ -19,6 +19,7 @@
     
     <!-- Beans -->
     <bean id="openWeatherMapBean" class="es.agustruiz.solarforecast.bean.OpenWeatherMapBean" />
+    <bean id="tiempoComBean" class="es.agustruiz.solarforecast.bean.TiempoComBean" />
     <!-- End beans -->
     
     <!-- Persistence -->

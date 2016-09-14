@@ -26,7 +26,7 @@ public class OpenWeatherMapBean {
 
     protected static final String FORECAST_PROVIDER_TAG = "OpenWeatherMap";
 
-    protected static final int MAX_QUERIES_PER_MINUTE = 60;
+//    protected static final int MAX_QUERIES_PER_MINUTE = 60;
 
     @Autowired
     LogLineManager logManager;
@@ -82,38 +82,6 @@ public class OpenWeatherMapBean {
     
     public String getForecastProviderTag(){
         return FORECAST_PROVIDER_TAG;
-    }
-
-    public void scheduledTask() {
-        if (forecastService.isForecastServiceOn()) {
-            logManager.d(LOG_TAG, "Scheduled task");
-//            logManager.i(LOG_TAG, "Scheduled task");
-//            ForecastPlace fPlace;
-//            try {
-//                fPlace = getNextForecastPlaceToQuery();
-//                ForecastQueryRegistry fQueryRegistry = new ForecastQueryRegistry();
-//                fQueryRegistry.setTimeInMillis(System.currentTimeMillis());
-//                fQueryRegistry.setForecastProvider(FORECAST_PROVIDER_TAG);
-//                fQueryRegistry.setForecastPlace(fPlace);
-//
-//                Forecast5ResponseAPI f5ResponseAPI = openWeatherMapClient
-//                        .getForecast5(fPlace.getLatitude(), fPlace.getLongitude());
-//                List<Forecast5Response> f5ResponseList = new ArrayList<>();
-//                f5ResponseAPI.getList().stream().forEach((item) -> {
-//                    f5ResponseList.add(new Forecast5Response(item, fQueryRegistry));
-//                });
-//                fQueryRegistry.setOpenWeatherMapList(f5ResponseList);
-//                forecastQueryRegistryManager.createForecastQueryRegistry(fQueryRegistry);
-//                logManager.i(LOG_TAG,
-//                        String.format("Obtained %d rows from \"%s\" provider",
-//                                f5ResponseList.size(), FORECAST_PROVIDER_TAG));
-//            } catch (ExceptionReadForecastPlace ex) {
-//                logManager.e(LOG_TAG, "Can't read next forecast place to query: "
-//                        + ex.getMessage());
-//            } catch (ExceptionCreateForecastQueryRegistry ex) {
-//                logManager.e(LOG_TAG, "Can't save forecast for place: " + ex.getMessage());
-//            }
-        }
     }
 
     // Private methods
