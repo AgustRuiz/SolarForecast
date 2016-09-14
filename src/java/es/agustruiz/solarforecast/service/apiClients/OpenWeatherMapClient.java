@@ -1,13 +1,22 @@
 package es.agustruiz.solarforecast.service.apiClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
+import es.agustruiz.solarforecast.model.ForecastPlace;
+import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5ResponseAPI;
+import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
+import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.service.ForecastService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.UriBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +40,72 @@ public class OpenWeatherMapClient {
     protected static final String FORECAST5_PARAM_LON = "lon";
     protected static final String FORECAST5_PARAM_KEY = "appid";
 
+    protected static final String PROVIDER_NAME = "OpenWeatherMap";
+
     protected UriBuilder uriBuilder = null;
 
     @Autowired
-    LogLineManager logLineManager;
+    LogLineManager log;
 
-    public Forecast5ResponseAPI getForecast5(float latitude, float longitude) {
+    @Autowired
+    ForecastService forecastService;
+
+    @Autowired
+    ForecastPlaceManager placesManager;
+    
+    @Autowired
+    ForecastQueryRegistryManager queryRegistryManager;
+
+//    @Autowired
+//    ForecastProviderManager providerManager;
+
+//    @Autowired
+//    Forecast5ResponseManager responseManager;
+
+    // Public methods
+    //
+    public void QueryAllForecasts() {
+        if (forecastService.isForecastServiceOn()) {
+            log.d(LOG_TAG, "QueryAllForecasts Start");
+
+            List<ForecastPlace> places = placesManager.readAllForecastPlace();
+            places.stream().forEach((place) -> {
+
+                long queryTime = System.currentTimeMillis();
+                Forecast5ResponseAPI apiResponse
+                        = getForecast5(place.getLatitude(), place.getLongitude());
+                if (apiResponse != null) {
+                    List<Forecast5Response> f5ResponseList = new ArrayList<>();
+                    apiResponse.getList().stream().forEach((listAPI) -> {
+                        f5ResponseList.add(new Forecast5Response(listAPI));
+                    });
+                    
+                    ForecastQueryRegistry queryRegistry = new ForecastQueryRegistry();
+                    queryRegistry.setForecastPlace(place);
+                    queryRegistry.setForecastProvider(PROVIDER_NAME);
+                    queryRegistry.setTimeInMillis(queryTime);
+                    queryRegistry.setOpenWeatherMapList(f5ResponseList);
+                    
+                    try {
+                        queryRegistryManager.createForecastQueryRegistry(queryRegistry);
+                        log.i(LOG_TAG, "ForecastQueryRegistry saved");
+                    } catch (ExceptionCreateForecastQueryRegistry ex) {
+                        log.e(LOG_TAG, "Error saving ForecastQueryRegistry object");
+                    }
+                    
+                } else {
+                    log.w(LOG_TAG, "Response is null");
+                }
+            });
+            log.d(LOG_TAG, "QueryAllForecasts End");
+        } else {
+            log.i(LOG_TAG, "Forecast service is not enabled");
+        }
+    }
+
+    // Protected methods
+    //
+    protected Forecast5ResponseAPI getForecast5(float latitude, float longitude) {
         UriBuilder builder = UriBuilder.fromUri(URL_BASE);
         builder.scheme(URL_SCHEME);
         builder.path(FORECAST5_PATH);
@@ -60,7 +129,7 @@ public class OpenWeatherMapClient {
             }
             //logLineManager.d(LOG_TAG, "Response OK");
         } catch (IOException ex) {
-            logLineManager.e(LOG_TAG, "Error connecting to API: " + ex.getMessage());
+            log.e(LOG_TAG, "Error connecting to API: " + ex.getMessage());
         }
 
         return (stringResponse == null ? null : objectMapping(stringResponse.toString()));
@@ -72,7 +141,7 @@ public class OpenWeatherMapClient {
             ObjectMapper mapper = new ObjectMapper();
             response = mapper.readValue(jsonString, Forecast5ResponseAPI.class);
         } catch (IOException ex) {
-            logLineManager.w(LOG_TAG, "Error mapping response: " + ex.toString());
+            log.w(LOG_TAG, "Error mapping response: " + ex.toString());
         }
         return response;
     }

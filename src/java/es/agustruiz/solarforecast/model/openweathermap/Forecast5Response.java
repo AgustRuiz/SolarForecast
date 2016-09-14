@@ -66,21 +66,27 @@ public class Forecast5Response implements Serializable {
     @Column
     protected Double rain3h;
 
-    @ManyToOne
-    protected ForecastPlace forecastPlace;
+//    @ManyToOne
+//    protected ForecastPlace forecastPlace;
 
-    @ManyToOne
-    protected ForecastQueryRegistry forecastQuery;
+//    @ManyToOne
+//    protected ForecastQueryRegistry forecastQuery;
 
     // Constructors
+    //
     public Forecast5Response() {
     }
 
-    public Forecast5Response(ListAPI listAPI, ForecastQueryRegistry forecastQuery) {
-        getDataFromAPIResponse(listAPI, forecastQuery);
+//    public Forecast5Response(ListAPI listAPI, ForecastQueryRegistry forecastQuery) {
+//        getDataFromAPIResponse(listAPI, forecastQuery);
+//    }
+
+    public Forecast5Response(ListAPI listAPI) {
+        getDataFromAPIResponse(listAPI);
     }
 
     // Getters and setters
+    //
     public Long getId() {
         return id;
     }
@@ -193,24 +199,25 @@ public class Forecast5Response implements Serializable {
         this.rain3h = (rain3h != null ? rain3h : 0);
     }
 
-    public ForecastPlace getForecastPlace() {
-        return forecastPlace;
-    }
+//    public ForecastPlace getForecastPlace() {
+//        return forecastPlace;
+//    }
 
-    public void setForecastPlace(ForecastPlace forecastPlace) {
-        this.forecastPlace = forecastPlace;
-    }
+//    public void setForecastPlace(ForecastPlace forecastPlace) {
+//        this.forecastPlace = forecastPlace;
+//    }
 
-    public ForecastQueryRegistry getForecastQuery() {
-        return forecastQuery;
-    }
+//    public ForecastQueryRegistry getForecastQuery() {
+//        return forecastQuery;
+//    }
 
-    public void setForecastQuery(ForecastQueryRegistry forecastQuery) {
-        this.forecastQuery = forecastQuery;
-    }
-
+//    public void setForecastQuery(ForecastQueryRegistry forecastQuery) {
+//        this.forecastQuery = forecastQuery;
+//    }
+    
     // Private methods
-    private void getDataFromAPIResponse(ListAPI apiResponse, ForecastQueryRegistry forecastQuery) {
+    //
+    private void getDataFromAPIResponse(ListAPI apiResponse) {
         if (apiResponse != null) {
             setDt(apiResponse.getDt());
             CloudsAPI cloudsAPI = apiResponse.getClouds();
@@ -237,13 +244,43 @@ public class Forecast5Response implements Serializable {
             if (rainAPI != null) {
                 setRain3h(apiResponse.getRain().get3h());
             }
-            if (forecastQuery != null) {
-                setForecastQuery(forecastQuery);
-                if (forecastQuery.getForecastPlace() != null) {
-                    setForecastPlace(forecastQuery.getForecastPlace());
-                }
-            }
         }
     }
+    
+//    private void getDataFromAPIResponse(ListAPI apiResponse, ForecastQueryRegistry forecastQuery) {
+//        if (apiResponse != null) {
+//            setDt(apiResponse.getDt());
+//            CloudsAPI cloudsAPI = apiResponse.getClouds();
+//            if (cloudsAPI != null) {
+//                setCloudsAll(cloudsAPI.getAll());
+//            }
+//            MainAPI mainAPI = apiResponse.getMain();
+//            if (mainAPI != null) {
+//                setTemp(mainAPI.getTemp());
+//                setTempMin(mainAPI.getTempMin());
+//                setTempMax(mainAPI.getTempMax());
+//                setPressure(mainAPI.getPressure());
+//                setSeaLevel(mainAPI.getSeaLevel());
+//                setGrndLevel(mainAPI.getGrndLevel());
+//                setHumidity(mainAPI.getHumidity());
+//                setTempKf(mainAPI.getTempKf());
+//            }
+//            WindAPI windAPI = apiResponse.getWind();
+//            if (windAPI != null) {
+//                setWindSpeed(windAPI.getSpeed());
+//                setWindDeg(windAPI.getDeg());
+//            }
+//            RainAPI rainAPI = apiResponse.getRain();
+//            if (rainAPI != null) {
+//                setRain3h(apiResponse.getRain().get3h());
+//            }
+//            if (forecastQuery != null) {
+//                setForecastQuery(forecastQuery);
+//                if (forecastQuery.getForecastPlace() != null) {
+//                    setForecastPlace(forecastQuery.getForecastPlace());
+//                }
+//            }
+//        }
+//    }
 
 }

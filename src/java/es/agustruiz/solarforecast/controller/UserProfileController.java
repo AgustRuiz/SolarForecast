@@ -55,6 +55,7 @@ public class UserProfileController {
         return "users";
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @RequestMapping(value = "/users/create", method = RequestMethod.GET)
     public String userProfileCreate(Model model) {
         model = configureModel(model);
@@ -63,7 +64,7 @@ public class UserProfileController {
     }
 
     @RequestMapping(value = "/users/create", method = RequestMethod.POST)
-    public String userProfileCreateSubmit(Model model, HttpServletRequest request,
+    public String userProfileCreateSubmit(Model model,
             @RequestParam(value = "txtName", required = true) String txtName,
             @RequestParam(value = "txtPassword", required = true) String txtPassword,
             @RequestParam(value = "txtPassword2", required = true) String txtPassword2,
@@ -80,10 +81,10 @@ public class UserProfileController {
             userProfile.setPassword(txtPassword);
             Set<UserRole> userRoles = new HashSet<>();
             if (chkRoleUser) {
-                userRoles.add(new UserRole(userProfile, "ROLE_USER"));
+                userRoles.add(new UserRole(UserRole.ROLE_USER));
             }
             if (chkRoleAdmin) {
-                userRoles.add(new UserRole(userProfile, "ROLE_ADMIN"));
+                userRoles.add(new UserRole(UserRole.ROLE_ADMIN));
             }
             userProfileManager.create(userProfile);
             for (UserRole role : userRoles) {

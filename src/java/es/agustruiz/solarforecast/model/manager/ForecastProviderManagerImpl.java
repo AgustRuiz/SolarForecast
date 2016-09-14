@@ -18,7 +18,11 @@ public class ForecastProviderManagerImpl implements ForecastProviderManager{
     protected static final String LOG_TAG = ForecastProviderManagerImpl.class.getName();
     
     @Autowired
-    ForecastProviderDAO dao;
+    ForecastProviderDAO dao;    
+    
+    @Autowired
+    ForecastQueryRegistryManager fQueryRegistryManager;
+
 
     @Override
     public void create(ForecastProvider forecastProvider) throws ExceptionCreateForecastProvider {
@@ -43,6 +47,11 @@ public class ForecastProviderManagerImpl implements ForecastProviderManager{
     @Override
     public void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider {
         dao.update(forecastProvider);
+    }
+
+    @Override
+    public int countQueriesByProvider(String providerName) {
+        return fQueryRegistryManager.countByProvider(providerName);
     }
     
 }

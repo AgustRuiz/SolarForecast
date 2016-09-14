@@ -29,4 +29,9 @@ public class ForecastQueryRegistryManagerImpl implements ForecastQueryRegistryMa
         return forecastQueryRegistryDAO.getLastForecastQueryRegistryByPlace(forecastPlace);
     }
 
+    @Override
+    public int countByProvider(String forecastProvider) {
+        return forecastQueryRegistryDAO.countByProvider(forecastProvider);
+    }
+
 }

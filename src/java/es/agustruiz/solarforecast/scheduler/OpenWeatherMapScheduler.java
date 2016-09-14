@@ -2,6 +2,7 @@ package es.agustruiz.solarforecast.scheduler;
 
 import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import es.agustruiz.solarforecast.service.apiClients.OpenWeatherMapClient;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,6 +34,9 @@ public class OpenWeatherMapScheduler implements SchedulingConfigurer {
 
     @Autowired
     OpenWeatherMapBean bean;
+    
+    @Autowired
+    OpenWeatherMapClient client;
 
     @Bean(destroyMethod = "shutdown")
     public Executor taskExecutor() {
@@ -43,7 +47,8 @@ public class OpenWeatherMapScheduler implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar str) {
 
         Runnable runnable = () -> {
-            logManager.d(LOG_TAG, "Run task...");
+            logManager.d(LOG_TAG, "Running task...");
+            client.QueryAllForecasts();
             //myBean().getSchedule();
         };
 

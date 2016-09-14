@@ -22,4 +22,6 @@ public interface ForecastProviderManager {
     void update(ForecastProvider forecastProvider) throws ExceptionUpdateForecastProvider;
 
 //    void delete(ForecastProvider forecastProvider);
+    
+    int countQueriesByProvider(String providerName);
 }

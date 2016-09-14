@@ -36,6 +36,7 @@ public class ForecastQueryRegistry implements Serializable{
     protected List<Forecast5Response> openWeatherMapList;
     
     public ForecastQueryRegistry() {
+        this.timeInMillis = System.currentTimeMillis();
     }
 
     public long getId() {

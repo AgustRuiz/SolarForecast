@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -65,4 +66,23 @@ public class ForecastQueryRegistryDAOImpl implements ForecastQueryRegistryDAO {
         
         return (resultList != null && resultList.size() > 0 ? resultList.get(0) : null);
     }
+
+    @Override
+    public int countByProvider(String forecastProvider) {
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ForecastQueryRegistry> cQuery = cBuilder.createQuery(ForecastQueryRegistry.class);
+        Root root = cQuery.from(ForecastQueryRegistry.class);
+
+        Predicate predicate = cBuilder.equal(root.get("forecastProvider"), forecastProvider);
+        cQuery.select(root);
+        cQuery.where(predicate);
+
+        try {
+            return em.createQuery(cQuery).getResultList().size();
+        } catch (NoResultException ex) {
+            return -1;
+        }
+    }
+    
 }

@@ -21,7 +21,6 @@ public class ForecastService {
     protected static boolean forecastServiceStatus = false;
 
     protected static final Map<Integer, String> QUERY_FREQUENCY_MAP;
-
     static {
         QUERY_FREQUENCY_MAP = new TreeMap<>();
         QUERY_FREQUENCY_MAP.put(1000, "1 second (only for testing)");

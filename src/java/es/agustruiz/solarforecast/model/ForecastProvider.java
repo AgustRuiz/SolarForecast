@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model;
 
 import es.agustruiz.solarforecast.exception.ExceptionNotValidFrequency;
+import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.service.ForecastService;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -31,6 +34,7 @@ public class ForecastProvider implements Serializable {
     protected boolean active;
 
     // Constructors
+    //
     protected ForecastProvider() {
     }
 
@@ -41,6 +45,7 @@ public class ForecastProvider implements Serializable {
     }
 
     // Getters and setters
+    //
     public long getId() {
         return id;
     }

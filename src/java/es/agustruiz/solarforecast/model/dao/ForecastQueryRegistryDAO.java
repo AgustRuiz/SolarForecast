@@ -13,9 +13,11 @@ public interface ForecastQueryRegistryDAO {
     void createForecastQueryRegistry(ForecastQueryRegistry forecastRegistry) throws ExceptionCreateForecastQueryRegistry;
 
     ForecastQueryRegistry getLastForecastQueryRegistryByPlace(ForecastPlace forecastPlace);
-    
-//    ForecastQueryRegistry readForecastQueryRegistry(Long id);
 
+//    ForecastQueryRegistry readForecastQueryRegistry(Long id);
+    
 //    List<ForecastQueryRegistry> readAllForecastQueryRegistry();
+    
+    int countByProvider(String forecastProvider);
 
 }

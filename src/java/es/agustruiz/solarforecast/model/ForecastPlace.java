@@ -33,11 +33,11 @@ public class ForecastPlace implements Serializable {
     @Column
     protected float longitude;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    protected List<ForecastQueryRegistry> forecastQueryRegistryList;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    protected List<ForecastQueryRegistry> forecastQueryRegistryList;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    protected List<Forecast5Response> openWeatherMapForecastList;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    protected List<Forecast5Response> openWeatherMapForecastList;
 
     public ForecastPlace() {
     }
@@ -74,20 +74,20 @@ public class ForecastPlace implements Serializable {
         this.longitude = longitude;
     }
 
-    public List<ForecastQueryRegistry> getForecastQueryRegistryList() {
-        return forecastQueryRegistryList;
-    }
+//    public List<ForecastQueryRegistry> getForecastQueryRegistryList() {
+//        return forecastQueryRegistryList;
+//    }
 
-    public void setForecastQueryRegistryList(List<ForecastQueryRegistry> forecastQueryRegistryList) {
-        this.forecastQueryRegistryList = forecastQueryRegistryList;
-    }
+//    public void setForecastQueryRegistryList(List<ForecastQueryRegistry> forecastQueryRegistryList) {
+//        this.forecastQueryRegistryList = forecastQueryRegistryList;
+//    }
 
-    public List<Forecast5Response> getOpenWeatherMapForecastList() {
-        return openWeatherMapForecastList;
-    }
+//    public List<Forecast5Response> getOpenWeatherMapForecastList() {
+//        return openWeatherMapForecastList;
+//    }
 
-    public void setOpenWeatherMapForecastList(List<Forecast5Response> openWeatherMapForecastList) {
-        this.openWeatherMapForecastList = openWeatherMapForecastList;
-    }
+//    public void setOpenWeatherMapForecastList(List<Forecast5Response> openWeatherMapForecastList) {
+//        this.openWeatherMapForecastList = openWeatherMapForecastList;
+//    }
 
 }

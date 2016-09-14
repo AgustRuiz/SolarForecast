@@ -1,8 +1,12 @@
 package es.agustruiz.solarforecast.controller;
 
+import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.manager.ForecastProviderManager;
+import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.service.ForecastService;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +24,13 @@ public class HomeController {
     private static final String LOG_TAG = HomeController.class.getName();
 
     @Autowired
-    protected ForecastService forecastService;
+    protected ForecastService fService;
 
     @Autowired
-    protected ForecastProviderManager forecastProviderManager;
+    protected ForecastProviderManager fProviderManager;
+
+    @Autowired
+    protected ForecastQueryRegistryManager fQueryRegistryManager;
 
     // Public methods
     //
@@ -50,7 +57,15 @@ public class HomeController {
         }
 
         model.addAttribute("queryFrequencies", ForecastService.getQUERY_FREQUENCY_MAP());
-        model.addAttribute("forecastProviders", forecastProviderManager.readAll());
+
+        Map<ForecastProvider, Integer> fProviderMapExtra = new HashMap<>();
+        fProviderManager.readAll().stream().forEach((fProvider) -> {
+            fProviderMapExtra.put(fProvider,
+                    fQueryRegistryManager.countByProvider(fProvider.getProviderName()));
+        });
+
+//        model.addAttribute("forecastProviders", fProviderManager.readAll());
+        model.addAttribute("forecastProviders", fProviderMapExtra.entrySet());
 
         return ("home");
     }
@@ -77,8 +92,9 @@ public class HomeController {
     private Model configureModel(Model model) {
         return configureModel(model, true);
     }
+
     private Model configureModel(Model model, boolean fillActiveItem) {
-        model.addAttribute("forecastServiceStatus", forecastService.isForecastServiceOn());
+        model.addAttribute("forecastServiceStatus", fService.isForecastServiceOn());
         model.addAttribute("projectName", "SolarForecast");
         model.addAttribute("title", "Home");
         if (fillActiveItem) {

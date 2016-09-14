@@ -35,6 +35,7 @@
         <thead>
             <tr>
                 <th>Weather service</th>
+                <th>Num. queries</th>
                 <th>Query Frequency</th>
                 <th>Actions</th>
             </tr>
@@ -42,16 +43,17 @@
         <tbody>
             <c:forEach var="provider" items="${forecastProviders}">
                 <tr>
-                    <td class="text-middle">${provider.providerName}</td>
+                    <td class="text-middle">${provider.key.providerName}</td>
+                    <td class="text-middle">${provider.value}</td>
                     <td class="text-middle">
-                        <select id="selectFor${provider.id}" class="form-control text-center">
+                        <select id="selectFor${provider.key.id}" class="form-control text-center">
                             <c:forEach var="frequency" items="${queryFrequencies}">
-                                <option <c:if test="${provider.queryFrequencyMillis == frequency.key}">selected</c:if> value="${frequency.key}">${frequency.value}</option>
+                                <option <c:if test="${provider.key.queryFrequencyMillis == frequency.key}">selected</c:if> value="${frequency.key}">${frequency.value}</option>
                             </c:forEach>
                         </select>
                     </td>
                     <td class="text-middle">
-                        <button class="btn btn-default" onclick="setForecastProviderFrequency('${provider.id}','selectFor${provider.id}')">Save</button>
+                        <button class="btn btn-default" onclick="setForecastProviderFrequency('${provider.key.id}','selectFor${provider.key.id}')">Save</button>
                     </td>
                 </tr>
             </c:forEach>

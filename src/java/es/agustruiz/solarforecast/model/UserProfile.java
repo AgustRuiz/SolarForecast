@@ -41,7 +41,7 @@ public class UserProfile implements Serializable {
     @Type(type = "org.hibernate.type.StringType")
     protected String profileState = String.valueOf(STATE_ACTIVE);
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     protected Set<UserRole> userRole = new HashSet<>();
 
     // Constructor

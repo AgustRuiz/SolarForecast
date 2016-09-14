@@ -8,6 +8,7 @@
 <h1 class="page-header">${title}</h1>
 <jsp:include page="commons/messagesBox.jsp" />
 <form class="form-horizontal" method="post" commandName="placeData">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div class="form-group">
         <label for="txtName" class="col-sm-2">Name</label>
         <div class="col-sm-10">
