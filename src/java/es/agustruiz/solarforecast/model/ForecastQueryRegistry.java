@@ -1,6 +1,6 @@
 package es.agustruiz.solarforecast.model;
 
-import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -33,7 +33,7 @@ public class ForecastQueryRegistry implements Serializable{
     protected ForecastPlace forecastPlace;
 
     @OneToMany(cascade = CascadeType.ALL)
-    protected List<Forecast5Response> openWeatherMapList;
+    protected List<OWM_Forecast5Response> openWeatherMapList;
     
     public ForecastQueryRegistry() {
         this.timeInMillis = System.currentTimeMillis();
@@ -71,11 +71,11 @@ public class ForecastQueryRegistry implements Serializable{
         this.forecastPlace = forecastPlace;
     }
 
-    public List<Forecast5Response> getOpenWeatherMapList() {
+    public List<OWM_Forecast5Response> getOpenWeatherMapList() {
         return openWeatherMapList;
     }
 
-    public void setOpenWeatherMapList(List<Forecast5Response> openWeatherMapList) {
+    public void setOpenWeatherMapList(List<OWM_Forecast5Response> openWeatherMapList) {
         this.openWeatherMapList = openWeatherMapList;
     }
     

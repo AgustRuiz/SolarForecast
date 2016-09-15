@@ -1,7 +1,7 @@
 package es.agustruiz.solarforecast.model.openweathermap.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecast5Response;
-import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
 @Repository
-public class Forecast5ResponseDAOImpl implements Forecast5ResponseDAO {
+public class OWM_Forecast5ResponseDAOImpl implements OWM_Forecast5ResponseDAO {
 
-    protected static final String LOG_TAG = Forecast5ResponseDAOImpl.class.getName();
+    protected static final String LOG_TAG = OWM_Forecast5ResponseDAOImpl.class.getName();
 
     //@PersistenceContext
     @Autowired
@@ -25,7 +25,7 @@ public class Forecast5ResponseDAOImpl implements Forecast5ResponseDAO {
     
     @Transactional
     @Override
-    public void create(Forecast5Response forecast5Response) throws ExceptionCreateForecast5Response {
+    public void create(OWM_Forecast5Response forecast5Response) throws ExceptionCreateForecast5Response {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         try {
@@ -45,24 +45,24 @@ public class Forecast5ResponseDAOImpl implements Forecast5ResponseDAO {
     }
 
     @Override
-    public Forecast5Response read(long id) {
+    public OWM_Forecast5Response read(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Forecast5Response> readAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Transactional
-    @Override
-    public void update(Forecast5Response forecast5Response) {
+    public List<OWM_Forecast5Response> readAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Transactional
     @Override
-    public void delete(Forecast5Response forecast5Response) {
+    public void update(OWM_Forecast5Response forecast5Response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Transactional
+    @Override
+    public void delete(OWM_Forecast5Response forecast5Response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

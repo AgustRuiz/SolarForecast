@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.service.apiClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import es.agustruiz.solarforecast.bean.OpenWeatherMapBean;
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
@@ -8,7 +9,7 @@ import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.Forecast5Re
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
 import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
-import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import es.agustruiz.solarforecast.service.ForecastService;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class OpenWeatherMapClient {
     protected static final String FORECAST5_PARAM_LON = "lon";
     protected static final String FORECAST5_PARAM_KEY = "appid";
 
-    protected static final String PROVIDER_NAME = "OpenWeatherMap";
+    protected static final String PROVIDER_NAME = OpenWeatherMapBean.FORECAST_PROVIDER_TAG;
 
     protected UriBuilder uriBuilder = null;
 
@@ -56,12 +57,6 @@ public class OpenWeatherMapClient {
     @Autowired
     ForecastQueryRegistryManager queryRegistryManager;
 
-//    @Autowired
-//    ForecastProviderManager providerManager;
-
-//    @Autowired
-//    Forecast5ResponseManager responseManager;
-
     // Public methods
     //
     public void QueryAllForecasts() {
@@ -70,14 +65,14 @@ public class OpenWeatherMapClient {
 
             List<ForecastPlace> places = placesManager.readAllForecastPlace();
             places.stream().forEach((place) -> {
-
+                log.i(LOG_TAG, String.format("Querying %s...", place.getName()));
                 long queryTime = System.currentTimeMillis();
                 Forecast5ResponseAPI apiResponse
                         = getForecast5(place.getLatitude(), place.getLongitude());
                 if (apiResponse != null) {
-                    List<Forecast5Response> f5ResponseList = new ArrayList<>();
+                    List<OWM_Forecast5Response> f5ResponseList = new ArrayList<>();
                     apiResponse.getList().stream().forEach((listAPI) -> {
-                        f5ResponseList.add(new Forecast5Response(listAPI));
+                        f5ResponseList.add(new OWM_Forecast5Response(listAPI));
                     });
                     
                     ForecastQueryRegistry queryRegistry = new ForecastQueryRegistry();
@@ -88,9 +83,9 @@ public class OpenWeatherMapClient {
                     
                     try {
                         queryRegistryManager.createForecastQueryRegistry(queryRegistry);
-                        log.i(LOG_TAG, "ForecastQueryRegistry saved");
+                        log.i(LOG_TAG, String.format("Query to %s OK!", place.getName()));
                     } catch (ExceptionCreateForecastQueryRegistry ex) {
-                        log.e(LOG_TAG, "Error saving ForecastQueryRegistry object");
+                        log.e(LOG_TAG, String.format("Error saving %s forecast!", place.getName()));
                     }
                     
                 } else {

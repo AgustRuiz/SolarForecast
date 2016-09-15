@@ -1,7 +1,5 @@
 package es.agustruiz.solarforecast.model.openweathermap;
 
-import es.agustruiz.solarforecast.model.ForecastPlace;
-import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.CloudsAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.MainAPI;
@@ -13,14 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
 @Entity
-public class Forecast5Response implements Serializable {
+public class OWM_Forecast5Response implements Serializable {
 
     // Attributes
     @Id
@@ -66,22 +63,12 @@ public class Forecast5Response implements Serializable {
     @Column
     protected Double rain3h;
 
-//    @ManyToOne
-//    protected ForecastPlace forecastPlace;
-
-//    @ManyToOne
-//    protected ForecastQueryRegistry forecastQuery;
-
     // Constructors
     //
-    public Forecast5Response() {
+    public OWM_Forecast5Response() {
     }
 
-//    public Forecast5Response(ListAPI listAPI, ForecastQueryRegistry forecastQuery) {
-//        getDataFromAPIResponse(listAPI, forecastQuery);
-//    }
-
-    public Forecast5Response(ListAPI listAPI) {
+    public OWM_Forecast5Response(ListAPI listAPI) {
         getDataFromAPIResponse(listAPI);
     }
 
@@ -198,22 +185,6 @@ public class Forecast5Response implements Serializable {
     public void setRain3h(Double rain3h) {
         this.rain3h = (rain3h != null ? rain3h : 0);
     }
-
-//    public ForecastPlace getForecastPlace() {
-//        return forecastPlace;
-//    }
-
-//    public void setForecastPlace(ForecastPlace forecastPlace) {
-//        this.forecastPlace = forecastPlace;
-//    }
-
-//    public ForecastQueryRegistry getForecastQuery() {
-//        return forecastQuery;
-//    }
-
-//    public void setForecastQuery(ForecastQueryRegistry forecastQuery) {
-//        this.forecastQuery = forecastQuery;
-//    }
     
     // Private methods
     //
@@ -246,41 +217,5 @@ public class Forecast5Response implements Serializable {
             }
         }
     }
-    
-//    private void getDataFromAPIResponse(ListAPI apiResponse, ForecastQueryRegistry forecastQuery) {
-//        if (apiResponse != null) {
-//            setDt(apiResponse.getDt());
-//            CloudsAPI cloudsAPI = apiResponse.getClouds();
-//            if (cloudsAPI != null) {
-//                setCloudsAll(cloudsAPI.getAll());
-//            }
-//            MainAPI mainAPI = apiResponse.getMain();
-//            if (mainAPI != null) {
-//                setTemp(mainAPI.getTemp());
-//                setTempMin(mainAPI.getTempMin());
-//                setTempMax(mainAPI.getTempMax());
-//                setPressure(mainAPI.getPressure());
-//                setSeaLevel(mainAPI.getSeaLevel());
-//                setGrndLevel(mainAPI.getGrndLevel());
-//                setHumidity(mainAPI.getHumidity());
-//                setTempKf(mainAPI.getTempKf());
-//            }
-//            WindAPI windAPI = apiResponse.getWind();
-//            if (windAPI != null) {
-//                setWindSpeed(windAPI.getSpeed());
-//                setWindDeg(windAPI.getDeg());
-//            }
-//            RainAPI rainAPI = apiResponse.getRain();
-//            if (rainAPI != null) {
-//                setRain3h(apiResponse.getRain().get3h());
-//            }
-//            if (forecastQuery != null) {
-//                setForecastQuery(forecastQuery);
-//                if (forecastQuery.getForecastPlace() != null) {
-//                    setForecastPlace(forecastQuery.getForecastPlace());
-//                }
-//            }
-//        }
-//    }
 
 }

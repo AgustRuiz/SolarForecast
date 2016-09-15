@@ -24,7 +24,7 @@ public class OpenWeatherMapBean {
 
     protected static final String LOG_TAG = OpenWeatherMapBean.class.getName();
 
-    protected static final String FORECAST_PROVIDER_TAG = "OpenWeatherMap";
+    public static final String FORECAST_PROVIDER_TAG = "OpenWeatherMap";
 
 //    protected static final int MAX_QUERIES_PER_MINUTE = 60;
 

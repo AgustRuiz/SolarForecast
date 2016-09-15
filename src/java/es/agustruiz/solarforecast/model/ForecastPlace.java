@@ -1,6 +1,6 @@
 package es.agustruiz.solarforecast.model;
 
-import es.agustruiz.solarforecast.model.openweathermap.Forecast5Response;
+import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
