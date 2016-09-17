@@ -1,12 +1,11 @@
-package es.agustruiz.solarforecast.model.openweathermap.dao;
+package es.agustruiz.solarforecast.model.tiempocom.dao;
 
-import es.agustruiz.solarforecast.exception.ExceptionCreateOWMForecast5Response;
-import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
+import es.agustruiz.solarforecast.exception.ExceptionCreateTiempoComR3Report;
+import es.agustruiz.solarforecast.model.tiempocom.TiempoComR3_Report;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,28 +14,26 @@ import org.springframework.stereotype.Repository;
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
 @Repository
-public class OWM_Forecast5ResponseDAOImpl implements OWM_Forecast5ResponseDAO {
+public class TiempoComR3_ReportDAOImpl implements TiempoComR3_ReportDAO {
 
-    protected static final String LOG_TAG = OWM_Forecast5ResponseDAOImpl.class.getName();
+    protected static final String LOG_TAG = TiempoComR3_ReportDAOImpl.class.getName();
 
-    //@PersistenceContext
     @Autowired
     private EntityManagerFactory emf;
-    
-    @Transactional
+
     @Override
-    public void create(OWM_Forecast5Response forecast5Response) throws ExceptionCreateOWMForecast5Response {
+    public void create(TiempoComR3_Report report) throws ExceptionCreateTiempoComR3Report {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         try {
             em.getTransaction().begin();
-            em.persist(forecast5Response);
+            em.persist(report);
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (et.isActive()) {
                 et.rollback();
             }
-            throw new ExceptionCreateOWMForecast5Response(ex.getMessage());
+            throw new ExceptionCreateTiempoComR3Report(ex.getMessage());
         } finally {
             if (em != null) {
                 em.close();
@@ -45,25 +42,25 @@ public class OWM_Forecast5ResponseDAOImpl implements OWM_Forecast5ResponseDAO {
     }
 
     @Override
-    public OWM_Forecast5Response read(long id) {
+    public TiempoComR3_Report read(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<OWM_Forecast5Response> readAll() {
+    public List<TiempoComR3_Report> readAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Transactional
     @Override
-    public void update(OWM_Forecast5Response forecast5Response) {
+    public void update(TiempoComR3_Report report) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Transactional
     @Override
-    public void delete(OWM_Forecast5Response forecast5Response) {
+    public void delete(TiempoComR3_Report report) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
     
 }

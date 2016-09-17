@@ -1,6 +1,7 @@
 package es.agustruiz.solarforecast.model;
 
 import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
+import es.agustruiz.solarforecast.model.tiempocom.TiempoComR3_Report;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -33,7 +34,10 @@ public class ForecastQueryRegistry implements Serializable{
     protected ForecastPlace forecastPlace;
 
     @OneToMany(cascade = CascadeType.ALL)
-    protected List<OWM_Forecast5Response> openWeatherMapList;
+    protected List<OWM_Forecast5Response> OWM_list;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<TiempoComR3_Report> TiempoCom_list;
     
     public ForecastQueryRegistry() {
         this.timeInMillis = System.currentTimeMillis();
@@ -71,12 +75,20 @@ public class ForecastQueryRegistry implements Serializable{
         this.forecastPlace = forecastPlace;
     }
 
-    public List<OWM_Forecast5Response> getOpenWeatherMapList() {
-        return openWeatherMapList;
+    public List<OWM_Forecast5Response> getOWM_list() {
+        return OWM_list;
     }
 
-    public void setOpenWeatherMapList(List<OWM_Forecast5Response> openWeatherMapList) {
-        this.openWeatherMapList = openWeatherMapList;
+    public void setOWM_list(List<OWM_Forecast5Response> OWM_list) {
+        this.OWM_list = OWM_list;
+    }
+
+    public List<TiempoComR3_Report> getTiempoCom_list() {
+        return TiempoCom_list;
+    }
+
+    public void setTiempoCom_list(List<TiempoComR3_Report> TiempoCom_list) {
+        this.TiempoCom_list = TiempoCom_list;
     }
     
 }

@@ -79,7 +79,7 @@ public class OpenWeatherMapClient {
                     queryRegistry.setForecastPlace(place);
                     queryRegistry.setForecastProvider(PROVIDER_NAME);
                     queryRegistry.setTimeInMillis(queryTime);
-                    queryRegistry.setOpenWeatherMapList(f5ResponseList);
+                    queryRegistry.setOWM_list(f5ResponseList);
                     
                     try {
                         queryRegistryManager.createForecastQueryRegistry(queryRegistry);

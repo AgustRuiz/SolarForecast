@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/D:/NetBeansProjects/SolarForecast_Spring/src/java/es/agustruiz/solarforecast/model/api/tiempocom/TiempoComR3_Schema.xsd" uri="src/conf/xml-resources/jaxb/TiempoComR3/TiempoComR3_Schema.xsd"/>
+</catalog>

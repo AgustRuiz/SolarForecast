@@ -1,18 +1,24 @@
 package es.agustruiz.solarforecast.service.apiClients;
 
 import es.agustruiz.solarforecast.bean.TiempoComBean;
+import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.ForecastPlace;
+import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
+import es.agustruiz.solarforecast.model.api.tiempocom.TiempoComR3_ReportAPI;
 import es.agustruiz.solarforecast.model.manager.ForecastPlaceManager;
 import es.agustruiz.solarforecast.model.manager.ForecastQueryRegistryManager;
 import es.agustruiz.solarforecast.model.manager.LogLineManager;
+import es.agustruiz.solarforecast.model.tiempocom.TiempoComR3_Report;
 import es.agustruiz.solarforecast.service.ForecastService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URLConnection;
 import java.util.List;
 import javax.ws.rs.core.UriBuilder;
+import javax.xml.bind.JAXB;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,21 +67,37 @@ public class TiempoComClient {
     // Public methods
     //
     public void QueryAllForecasts() {
-        //if(fService.isForecastServiceOn()){
+        if (fService.isForecastServiceOn()) {
             log.d(LOG_TAG, "QueryAllForecasts Start");
             List<ForecastPlace> places = fPlacesManager.readAllForecastPlace();
-            places.stream().forEach((_place) -> {
+            places.stream().forEach((ForecastPlace place) -> {
+                log.i(LOG_TAG, String.format("Querying %s...", place.getName()));
                 long queryTime = System.currentTimeMillis();
-                getReport("3593");
+                TiempoComR3_ReportAPI reportAPI = getReport("3593"); //TODO Check this. Must be received from ForecastPlace
+                if (reportAPI != null) {
+                    ForecastQueryRegistry queryRegistry = new ForecastQueryRegistry();
+                    queryRegistry.setForecastPlace(place);
+                    queryRegistry.setForecastProvider(PROVIDER_NAME);
+                    queryRegistry.setTimeInMillis(queryTime);
+                    queryRegistry.setTiempoCom_list(TiempoComR3_Report.parseApiReport(reportAPI));
+                    try {
+                        fQueryRegistryManager.createForecastQueryRegistry(queryRegistry);
+                        log.i(LOG_TAG, String.format("Query to %s OK!", place.getName()));
+                    } catch (ExceptionCreateForecastQueryRegistry ex) {
+                        log.e(LOG_TAG, String.format("Error saving %s forecast!", place.getName()));
+                    }
+                } else {
+                    log.e(LOG_TAG, String.format("Error receiving %s forecasts", place.getName()));
+                }
             });
-        //}else{
-            //log.i(LOG_TAG, "Forecast service is not enabled");
-        //}
+        } else {
+            log.i(LOG_TAG, "Forecast service is not enabled");
+        }
     }
 
     // Protected methods
     //
-    protected void getReport(String loc_value){
+    protected TiempoComR3_ReportAPI getReport(String loc_value) {
         UriBuilder builder = UriBuilder.fromUri(URL_BASE);
         builder.scheme(URL_SCHEME);
         builder.path(PATH);
@@ -85,10 +107,10 @@ public class TiempoComClient {
         builder.queryParam(PARAM_V, PARAM_V_VALUE);
         builder.queryParam(PARAM_H, PARAM_H_VALUE);
         URI uri = builder.build();
-        
+
         URLConnection connection;
         StringBuilder stringResponse = null;
-        try{
+        try {
             connection = uri.toURL().openConnection();
             try (BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()))) {
@@ -99,9 +121,14 @@ public class TiempoComClient {
                 }
             }
             log.d(LOG_TAG, "Response OK");
-        }catch(IOException e){
+        } catch (IOException e) {
             log.e(LOG_TAG, String.format("Error connecting to API: %s", e.getMessage()));
         }
-        
+
+        return (stringResponse == null ? null : objectMapping(stringResponse.toString()));
+    }
+
+    private TiempoComR3_ReportAPI objectMapping(String xmlString) {
+        return JAXB.unmarshal(new StringReader(xmlString), TiempoComR3_ReportAPI.class);
     }
 }

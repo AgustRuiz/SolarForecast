@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='SolarForecast_Spring' version='1.0'>
+	<schema type='-xmlschema' package='es.agustruiz.solarforecast.model.api.tiempocom' name='TiempoComR3'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='src/conf/xml-resources/jaxb/TiempoComR3/TiempoComR3_Schema.xsd' origLocation='src/java/es/agustruiz/solarforecast/model/api/tiempocom/TiempoComR3_Schema.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

@@ -1,6 +1,6 @@
 package es.agustruiz.solarforecast.model.openweathermap.manager;
 
-import es.agustruiz.solarforecast.exception.ExceptionCreateForecast5Response;
+import es.agustruiz.solarforecast.exception.ExceptionCreateOWMForecast5Response;
 import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class OWM_Forecast5ResponseManagerImpl implements OWM_Forecast5ResponseMa
     protected OWM_Forecast5ResponseDAO dao;
 
     @Override
-    public void create(OWM_Forecast5Response forecast5Response) throws ExceptionCreateForecast5Response{
+    public void create(OWM_Forecast5Response forecast5Response) throws ExceptionCreateOWMForecast5Response{
         dao.create(forecast5Response);
     }
 
