@@ -46,7 +46,6 @@ public class TiempoComScheduler implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar str) {
         Runnable runnable = () -> {
-            log.d(LOG_TAG, "Running task...");
             client.QueryAllForecasts();
         };
         Trigger trigger = (TriggerContext triggerContext) -> {

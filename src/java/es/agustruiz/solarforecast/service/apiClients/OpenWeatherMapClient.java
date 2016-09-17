@@ -62,7 +62,6 @@ public class OpenWeatherMapClient {
     public void QueryAllForecasts() {
         if (forecastService.isForecastServiceOn()) {
             log.d(LOG_TAG, "QueryAllForecasts Start");
-
             List<ForecastPlace> places = placesManager.readAllForecastPlace();
             places.stream().forEach((place) -> {
                 log.i(LOG_TAG, String.format("Querying %s...", place.getName()));
@@ -92,9 +91,6 @@ public class OpenWeatherMapClient {
                     log.w(LOG_TAG, "Response is null");
                 }
             });
-            log.d(LOG_TAG, "QueryAllForecasts End");
-        } else {
-            log.i(LOG_TAG, "Forecast service is not enabled");
         }
     }
 

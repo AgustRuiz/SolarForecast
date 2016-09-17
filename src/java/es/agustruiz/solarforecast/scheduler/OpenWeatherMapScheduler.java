@@ -47,7 +47,6 @@ public class OpenWeatherMapScheduler implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar str) {
 
         Runnable runnable = () -> {
-            logManager.d(LOG_TAG, "Running task...");
             client.QueryAllForecasts();
         };
 
