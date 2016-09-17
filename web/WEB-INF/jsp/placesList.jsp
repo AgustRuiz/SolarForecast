@@ -16,6 +16,7 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Coords</th>
+                    <th>Tiempo.com location code</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                             <td>${item.id}</td>
                             <td>${item.name}</td>
                             <td>${item.latitude}, ${item.longitude}</td>
+                            <td>${item.tiempoCom_LocationValue}</td>
                             <td>
                                 <button type="button" class="btn btn-default btn-sm" onClick="showDeleteModal(${item.id}, '${item.name}')">
                                     Delete

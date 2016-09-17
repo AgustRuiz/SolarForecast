@@ -1,15 +1,11 @@
 package es.agustruiz.solarforecast.model;
 
-import es.agustruiz.solarforecast.model.openweathermap.OWM_Forecast5Response;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -32,6 +28,9 @@ public class ForecastPlace implements Serializable {
 
     @Column
     protected float longitude;
+    
+    @Column
+    protected String TiempoCom_LocationValue;
     
 //    @OneToMany(cascade = CascadeType.ALL)
 //    protected List<ForecastQueryRegistry> forecastQueryRegistryList;
@@ -74,20 +73,12 @@ public class ForecastPlace implements Serializable {
         this.longitude = longitude;
     }
 
-//    public List<ForecastQueryRegistry> getForecastQueryRegistryList() {
-//        return forecastQueryRegistryList;
-//    }
+    public String getTiempoCom_LocationValue() {
+        return TiempoCom_LocationValue;
+    }
 
-//    public void setForecastQueryRegistryList(List<ForecastQueryRegistry> forecastQueryRegistryList) {
-//        this.forecastQueryRegistryList = forecastQueryRegistryList;
-//    }
-
-//    public List<Forecast5Response> getOpenWeatherMapForecastList() {
-//        return openWeatherMapForecastList;
-//    }
-
-//    public void setOpenWeatherMapForecastList(List<Forecast5Response> openWeatherMapForecastList) {
-//        this.openWeatherMapForecastList = openWeatherMapForecastList;
-//    }
+    public void setTiempoCom_LocationValue(String TiempoCom_LocationValue) {
+        this.TiempoCom_LocationValue = TiempoCom_LocationValue;
+    }
 
 }

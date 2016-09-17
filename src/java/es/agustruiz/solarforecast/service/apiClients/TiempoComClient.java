@@ -73,7 +73,7 @@ public class TiempoComClient {
             places.stream().forEach((ForecastPlace place) -> {
                 log.i(LOG_TAG, String.format("Querying %s...", place.getName()));
                 long queryTime = System.currentTimeMillis();
-                TiempoComR3_ReportAPI reportAPI = getReport("3593"); //TODO Check this. Must be received from ForecastPlace
+                TiempoComR3_ReportAPI reportAPI = getReport(place.getTiempoCom_LocationValue());
                 if (reportAPI != null) {
                     ForecastQueryRegistry queryRegistry = new ForecastQueryRegistry();
                     queryRegistry.setForecastPlace(place);
@@ -90,8 +90,6 @@ public class TiempoComClient {
                     log.e(LOG_TAG, String.format("Error receiving %s forecasts", place.getName()));
                 }
             });
-        } else {
-            log.i(LOG_TAG, "Forecast service is not enabled");
         }
     }
 

@@ -28,6 +28,12 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="txtTiempoComLocationValue" class="col-sm-2">Tiempo.com location code</label>
+        <div class="col-sm-10">
+            <input type="number" step="any" class="form-control" name="txtTiempoComLocationValue" id="txtTiempoComLocationValue" placeholder="Tiempo.com location code" value="${txtTiempoComLocationValue}" />
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-success">Save</button>
             <spring:url value="/places" var="placesUrl" />

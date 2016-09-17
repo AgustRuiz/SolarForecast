@@ -49,7 +49,9 @@ public class PlacesController {
     public String createPlaceSubmit(Model model, HttpServletRequest request,
             @RequestParam(value = "txtName", required = true) String txtName,
             @RequestParam(value = "txtLatitude", required = false) Float txtLatitude,
-            @RequestParam(value = "txtLongitude", required = true) Float txtLongitude) {
+            @RequestParam(value = "txtLongitude", required = true) Float txtLongitude,
+            @RequestParam(value = "txtTiempoComLocationValue", required = true) String txtTiempoComLocationValue
+            ) {
 
         configureModel(model);
 
@@ -58,6 +60,7 @@ public class PlacesController {
             newForecastPlace.setName(txtName);
             newForecastPlace.setLatitude(txtLatitude);
             newForecastPlace.setLongitude(txtLongitude);
+            newForecastPlace.setTiempoCom_LocationValue(txtTiempoComLocationValue);
             forecastPlaceManager.createForecastPlace(newForecastPlace);
             model.addAttribute("msgSuccess", "New place created!");
             model.addAttribute("placesList", forecastPlaceManager.readAllForecastPlace());
