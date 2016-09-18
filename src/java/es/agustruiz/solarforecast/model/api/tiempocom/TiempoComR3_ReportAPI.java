@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -19,13 +18,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class TiempoComR3_ReportAPI {
 
     @XmlElement(required = true)
-    protected Report.Location location;
+    protected TiempoComR3_ReportAPI.Location location;
 
-    public Report.Location getLocation() {
+    public TiempoComR3_ReportAPI.Location getLocation() {
         return location;
     }
 
-    public void setLocation(Report.Location value) {
+    public void setLocation(TiempoComR3_ReportAPI.Location value) {
         this.location = value;
     }
 
@@ -37,21 +36,21 @@ public class TiempoComR3_ReportAPI {
     public static class Location {
 
         @XmlElement(required = true)
-        protected Report.Location.Interesting interesting;
+        protected TiempoComR3_ReportAPI.Location.Interesting interesting;
         @XmlElement(required = true)
-        protected List<Report.Location.Day> day;
+        protected List<TiempoComR3_ReportAPI.Location.Day> day;
         @XmlAttribute(name = "city")
         protected String city;
 
-        public Report.Location.Interesting getInteresting() {
+        public TiempoComR3_ReportAPI.Location.Interesting getInteresting() {
             return interesting;
         }
 
-        public void setInteresting(Report.Location.Interesting value) {
+        public void setInteresting(TiempoComR3_ReportAPI.Location.Interesting value) {
             this.interesting = value;
         }
 
-        public List<Report.Location.Day> getDay() {
+        public List<TiempoComR3_ReportAPI.Location.Day> getDay() {
             if (day == null) {
                 day = new ArrayList<>();
             }
@@ -85,133 +84,133 @@ public class TiempoComR3_ReportAPI {
         public static class Day {
 
             @XmlElement(required = true)
-            protected Report.Location.Day.Symbol symbol;
+            protected TiempoComR3_ReportAPI.Location.Day.Symbol symbol;
             @XmlElement(required = true)
-            protected Report.Location.Day.Tempmin tempmin;
+            protected TiempoComR3_ReportAPI.Location.Day.Tempmin tempmin;
             @XmlElement(required = true)
-            protected Report.Location.Day.Tempmax tempmax;
+            protected TiempoComR3_ReportAPI.Location.Day.Tempmax tempmax;
             @XmlElement(required = true)
-            protected Report.Location.Day.Wind wind;
+            protected TiempoComR3_ReportAPI.Location.Day.Wind wind;
             @XmlElement(name = "wind-gusts", required = true)
-            protected Report.Location.Day.WindGusts windGusts;
+            protected TiempoComR3_ReportAPI.Location.Day.WindGusts windGusts;
             @XmlElement(required = true)
-            protected Report.Location.Day.Rain rain;
+            protected TiempoComR3_ReportAPI.Location.Day.Rain rain;
             @XmlElement(required = true)
-            protected Report.Location.Day.Humidity humidity;
+            protected TiempoComR3_ReportAPI.Location.Day.Humidity humidity;
             @XmlElement(required = true)
-            protected Report.Location.Day.Pressure pressure;
+            protected TiempoComR3_ReportAPI.Location.Day.Pressure pressure;
             @XmlElement(required = true)
-            protected Report.Location.Day.Snowline snowline;
+            protected TiempoComR3_ReportAPI.Location.Day.Snowline snowline;
             @XmlElement(required = true)
-            protected Report.Location.Day.Sun sun;
+            protected TiempoComR3_ReportAPI.Location.Day.Sun sun;
             @XmlElement(required = true)
-            protected Report.Location.Day.Moon moon;
+            protected TiempoComR3_ReportAPI.Location.Day.Moon moon;
             @XmlElement(name = "local_info", required = true)
-            protected Report.Location.Day.LocalInfo localInfo;
+            protected TiempoComR3_ReportAPI.Location.Day.LocalInfo localInfo;
             @XmlElement(required = true)
-            protected List<Report.Location.Day.Hour> hour;
+            protected List<TiempoComR3_ReportAPI.Location.Day.Hour> hour;
             @XmlAttribute(name = "value")
             protected Integer value;
             @XmlAttribute(name = "name")
             protected String name;
 
-            public Report.Location.Day.Symbol getSymbol() {
+            public TiempoComR3_ReportAPI.Location.Day.Symbol getSymbol() {
                 return symbol;
             }
 
-            public void setSymbol(Report.Location.Day.Symbol value) {
+            public void setSymbol(TiempoComR3_ReportAPI.Location.Day.Symbol value) {
                 this.symbol = value;
             }
 
-            public Report.Location.Day.Tempmin getTempmin() {
+            public TiempoComR3_ReportAPI.Location.Day.Tempmin getTempmin() {
                 return tempmin;
             }
 
-            public void setTempmin(Report.Location.Day.Tempmin value) {
+            public void setTempmin(TiempoComR3_ReportAPI.Location.Day.Tempmin value) {
                 this.tempmin = value;
             }
 
-            public Report.Location.Day.Tempmax getTempmax() {
+            public TiempoComR3_ReportAPI.Location.Day.Tempmax getTempmax() {
                 return tempmax;
             }
 
-            public void setTempmax(Report.Location.Day.Tempmax value) {
+            public void setTempmax(TiempoComR3_ReportAPI.Location.Day.Tempmax value) {
                 this.tempmax = value;
             }
 
-            public Report.Location.Day.Wind getWind() {
+            public TiempoComR3_ReportAPI.Location.Day.Wind getWind() {
                 return wind;
             }
 
-            public void setWind(Report.Location.Day.Wind value) {
+            public void setWind(TiempoComR3_ReportAPI.Location.Day.Wind value) {
                 this.wind = value;
             }
 
-            public Report.Location.Day.WindGusts getWindGusts() {
+            public TiempoComR3_ReportAPI.Location.Day.WindGusts getWindGusts() {
                 return windGusts;
             }
 
-            public void setWindGusts(Report.Location.Day.WindGusts value) {
+            public void setWindGusts(TiempoComR3_ReportAPI.Location.Day.WindGusts value) {
                 this.windGusts = value;
             }
 
-            public Report.Location.Day.Rain getRain() {
+            public TiempoComR3_ReportAPI.Location.Day.Rain getRain() {
                 return rain;
             }
 
-            public void setRain(Report.Location.Day.Rain value) {
+            public void setRain(TiempoComR3_ReportAPI.Location.Day.Rain value) {
                 this.rain = value;
             }
 
-            public Report.Location.Day.Humidity getHumidity() {
+            public TiempoComR3_ReportAPI.Location.Day.Humidity getHumidity() {
                 return humidity;
             }
 
-            public void setHumidity(Report.Location.Day.Humidity value) {
+            public void setHumidity(TiempoComR3_ReportAPI.Location.Day.Humidity value) {
                 this.humidity = value;
             }
 
-            public Report.Location.Day.Pressure getPressure() {
+            public TiempoComR3_ReportAPI.Location.Day.Pressure getPressure() {
                 return pressure;
             }
 
-            public void setPressure(Report.Location.Day.Pressure value) {
+            public void setPressure(TiempoComR3_ReportAPI.Location.Day.Pressure value) {
                 this.pressure = value;
             }
 
-            public Report.Location.Day.Snowline getSnowline() {
+            public TiempoComR3_ReportAPI.Location.Day.Snowline getSnowline() {
                 return snowline;
             }
 
-            public void setSnowline(Report.Location.Day.Snowline value) {
+            public void setSnowline(TiempoComR3_ReportAPI.Location.Day.Snowline value) {
                 this.snowline = value;
             }
 
-            public Report.Location.Day.Sun getSun() {
+            public TiempoComR3_ReportAPI.Location.Day.Sun getSun() {
                 return sun;
             }
 
-            public void setSun(Report.Location.Day.Sun value) {
+            public void setSun(TiempoComR3_ReportAPI.Location.Day.Sun value) {
                 this.sun = value;
             }
 
-            public Report.Location.Day.Moon getMoon() {
+            public TiempoComR3_ReportAPI.Location.Day.Moon getMoon() {
                 return moon;
             }
 
-            public void setMoon(Report.Location.Day.Moon value) {
+            public void setMoon(TiempoComR3_ReportAPI.Location.Day.Moon value) {
                 this.moon = value;
             }
 
-            public Report.Location.Day.LocalInfo getLocalInfo() {
+            public TiempoComR3_ReportAPI.Location.Day.LocalInfo getLocalInfo() {
                 return localInfo;
             }
 
-            public void setLocalInfo(Report.Location.Day.LocalInfo value) {
+            public void setLocalInfo(TiempoComR3_ReportAPI.Location.Day.LocalInfo value) {
                 this.localInfo = value;
             }
 
-            public List<Report.Location.Day.Hour> getHour() {
+            public List<TiempoComR3_ReportAPI.Location.Day.Hour> getHour() {
                 if (hour == null) {
                     hour = new ArrayList<>();
                 }
@@ -250,114 +249,114 @@ public class TiempoComR3_ReportAPI {
             public static class Hour {
 
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Temp temp;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Temp temp;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Symbol symbol;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Symbol symbol;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Wind wind;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Wind wind;
                 @XmlElement(name = "wind-gusts", required = true)
-                protected Report.Location.Day.Hour.WindGusts windGusts;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.WindGusts windGusts;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Rain rain;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Rain rain;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Humidity humidity;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Humidity humidity;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Pressure pressure;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Pressure pressure;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Clouds clouds;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Clouds clouds;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Snowline snowline;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Snowline snowline;
                 @XmlElement(required = true)
-                protected Report.Location.Day.Hour.Windchill windchill;
+                protected TiempoComR3_ReportAPI.Location.Day.Hour.Windchill windchill;
                 @XmlAttribute(name = "value")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar value;
+                protected String value;
 
-                public Report.Location.Day.Hour.Temp getTemp() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Temp getTemp() {
                     return temp;
                 }
 
-                public void setTemp(Report.Location.Day.Hour.Temp value) {
+                public void setTemp(TiempoComR3_ReportAPI.Location.Day.Hour.Temp value) {
                     this.temp = value;
                 }
 
-                public Report.Location.Day.Hour.Symbol getSymbol() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Symbol getSymbol() {
                     return symbol;
                 }
 
-                public void setSymbol(Report.Location.Day.Hour.Symbol value) {
+                public void setSymbol(TiempoComR3_ReportAPI.Location.Day.Hour.Symbol value) {
                     this.symbol = value;
                 }
 
-                public Report.Location.Day.Hour.Wind getWind() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Wind getWind() {
                     return wind;
                 }
 
-                public void setWind(Report.Location.Day.Hour.Wind value) {
+                public void setWind(TiempoComR3_ReportAPI.Location.Day.Hour.Wind value) {
                     this.wind = value;
                 }
 
-                public Report.Location.Day.Hour.WindGusts getWindGusts() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.WindGusts getWindGusts() {
                     return windGusts;
                 }
 
-                public void setWindGusts(Report.Location.Day.Hour.WindGusts value) {
+                public void setWindGusts(TiempoComR3_ReportAPI.Location.Day.Hour.WindGusts value) {
                     this.windGusts = value;
                 }
 
-                public Report.Location.Day.Hour.Rain getRain() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Rain getRain() {
                     return rain;
                 }
 
-                public void setRain(Report.Location.Day.Hour.Rain value) {
+                public void setRain(TiempoComR3_ReportAPI.Location.Day.Hour.Rain value) {
                     this.rain = value;
                 }
 
-                public Report.Location.Day.Hour.Humidity getHumidity() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Humidity getHumidity() {
                     return humidity;
                 }
 
-                public void setHumidity(Report.Location.Day.Hour.Humidity value) {
+                public void setHumidity(TiempoComR3_ReportAPI.Location.Day.Hour.Humidity value) {
                     this.humidity = value;
                 }
 
-                public Report.Location.Day.Hour.Pressure getPressure() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Pressure getPressure() {
                     return pressure;
                 }
 
-                public void setPressure(Report.Location.Day.Hour.Pressure value) {
+                public void setPressure(TiempoComR3_ReportAPI.Location.Day.Hour.Pressure value) {
                     this.pressure = value;
                 }
 
-                public Report.Location.Day.Hour.Clouds getClouds() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Clouds getClouds() {
                     return clouds;
                 }
 
-                public void setClouds(Report.Location.Day.Hour.Clouds value) {
+                public void setClouds(TiempoComR3_ReportAPI.Location.Day.Hour.Clouds value) {
                     this.clouds = value;
                 }
 
-                public Report.Location.Day.Hour.Snowline getSnowline() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Snowline getSnowline() {
                     return snowline;
                 }
 
-                public void setSnowline(Report.Location.Day.Hour.Snowline value) {
+                public void setSnowline(TiempoComR3_ReportAPI.Location.Day.Hour.Snowline value) {
                     this.snowline = value;
                 }
 
-                public Report.Location.Day.Hour.Windchill getWindchill() {
+                public TiempoComR3_ReportAPI.Location.Day.Hour.Windchill getWindchill() {
                     return windchill;
                 }
 
-                public void setWindchill(Report.Location.Day.Hour.Windchill value) {
+                public void setWindchill(TiempoComR3_ReportAPI.Location.Day.Hour.Windchill value) {
                     this.windchill = value;
                 }
 
-                public XMLGregorianCalendar getValue() {
+                public String getValue() {
                     return value;
                 }
 
-                public void setValue(XMLGregorianCalendar value) {
+                public void setValue(String value) {
                     this.value = value;
                 }
 
@@ -686,15 +685,15 @@ public class TiempoComR3_ReportAPI {
 
                 @XmlAttribute(name = "local_time")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar localTime;
+                protected String localTime;
                 @XmlAttribute(name = "offset")
                 protected Integer offset;
 
-                public XMLGregorianCalendar getLocalTime() {
+                public String getLocalTime() {
                     return localTime;
                 }
 
-                public void setLocalTime(XMLGregorianCalendar value) {
+                public void setLocalTime(String value) {
                     this.localTime = value;
                 }
 
@@ -714,10 +713,10 @@ public class TiempoComR3_ReportAPI {
 
                 @XmlAttribute(name = "in")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar in;
+                protected String in;
                 @XmlAttribute(name = "out")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar out;
+                protected String out;
                 @XmlAttribute(name = "lumi")
                 protected String lumi;
                 @XmlAttribute(name = "desc")
@@ -725,19 +724,19 @@ public class TiempoComR3_ReportAPI {
                 @XmlAttribute(name = "symbol")
                 protected Integer symbol;
 
-                public XMLGregorianCalendar getIn() {
+                public String getIn() {
                     return in;
                 }
 
-                public void setIn(XMLGregorianCalendar value) {
+                public void setIn(String value) {
                     this.in = value;
                 }
 
-                public XMLGregorianCalendar getOut() {
+                public String getOut() {
                     return out;
                 }
 
-                public void setOut(XMLGregorianCalendar value) {
+                public void setOut(String value) {
                     this.out = value;
                 }
 
@@ -854,35 +853,35 @@ public class TiempoComR3_ReportAPI {
 
                 @XmlAttribute(name = "in")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar in;
+                protected String in;
                 @XmlAttribute(name = "mid")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar mid;
+                protected String mid;
                 @XmlAttribute(name = "out")
                 @XmlSchemaType(name = "dateTime")
-                protected XMLGregorianCalendar out;
+                protected String out;
 
-                public XMLGregorianCalendar getIn() {
+                public String getIn() {
                     return in;
                 }
 
-                public void setIn(XMLGregorianCalendar value) {
+                public void setIn(String value) {
                     this.in = value;
                 }
 
-                public XMLGregorianCalendar getMid() {
+                public String getMid() {
                     return mid;
                 }
 
-                public void setMid(XMLGregorianCalendar value) {
+                public void setMid(String value) {
                     this.mid = value;
                 }
 
-                public XMLGregorianCalendar getOut() {
+                public String getOut() {
                     return out;
                 }
 
-                public void setOut(XMLGregorianCalendar value) {
+                public void setOut(String value) {
                     this.out = value;
                 }
 
@@ -1072,13 +1071,13 @@ public class TiempoComR3_ReportAPI {
         public static class Interesting {
 
             @XmlElement(required = true)
-            protected Report.Location.Interesting.Url url;
+            protected TiempoComR3_ReportAPI.Location.Interesting.Url url;
 
-            public Report.Location.Interesting.Url getUrl() {
+            public TiempoComR3_ReportAPI.Location.Interesting.Url getUrl() {
                 return url;
             }
 
-            public void setUrl(Report.Location.Interesting.Url value) {
+            public void setUrl(TiempoComR3_ReportAPI.Location.Interesting.Url value) {
                 this.url = value;
             }
 

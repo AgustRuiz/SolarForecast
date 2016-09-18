@@ -1,11 +1,14 @@
 package es.agustruiz.solarforecast.model.openweathermap;
 
+import es.agustruiz.solarforecast.model.AbstractResponse;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.CloudsAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.MainAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.RainAPI;
 import es.agustruiz.solarforecast.model.api.openweathermap.forecast5.WindAPI;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +20,7 @@ import javax.persistence.Id;
  * @author Agustin Ruiz Linares <arl00029@red.ujaen.es>
  */
 @Entity
-public class OWM_Forecast5Response implements Serializable {
+public class OWM_Forecast5Response extends AbstractResponse implements Serializable {
 
     // Attributes
     @Id
@@ -26,42 +29,55 @@ public class OWM_Forecast5Response implements Serializable {
 
     @Column
     protected Integer dt;
+    public static final String PARAM_DT_TAG = "dt";
 
     @Column
     protected Double temp;
+    public static final String PARAM_TEMP_TAG = "temp";
 
     @Column
     protected Double tempMin;
+    public static final String PARAM_TEMP_MIN_TAG = "tempMin";
 
     @Column
     protected Double tempMax;
+    public static final String PARAM_TEMP_MAX_TAG = "tempMax";
 
     @Column
     protected Double pressure;
+    public static final String PARAM_PRESSURE_TAG = "pressure";
 
     @Column
     protected Double seaLevel;
+    public static final String PARAM_SEA_LEVEL_TAG = "seaLevel";
 
     @Column
     protected Double grndLevel;
+    public static final String PARAM_GRND_LEVEL_TAG = "grndLevel";
 
     @Column
     protected Integer humidity;
+    public static final String PARAM_HUMIDITY_TAG = "humidity";
 
     @Column
     protected Integer tempKf;
+    public static final String PARAM_TEMP_KF_TAG = "tempKf";
 
     @Column
     protected Integer cloudsAll;
+    public static final String PARAM_CLOUDS_ALL_TAG = "cloudsAll";
 
     @Column
     protected Double windSpeed;
+    public static final String PARAM_WIND_SPEED_TAG = "windSpeed";
 
     @Column
     protected Integer windDeg;
+    public static final String PARAM_WIND_DEG_TAG = "windDeg";
 
     @Column
     protected Double rain3h;
+    public static final String PARAM_RAIN3H_TAG = "rain3h";
 
     // Constructors
     //
@@ -185,7 +201,63 @@ public class OWM_Forecast5Response implements Serializable {
     public void setRain3h(Double rain3h) {
         this.rain3h = (rain3h != null ? rain3h : 0);
     }
-    
+
+    public String getFielByTag(String tag) {
+        switch (tag) {
+            case AbstractResponse.PARAM_QUERY_TIMESTAMP_TAG:
+                return Long.toString(super.queryTimestamp);
+            case PARAM_DT_TAG:
+                return (dt != null ? dt.toString() : "");
+            case PARAM_TEMP_TAG:
+                return (temp != null ? temp.toString() : "");
+            case PARAM_TEMP_MIN_TAG:
+                return (tempMin != null ? tempMin.toString() : "");
+            case PARAM_TEMP_MAX_TAG:
+                return (tempMax != null ? tempMax.toString() : "");
+            case PARAM_PRESSURE_TAG:
+                return (pressure != null ? pressure.toString() : "");
+            case PARAM_SEA_LEVEL_TAG:
+                return (seaLevel != null ? seaLevel.toString() : "");
+            case PARAM_GRND_LEVEL_TAG:
+                return (grndLevel != null ? grndLevel.toString() : "");
+            case PARAM_HUMIDITY_TAG:
+                return (humidity != null ? humidity.toString() : "");
+            case PARAM_TEMP_KF_TAG:
+                return (tempKf != null ? tempKf.toString() : "");
+            case PARAM_CLOUDS_ALL_TAG:
+                return (cloudsAll != null ? cloudsAll.toString() : "");
+            case PARAM_WIND_SPEED_TAG:
+                return (windSpeed != null ? windSpeed.toString() : "");
+            case PARAM_WIND_DEG_TAG:
+                return (windDeg != null ? windDeg.toString() : "");
+            case PARAM_RAIN3H_TAG:
+                return (rain3h != null ? rain3h.toString() : "");
+            default:
+                return "";
+        }
+    }
+
+    // Static public methods
+    //
+    static public Map<String, String> getParamList(String requestTimestampKey, String requestTimestampValue) {
+        Map<String, String> result = new LinkedHashMap<>();
+        result.put(requestTimestampKey, requestTimestampValue);
+        result.put(PARAM_DT_TAG, "Forecast timestamp");
+        result.put(PARAM_TEMP_TAG, "Temperature");
+        result.put(PARAM_TEMP_MIN_TAG, "Min temperature");
+        result.put(PARAM_TEMP_MAX_TAG, "Max temperature");
+        result.put(PARAM_PRESSURE_TAG, "Pressure");
+        result.put(PARAM_SEA_LEVEL_TAG, "Sea level");
+        result.put(PARAM_GRND_LEVEL_TAG, "Ground level");
+        result.put(PARAM_HUMIDITY_TAG, "Humidity");
+        result.put(PARAM_TEMP_KF_TAG, "Temperature (Kº)");
+        result.put(PARAM_CLOUDS_ALL_TAG, "Clouds");
+        result.put(PARAM_WIND_SPEED_TAG, "Wind speed");
+        result.put(PARAM_WIND_DEG_TAG, "Wind degree");
+        result.put(PARAM_RAIN3H_TAG, "Rain (3 hours)");
+        return result;
+    }
+
     // Private methods
     //
     private void getDataFromAPIResponse(ListAPI apiResponse) {
@@ -217,5 +289,4 @@ public class OWM_Forecast5Response implements Serializable {
             }
         }
     }
-
 }

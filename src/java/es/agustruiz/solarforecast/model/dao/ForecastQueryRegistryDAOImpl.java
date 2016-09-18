@@ -7,12 +7,14 @@ package es.agustruiz.solarforecast.model.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.ForecastPlace;
+import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -63,7 +65,7 @@ public class ForecastQueryRegistryDAOImpl implements ForecastQueryRegistryDAO {
         cQuery.select(root).orderBy(cBuilder.desc(root.get("timeInMillis"))); // First maximum = more recent
         cQuery.where(predicate);
         List<ForecastQueryRegistry> resultList = em.createQuery(cQuery).getResultList();
-        
+
         return (resultList != null && resultList.size() > 0 ? resultList.get(0) : null);
     }
 
@@ -84,5 +86,29 @@ public class ForecastQueryRegistryDAOImpl implements ForecastQueryRegistryDAO {
             return -1;
         }
     }
-    
+
+    @Override
+    public List<ForecastQueryRegistry> readAllByPlaceAndProvider(ForecastPlace place, ForecastProvider provider) {
+        
+        EntityManager em = emf.createEntityManager();
+        
+        CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<ForecastQueryRegistry> cQuery = cBuilder.createQuery(ForecastQueryRegistry.class);
+        Root root = cQuery.from(ForecastQueryRegistry.class);
+        
+        Root<ForecastPlace> rootPlace = cQuery.from(ForecastPlace.class);
+
+        Predicate predicate1 = cBuilder.equal(root.get("forecastProvider"), provider.getProviderName());
+        Predicate predicate2 = cBuilder.equal(root.get("forecastPlace"), place);
+        cQuery.select(root);
+        cQuery.where(cBuilder.and(predicate1, predicate2));
+        cQuery.distinct(true);
+
+        try {
+            return em.createQuery(cQuery).getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
 }

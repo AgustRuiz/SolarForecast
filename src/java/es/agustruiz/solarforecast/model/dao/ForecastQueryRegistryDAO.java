@@ -2,7 +2,9 @@ package es.agustruiz.solarforecast.model.dao;
 
 import es.agustruiz.solarforecast.exception.ExceptionCreateForecastQueryRegistry;
 import es.agustruiz.solarforecast.model.ForecastPlace;
+import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
+import java.util.List;
 
 /**
  *
@@ -19,5 +21,7 @@ public interface ForecastQueryRegistryDAO {
 //    List<ForecastQueryRegistry> readAllForecastQueryRegistry();
     
     int countByProvider(String forecastProvider);
+    
+    List<ForecastQueryRegistry> readAllByPlaceAndProvider(ForecastPlace place, ForecastProvider provider);
 
 }

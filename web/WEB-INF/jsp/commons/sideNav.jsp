@@ -32,22 +32,17 @@
 
         <li class="nav-divider" />
 
-        <spring:url value="/users" var="usersUrl" />
-        <li <c:if test="${navActiveItem=='users' && empty action}">class="active"</c:if>><a href="${usersUrl}">Users management</a>
-            <c:if test="${navActiveItem=='users'}">
-                <ul class="nav">
-                    <li>
-                        <spring:url value="/users/create" var="createUser" />
-                        <a href="${createUser}"><c:if test="${action =='create'}"><strong></c:if>Add new user<c:if test="${action =='create'}"></strong></c:if></strong></a>
-                        </li>
-                    </ul>
-            </c:if>
+        <spring:url value="/export" var="exportUrl" />
+        <li <c:if test="${navActiveItem=='export'}">class="active"</c:if>>
+            <a href="${exportUrl}">Export forecasts</a>
         </li>
 
         <li class="nav-divider" />
 
         <spring:url value="/log" var="logUrl" />
-        <li <c:if test="${navActiveItem=='log'}">class="active"</c:if>><a href="${logUrl}">Log</a></li>
+        <li <c:if test="${navActiveItem=='log'}">class="active"</c:if>>
+            <a href="${logUrl}">Log</a>
+        </li>
 
     </ul>
 </div>
