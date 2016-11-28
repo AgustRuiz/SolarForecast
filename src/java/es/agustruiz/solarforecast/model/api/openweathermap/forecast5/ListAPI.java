@@ -32,7 +32,7 @@ public class ListAPI implements Serializable {
     @JsonProperty("main")
     private MainAPI main;
     @JsonProperty("weather")
-    private java.util.List<WeatherAPI> weather = new ArrayList<WeatherAPI>();
+    private java.util.List<WeatherAPI> weather = new ArrayList<>();
     @JsonProperty("clouds")
     private CloudsAPI clouds;
     @JsonProperty("wind")
@@ -44,7 +44,7 @@ public class ListAPI implements Serializable {
     @JsonProperty("dt_txt")
     private String dtTxt;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

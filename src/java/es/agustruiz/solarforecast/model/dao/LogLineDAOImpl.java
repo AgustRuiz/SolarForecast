@@ -43,9 +43,7 @@ public class LogLineDAOImpl implements LogLineDAO {
             }
             throw new ExceptionCreateLogLine(ex.getMessage());
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 
@@ -108,9 +106,7 @@ public class LogLineDAOImpl implements LogLineDAO {
             }
             throw new ExceptionDeleteLogLine(ex.getMessage());
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 

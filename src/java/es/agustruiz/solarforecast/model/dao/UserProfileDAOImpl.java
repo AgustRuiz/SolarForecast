@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserProfileDAOImpl implements UserProfileDAO {
 
     private static final String LOG_TAG = UserProfileDAOImpl.class.getName();
-    
+
     protected SessionFactory sessionFactory;
 
     @Autowired
@@ -56,9 +56,7 @@ public class UserProfileDAOImpl implements UserProfileDAO {
             logManager.e(LOG_TAG, String.format("Error creating user \"%s\": %s", user.getUsername(), ex.getMessage()));
             throw new ExceptionCreateUserProfile("Database error");
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 
@@ -111,9 +109,8 @@ public class UserProfileDAOImpl implements UserProfileDAO {
             throw new ExceptionUpdateUserProfile(ex.getMessage());
         }
     }
-    
-    // SessionFactory methods
 
+    // SessionFactory methods
     @Override
     public SessionFactory getSessionFactory() {
         return sessionFactory;

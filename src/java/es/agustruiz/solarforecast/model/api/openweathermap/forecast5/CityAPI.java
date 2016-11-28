@@ -37,7 +37,7 @@ public class CityAPI implements Serializable {
     @JsonProperty("sys")
     private SysAPI sys;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

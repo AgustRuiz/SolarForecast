@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -48,9 +47,7 @@ public class ForecastQueryRegistryDAOImpl implements ForecastQueryRegistryDAO {
             }
             throw new ExceptionCreateForecastQueryRegistry(ex.getMessage());
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 
@@ -89,13 +86,13 @@ public class ForecastQueryRegistryDAOImpl implements ForecastQueryRegistryDAO {
 
     @Override
     public List<ForecastQueryRegistry> readAllByPlaceAndProvider(ForecastPlace place, ForecastProvider provider) {
-        
+
         EntityManager em = emf.createEntityManager();
-        
+
         CriteriaBuilder cBuilder = em.getCriteriaBuilder();
         CriteriaQuery<ForecastQueryRegistry> cQuery = cBuilder.createQuery(ForecastQueryRegistry.class);
         Root root = cQuery.from(ForecastQueryRegistry.class);
-        
+
         Root<ForecastPlace> rootPlace = cQuery.from(ForecastPlace.class);
 
         Predicate predicate1 = cBuilder.equal(root.get("forecastProvider"), provider.getProviderName());

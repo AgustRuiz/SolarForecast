@@ -5,7 +5,6 @@ import es.agustruiz.solarforecast.model.ForecastPlace;
 import es.agustruiz.solarforecast.model.ForecastProvider;
 import es.agustruiz.solarforecast.model.ForecastQueryRegistry;
 import java.util.List;
-import java.util.Map;
 
 /**
  *

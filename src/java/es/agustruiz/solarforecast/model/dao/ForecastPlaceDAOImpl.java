@@ -37,9 +37,7 @@ public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
             }
             throw new ExceptionCreateForecastPlace(ex.getMessage());
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 
@@ -74,9 +72,7 @@ public class ForecastPlaceDAOImpl implements ForecastPlaceDAO {
             }
             throw new ExceptionDeleteForecastPlace(ex.getMessage());
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 

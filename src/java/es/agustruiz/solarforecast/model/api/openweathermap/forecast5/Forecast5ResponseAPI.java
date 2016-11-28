@@ -35,7 +35,7 @@ public class Forecast5ResponseAPI implements Serializable{
     @JsonProperty("list")
     private java.util.List<es.agustruiz.solarforecast.model.api.openweathermap.forecast5.ListAPI> list = new ArrayList<>();
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

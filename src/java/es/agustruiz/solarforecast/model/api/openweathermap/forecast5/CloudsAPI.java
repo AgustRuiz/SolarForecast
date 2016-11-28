@@ -22,7 +22,7 @@ public class CloudsAPI implements Serializable {
     @JsonProperty("all")
     private Integer all;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

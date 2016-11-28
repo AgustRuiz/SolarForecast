@@ -22,7 +22,7 @@ public class Sys_API implements Serializable{
     @JsonProperty("pod")
     private String pod;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

@@ -22,7 +22,7 @@ public class SysAPI implements Serializable {
     @JsonProperty("population")
     private Integer population;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

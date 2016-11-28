@@ -25,7 +25,7 @@ public class WindAPI implements Serializable{
     @JsonProperty("deg")
     private Integer deg;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

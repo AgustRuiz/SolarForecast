@@ -31,7 +31,7 @@ public class WeatherAPI implements Serializable{
     @JsonProperty("icon")
     private String icon;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

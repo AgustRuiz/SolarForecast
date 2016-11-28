@@ -48,9 +48,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
             logManager.e(LOG_TAG, String.format("Error creating user role: %s", ex.getMessage()));
             throw new ExceptionCreateUserRole("Database error");
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
     }
 

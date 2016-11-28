@@ -7,7 +7,6 @@ import es.agustruiz.solarforecast.exception.ExceptionUpdateUserProfile;
 import es.agustruiz.solarforecast.model.UserProfile;
 import es.agustruiz.solarforecast.model.dao.UserProfileDAO;
 import java.util.List;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

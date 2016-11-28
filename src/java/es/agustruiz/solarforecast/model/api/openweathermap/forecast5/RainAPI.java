@@ -22,7 +22,7 @@ public class RainAPI implements Serializable {
     @JsonProperty("3h")
     private Double _3h;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

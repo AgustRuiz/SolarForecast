@@ -19,7 +19,6 @@ import java.net.URLConnection;
 import java.util.List;
 import javax.ws.rs.core.UriBuilder;
 import javax.xml.bind.JAXB;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

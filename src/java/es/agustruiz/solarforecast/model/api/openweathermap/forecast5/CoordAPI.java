@@ -25,7 +25,7 @@ public class CoordAPI implements Serializable {
     @JsonProperty("lat")
     private Double lat;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 

@@ -43,7 +43,7 @@ public class MainAPI implements Serializable {
     @JsonProperty("temp_kf")
     private Integer tempKf;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    final private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * 
